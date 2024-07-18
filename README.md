@@ -1,6 +1,6 @@
 # Usage
 1. Copy folder `quterofi` inside your userscripts dir. 
-2. Make `quterofi/open`, `quterofi/switch_engine` and `quterofi/read_engines` executable if needed. You can use `chmod 755` 
+2. Make `quterofi/open`, `quterofi/switch_engine` and `quterofi/read_engines` executable if needed. 
 3. Declare your engines in `engines.toml` inside your config dir. (See chapter below)
 4. Update your config.py (See chapter below)
 
