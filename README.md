@@ -1,11 +1,11 @@
 # Usage
 1. Copy folder `quterofi` inside your userscripts dir. 
 2. Make `quterofi/open`, `quterofi/switch_engine` and `quterofi/read_engines` executable if needed. 
-3. Declare your engines in `engines.toml` inside your config dir. (See chapter below)
-4. Update your config.py (See chapter below)
+3. Declare your engines in `engines.toml` inside your config dir (See chapter below).
+4. Update your config.py (See chapter below).
 
 ## engines.toml 
-Declare engines as following. Any equivalent toml syntax should work (not tested)
+Declare engines as follows. Any equivalent toml syntax should work (not tested)
 
 ``` toml
 [[engines]]
