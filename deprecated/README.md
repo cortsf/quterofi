@@ -1,5 +1,5 @@
 # Rofi-open
-This is a basic-bash only (no extra deps) version of quterofi/open. 
+This is a basic bash-only (no extra deps) version of quterofi/open. 
 
 ## Usage
 
