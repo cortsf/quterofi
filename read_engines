@@ -1,0 +1,41 @@
+#!/usr/bin/env python3
+
+import tomllib
+import re
+from argparse import ArgumentParser
+from os import environ, getenv
+from subprocess import run, PIPE, Popen
+from urllib.parse import unquote, quote, quote_plus
+from sys import exit
+
+def parseEngines(engines_file, gen_rofi_entries=False):
+  with open(engines_file, "rb") as f:
+      search_engines = tomllib.load(f)
+  
+  all_engines = {}
+  rofi_rows = []
+  
+  for engine in search_engines['engines']:
+      url=engine['url']
+      all_engines[engine['alias']] = url
+      if gen_rofi_entries:
+        # Replace all '&' with '&amp;' for `rofi -markup-rows` to show this (doc only) row:
+        rofi_rows.append('<b>' + engine['alias'] + '</b>\n<i>' + re.sub('&', '&amp;', url) + '</i>') 
+  
+  for repo in search_engines['github_repos']:
+      gh_alias = "gh." + repo['alias']
+      gh_url = "https://github.com/search?q=repo%3A" + repo['user'] + "%2F" + repo['repo'] + "+{}&type=issues"
+      all_engines[gh_alias] = gh_url
+      # Replace all '&' with '&amp;' for `rofi -markup-rows` to show this (doc only) row:
+      rofi_rows.append('<b>' + gh_alias + '</b>\n<i>' + re.sub('&', '&amp;', gh_url) + '</i>')
+      ghi_alias = "ghi." + repo['alias']
+      ghi_url = "https://github.com/" + repo['user'] + "/" + repo['repo'] + "/issues?q={}"
+      all_engines["ghi." + repo['alias']] = ghi_url
+      if gen_rofi_entries:
+        rofi_rows.append('<b>' + ghi_alias + '</b>\n<i>' + ghi_url + '</i>')
+
+
+  if gen_rofi_entries:
+    return all_engines, rofi_rows
+  else:
+    return all_engines
