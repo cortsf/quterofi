@@ -13,9 +13,9 @@ alias = "gl"
 url = "https://www.google.com/search?q={}"
 
 [[github_repos]]
-alias="lnx"
-user="torvalds"
-repo="linux"
+alias = "lnx"
+user = "torvalds"
+repo = "linux"
 ```
 
 ## config.py
