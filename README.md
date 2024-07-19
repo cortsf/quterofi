@@ -17,13 +17,26 @@ Call with `--string <arg>` to start with string ARG
 Call with `--invert` to threat the last word as a search engine alias, instead of the first one. If you search string is `hello ddg`, the underlying command will be `:open ddg hello`. This behavior is for `-kb-accept-entry`, you can accept your entry with `-kb-custom-2` for your string to be interpreted as normal (`:open ddg hello`)
 
 ### Available keys
-1. -kb-accept-entry (Any of `Ctrl+j`,`Ctrl+m`,`Return`,`KP_Enter`): If you call rofi with `--invert` and your search string is `hello ddg`, the underlying open command will be `:open ddg hello`. Alternatively, you can accept your entry with `-kb-custom-1` for your string to be interpreted as normal (`:open ddg hello`)
-2. -kb-cancel (Any of `Escape`,`Control+g`,`Control+bracketleft`): Exit menu
-3. -kb-custom-1 (Any of `Alt+j`,`Alt+m`): Accept entry as normal, without inversion. `ddg hello` -> `:open ddg hello`
-4. -kb-custom-2 (`Ctrl+o`): Switch between `:open` and `:open -t` without closing the menu or clearing user input.
-5. -kb-custom-3 (`Alt+o`): Set search string to be the current url. This is the same as calling `spawn -u quterofi/open --string {url:pretty}`
-6. -kb-custom-4 (`Alt+u`): Close menu and open the regular `:open` menu and set search string after `:open <search_string>` (verbatim, without inversion)
-7. -kb-custom-5 (`Alt+e`): Open a new menu listing all search engines, to pick one.
+1. -kb-accept-entry (Any of `Ctrl+j`,`Ctrl+m`,`Return`,`KP_Enter`): 
+If you call rofi with `--invert` and your search string is `hello ddg`, the underlying open command will be `:open ddg hello`. Alternatively, you can accept your entry with `-kb-custom-1` for your string to be interpreted as normal (`:open ddg hello`)
+
+2. -kb-cancel (Any of `Escape`,`Control+g`,`Control+bracketleft`): 
+Exit menu
+
+3. -kb-custom-1 (Any of `Alt+j`,`Alt+m`): 
+Accept entry as normal, without inversion. `ddg hello` -> `:open ddg hello`
+
+4. -kb-custom-2 (`Ctrl+o`): 
+Switch between `:open` and `:open -t` without closing the menu or clearing user input.
+
+5. -kb-custom-3 (`Alt+o`): 
+Set search string to be the current url. This is the same as calling `spawn -u quterofi/open --string {url:pretty}`
+
+6. -kb-custom-4 (`Alt+u`): 
+Close menu and open the regular `:open` menu and set search string after `:open <search_string>` (verbatim, without inversion)
+
+7. -kb-custom-5 (`Alt+e`): 
+Open a new menu listing all search engines, to pick one.
 
 ## engines.toml 
 Declare engines as follows. Any equivalent toml syntax should work (not tested)
