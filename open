@@ -12,6 +12,8 @@ parser = ArgumentParser(prog='rofi_open', description='Alternative ":open" made 
 parser.add_argument('-s', '--string', default='')
 parser.add_argument('-t', '--newtab', action='store_true')
 parser.add_argument('-i', '--invert', action='store_true')
+parser.add_argument('--history', action='store_true')
+parser.add_argument('--quickmarks', action='store_true')
 args = parser.parse_args()
 
 all_engines, rofi_rows = parseEngines(getenv("QUTE_CONFIG_DIR") + "/engines.toml", True)
@@ -52,7 +54,28 @@ def call_rofi_submenu(p1, partition_index, filter=''):
     p1.stdout.close()
     return (re.sub(r'<.*?>', '', p2.communicate()[0].partition("&#10;")[partition_index].strip()))
 
-def call_rofi(string, command):
+def history_menu(command):
+    p1 = Popen(['echo', '-e', '\n'.join([".mode list"
+                                         , ".separator &#10;"
+                                         , "select '<b>'||replace(title, '&', '&amp;')||'</b>', '<i>'||replace(url, '&', '&amp;')||'</i>' from CompletionHistory"
+                                         , "order by last_atime desc"
+                                         , "limit 200"
+                                         ])], stdout=PIPE)
+    p2 = Popen(['sqlite3', getenv("QUTE_DATA_DIR") + '/history.sqlite'], stdin=p1.stdout, stdout=PIPE)
+    p1.stdout.close()
+    result_history=call_rofi_submenu(p2, 2)
+    send_fifo(':{} {}'.format(command, result_history))
+    exit()
+
+def quickmarks_menu(command):
+    with open(getenv("QUTE_CONFIG_DIR") + '/quickmarks', 'r') as f:
+        quickmarks = [''.join(['<b>', re.sub(' ', '</b>&#10;<i>', x.strip()), '</i>', '\n']) for x in f.readlines()]
+    process=Popen(['printf', '%s\n', ''.join(quickmarks)], stdout=PIPE)
+    result_quickmarks=call_rofi_submenu(process, 2, '^')
+    send_fifo(':{} {}'.format(command, result_quickmarks))
+    exit()
+
+def main_menu(string, command):
     rofi_val = run([ 'rofi'
 	             , '-dmenu'
 	             , '-kb-accept-entry'
@@ -105,11 +128,11 @@ def call_rofi(string, command):
     elif rofi_val.returncode == 10:
         send_fifo(':{} {}'.format(command, result))
     elif rofi_val.returncode == 11 and command == "open" :
-        call_rofi(result, "open -t")
+        main_menu(result, "open -t")
     elif rofi_val.returncode == 11 and command == "open -t" :
-        call_rofi(result, 'open')
+        main_menu(result, 'open')
     elif rofi_val.returncode == 12:
-        call_rofi(environ['QUTE_URL'], command)
+        main_menu(environ['QUTE_URL'], command)
     elif rofi_val.returncode == 13:
         send_fifo("cmd-set-text -s :{} {}".format(command, result))
         exit()
@@ -117,36 +140,32 @@ def call_rofi(string, command):
         process=Popen(['printf', '%s\n', '\n'.join(rofi_rows)], stdout=PIPE)
         result_engine=call_rofi_submenu(process, 0, filter='^')
         if args.invert:
-            call_rofi(result + ' ' + result_engine, command)
+            main_menu(result + ' ' + result_engine, command)
         else: 
-            call_rofi(result_engine + ' ' + result, command)
+            main_menu(result_engine + ' ' + result, command)
         exit()
     elif rofi_val.returncode == 15:
-        p1 = Popen(['echo', '-e', '\n'.join([".mode list"
-                                             , ".separator &#10;"
-                                             , "select '<b>'||replace(title, '&', '&amp;')||'</b>', '<i>'||replace(url, '&', '&amp;')||'</i>' from CompletionHistory"
-                                             , "order by last_atime desc"
-                                             , "limit 200"
-                                             ])], stdout=PIPE)
-        p2 = Popen(['sqlite3', getenv("QUTE_DATA_DIR") + '/history.sqlite'], stdin=p1.stdout, stdout=PIPE)
-        p1.stdout.close()
-        result_history=call_rofi_submenu(p2, 2)
-        send_fifo(':{} {}'.format(command, result_history))
-        exit()
+        history_menu(command)
     elif rofi_val.returncode == 16:
-        with open(getenv("QUTE_CONFIG_DIR") + '/quickmarks', 'r') as f:
-            quickmarks = [''.join(['<b>', re.sub(' ', '</b>&#10;<i>', x.strip()), '</i>', '\n']) for x in f.readlines()]
-        process=Popen(['printf', '%s\n', ''.join(quickmarks)], stdout=PIPE)
-        result_quickmarks=call_rofi_submenu(process, 2, '^')
-        send_fifo(':{} {}'.format(command, result_quickmarks))
+        quickmarks_menu(command)
     else:
         exit()
 
 
 
 if args.newtab:
-    call_rofi(args.string, 'open -t')
+    command = 'open -t'
+    if args.history: 
+        history_menu(command)
+    elif args.quickmarks:
+        quickmarks_menu(command)
+    else:
+        main_menu(args.string, command)
 else:
-    call_rofi(args.string, 'open')
-
-
+    command = 'open'
+    if args.history: 
+        history_menu(command)
+    elif args.quickmarks:
+        quickmarks_menu(command)
+    else:
+        main_menu(args.string, command)

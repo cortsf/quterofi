@@ -24,7 +24,7 @@ Quterofi provides the `open` and `switch_engine` userscripts (`read_engines` is 
 This command is a replacement for the `:open` menu
 
 ``` bash
-quterofi/open [--string <arg>] [--newtab] [--invert]
+quterofi/open [--string <arg>] [--newtab] [--invert] [--history] [--quickmarks]
 ```
 
 - Call with `--newtab` to use `:open -t` by default (It's also possible to switch later between `open` and `open -t` using `-kb-custom-2`)
@@ -32,6 +32,10 @@ quterofi/open [--string <arg>] [--newtab] [--invert]
 - Call with `--string <arg>` to start writing with string ARG already set
 
 - Call with `--invert` to threat the last word as a search engine alias, instead of the first one. If your search string is `hello world ddg`, the underlying command will be `:open ddg hello world`, if and only if there is a search engine with alias `ddg` declared in your [engines.toml](#engines) file. This behavior is for `-kb-accept-entry`, you can also accept your entry with `-kb-custom-2` for your string to be interpreted verbatim (`:open hello world ddg`)
+
+- Call with `--history` to open the history menu directly (You can also enter this menu using **-kb-custom-6** in the main menu)
+
+- Call with `--quickmarks` to open the quickmarks menu directly (You can also enter this menu using **-kb-custom-7** in the main menu)
 
 ### Available keys when using the `open` menu
 1. **-kb-accept-entry** (Any of `Ctrl+j`,`Ctrl+m`,`Return`,`KP_Enter`): 
@@ -123,6 +127,8 @@ config.bind('<Shift-o>', 'spawn -u quterofi/open --invert --newtab')
 config.bind('<Alt-o>', 'spawn -u quterofi/open --invert --string {url}')
 config.bind('<Alt-Shift-o>', 'spawn -u quterofi/open --invert --newtab --string {url}')
 config.bind('<Ctrl-o>', 'spawn -u quterofi/open --invert --newtab')
+config.bind('<Ctrl-h>', 'spawn -u quterofi/open --invert --history')
+config.bind('<Alt-q>', 'spawn -u quterofi/open --invert --quickmarks')
 
 config.bind(',o', 'spawn -u -m quterofi/switch_engine')
 config.bind(',O', 'spawn -u -m quterofi/switch_engine --newtab')
