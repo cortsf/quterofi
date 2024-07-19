@@ -138,7 +138,7 @@ def main_menu(string, command):
         exit()
     elif rofi_val.returncode == 14:
         process=Popen(['printf', '%s\n', '\n'.join(rofi_rows)], stdout=PIPE)
-        result_engine=call_rofi_submenu(process, 0, filter='^')
+        result_engine=call_rofi_submenu(process, 0, filter='^', title="Search engine")
         if args.invert:
             main_menu(result + ' ' + result_engine, command)
         else: 
