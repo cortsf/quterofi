@@ -44,7 +44,7 @@ if len(matching_templates) == 0:
     qute_message_info("Current url does not matches any engine declared in engines.toml")
     exit()
 
-p1 = Popen(['echo', '|'.join(rofi_rows)], stdout=PIPE)
+p1 = Popen(['printf', '%s', '|'.join(rofi_rows)], stdout=PIPE)
 
 p2 = Popen([ 'rofi'
              , '-dmenu'

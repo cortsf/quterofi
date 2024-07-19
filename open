@@ -55,7 +55,7 @@ def call_rofi_submenu(p1, partition_index, filter='', title='Prompt'):
     return (re.sub(r'<.*?>', '', p2.communicate()[0].partition("&#10;")[partition_index].strip()))
 
 def history_menu(command):
-    p1 = Popen(['echo', '-e', '\n'.join([".mode list"
+    p1 = Popen(['printf', '%s\n', '\n'.join([".mode list"
                                          , ".separator &#10;"
                                          , "select '<b>'||replace(title, '&', '&amp;')||'</b>', '<i>'||replace(url, '&', '&amp;')||'</i>' from CompletionHistory"
                                          , "order by last_atime desc"
