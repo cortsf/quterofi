@@ -2,7 +2,7 @@
 1. Clone and copy (or symlink) this repo inside your userscripts dir (See [Dir structure](#dir-structure) below). 
 2. Make `quterofi/open`, `quterofi/switch_engine` and `quterofi/read_engines` executable if needed. 
 3. Declare your engines in `engines.toml` (See [Engines](#engines) section below).
-4. Update your `config.py` files (See [Config](#config) section below).
+4. Update your `config.py` file (See [Config](#config) section below).
 
 #### Dir structure
 
