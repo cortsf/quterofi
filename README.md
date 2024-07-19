@@ -24,22 +24,22 @@ quterofi/open [--string <arg>] [--newtab] [--invert]
    - If you call `quterofi/open` without `--invert`, -kb-accept-entry will `:open` your search string, verbatim.
 
 2. **-kb-cancel** (Any of `Escape`,`Control+g`,`Control+bracketleft`): 
-   Exit menu
+   - Exit menu
 
 3. **-kb-custom-1** (Any of `Alt+j`,`Alt+m`): 
-   Accept entry as normal, without inversion. `ddg hello` -> `:open ddg hello`
+   - Accept entry as normal, without inversion. `ddg hello` -> `:open ddg hello`
 
 4. **-kb-custom-2** (`Ctrl+o`): 
-   Switch between `:open` and `:open -t` without closing the menu or clearing user input.
+   - Switch between `:open` and `:open -t` without closing the menu or clearing user input.
 
 5. **-kb-custom-3** (`Alt+o`): 
-   Set search string to be the current url. This is the same as calling `spawn -u quterofi/open --string {url:pretty}`
+   - Set search string to be the current url. This is the same as calling `spawn -u quterofi/open --string {url:pretty}`
 
 6. **-kb-custom-4** (`Alt+u`): 
-   Close menu and open the regular `:open` menu and set search string after `:open <search_string>` (verbatim, without inversion)
+   - Close menu and open the regular `:open` menu and set search string after `:open <search_string>` (verbatim, without inversion)
 
 7. **-kb-custom-5** (`Alt+e`): 
-   Open a new menu listing all search engines, to pick one.
+   - Open a new menu listing all search engines, to pick one.
 
 
 ## Usage of the `switch_engine` script
