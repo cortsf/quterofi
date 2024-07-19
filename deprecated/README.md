@@ -24,7 +24,7 @@ repo="linux"
 
 ## Use without engines.toml
 
-Alternatively, replace the last code block with this one below, to skip looking up for engines declared in engines.toml and asume instead that the last word in the search string is a valid search engine declared in `config.py` when calling rofi_open with --newtab.
+Alternatively, replace the last code block with this one below, to skip looking up for engines declared in engines.toml and asume instead that the last word in the search string is a valid search engine declared in `config.py` when selecting an engine with `-kb-accept-entry` (any of `"Ctrl+j`,`Ctrl+m`,`Return` or `KP_Enter`)
 
 ``` bash
 while true; do
