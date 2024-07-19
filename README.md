@@ -45,7 +45,7 @@ quterofi/open [--string <arg>] [--newtab] [--invert]
 ## Usage of the `switch_engine` script
 
 ```
-quterofi/switch_engine '--newtab'
+quterofi/switch_engine [--newtab]
 ```
 
 Calling `switch_engine` will open a menu asking for the alias of a new search engine to open the search string in your current url, if there is a matching engine for your current url. Example:
