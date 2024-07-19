@@ -1,8 +1,8 @@
 # Installation
 1. Copy folder `quterofi` inside your userscripts dir. 
 2. Make `quterofi/open`, `quterofi/switch_engine` and `quterofi/read_engines` executable if needed. 
-3. Declare your engines in `engines.toml` inside your config dir (See engines.toml section below).
-4. Update your config.py (See config.py section below).
+3. Declare your engines in `engines.toml` inside your config dir (See [engines.toml](##engines.toml) section below).
+4. Update your config.py (See [config.py](##config.py) section below).
 
 # Usage
 Quterofi provides the `open` and `switch_engine` scripts/commands
