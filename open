@@ -103,7 +103,7 @@ def call_rofi(string, command):
     elif rofi_val.returncode == 1:
         exit ()
     elif rofi_val.returncode == 10:
-        exit ()
+        send_fifo(':{} {}'.format(command, result))
     elif rofi_val.returncode == 11 and command == "open" :
         call_rofi(result, "open -t")
     elif rofi_val.returncode == 11 and command == "open -t" :
