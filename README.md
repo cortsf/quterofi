@@ -18,27 +18,27 @@ quterofi/open [--string <arg>] [--newtab] [--invert]
 
 - Call with `--invert` to threat the last word as a search engine alias, instead of the first one. If you search string is `hello ddg`, the underlying command will be `:open ddg hello`. This behavior is for `-kb-accept-entry`, you can accept your entry with `-kb-custom-2` for your string to be interpreted verbatim (`:open ddg hello`)
 
-### Available keys when using the `open` script
-1. -kb-accept-entry (Any of `Ctrl+j`,`Ctrl+m`,`Return`,`KP_Enter`): 
+### Available keys when using the `open` menu
+1. **-kb-accept-entry** (Any of `Ctrl+j`,`Ctrl+m`,`Return`,`KP_Enter`): 
    - If you call `quterofi/open` with `--invert`, the las word in the search string will be used a a search engine (if and only if there is one with such alias). For example, if your search string is `hello world ddg`, the underlying open command will be `:open ddg hello world`. Alternatively, you can accept your entry with `-kb-custom-1` for your string to be interpreted verbatim (`:open ddg hello world`)
    - If you call `quterofi/open` without `--invert`, -kb-accept-entry will `:open` your search string, verbatim.
 
-2. -kb-cancel (Any of `Escape`,`Control+g`,`Control+bracketleft`): 
+2. **-kb-cancel** (Any of `Escape`,`Control+g`,`Control+bracketleft`): 
   Exit menu
 
-3. -kb-custom-1 (Any of `Alt+j`,`Alt+m`): 
+3. **-kb-custom-1** (Any of `Alt+j`,`Alt+m`): 
   Accept entry as normal, without inversion. `ddg hello` -> `:open ddg hello`
 
-4. -kb-custom-2 (`Ctrl+o`): 
+4. **-kb-custom-2** (`Ctrl+o`): 
   Switch between `:open` and `:open -t` without closing the menu or clearing user input.
 
-5. -kb-custom-3 (`Alt+o`): 
+5. **-kb-custom-3** (`Alt+o`): 
   Set search string to be the current url. This is the same as calling `spawn -u quterofi/open --string {url:pretty}`
 
-6. -kb-custom-4 (`Alt+u`): 
+6. **-kb-custom-4** (`Alt+u`): 
   Close menu and open the regular `:open` menu and set search string after `:open <search_string>` (verbatim, without inversion)
 
-7. -kb-custom-5 (`Alt+e`): 
+7. **-kb-custom-5** (`Alt+e`): 
   Open a new menu listing all search engines, to pick one.
 
 
@@ -54,6 +54,9 @@ Current url: `https://www.google.com/search?q=hello`
 New engine you selected: `ghi.lnx`
 new current url: `https://github.com/torvalds/linux/pulls?q=hello`
 
+### Available keys when using the `switch_engine` menu
+1. **-kb-accept-entry** (Any of `Ctrl+j`,`Ctrl+m`,`Return`,`KP_Enter`)
+2. **-kb-cancel'** (Any of `Escape`,`Control+g`,`Control+bracketleft`)
 
 ## Engines
 Declare engines as follows. Any equivalent toml syntax should work (not tested)
