@@ -127,7 +127,7 @@ config.bind('<Shift-o>', 'spawn -u quterofi/open --invert --newtab')
 config.bind('<Alt-o>', 'spawn -u quterofi/open --invert --string {url}')
 config.bind('<Alt-Shift-o>', 'spawn -u quterofi/open --invert --newtab --string {url}')
 config.bind('<Ctrl-o>', 'spawn -u quterofi/open --invert --newtab')
-config.bind('<Ctrl-h>', 'spawn -u quterofi/open --invert --history')
+config.bind('<Alt-h>', 'spawn -u quterofi/open --invert --history')
 config.bind('<Alt-q>', 'spawn -u quterofi/open --invert --quickmarks')
 
 config.bind(',o', 'spawn -u -m quterofi/switch_engine')
