@@ -23,7 +23,7 @@ def send_fifo(command):
     with open(getenv("QUTE_FIFO"), "w") as fifo:
         fifo.write(command)
 
-def call_rofi_submenu(p1, partition_index, filter=''):
+def call_rofi_submenu(p1, partition_index, filter='', title='Prompt'):
     p2 = Popen([ 'rofi'
                  , '-dmenu'
                  , '-i'
@@ -42,7 +42,7 @@ def call_rofi_submenu(p1, partition_index, filter=''):
                  , '-kb-cancel'
                  , 'Escape,Control+g,Control+bracketleft'
                  , '-window-title'
-                 , 'New engine'
+                 , title
                  , '-font'
                  , 'Inconsolata 16'
                 ]
@@ -63,7 +63,7 @@ def history_menu(command):
                                          ])], stdout=PIPE)
     p2 = Popen(['sqlite3', getenv("QUTE_DATA_DIR") + '/history.sqlite'], stdin=p1.stdout, stdout=PIPE)
     p1.stdout.close()
-    result_history=call_rofi_submenu(p2, 2)
+    result_history=call_rofi_submenu(p2, 2, title="Search history")
     send_fifo(':{} {}'.format(command, result_history))
     exit()
 
@@ -71,7 +71,7 @@ def quickmarks_menu(command):
     with open(getenv("QUTE_CONFIG_DIR") + '/quickmarks', 'r') as f:
         quickmarks = [''.join(['<b>', re.sub(' ', '</b>&#10;<i>', x.strip()), '</i>', '\n']) for x in f.readlines()]
     process=Popen(['printf', '%s\n', ''.join(quickmarks)], stdout=PIPE)
-    result_quickmarks=call_rofi_submenu(process, 2, '^')
+    result_quickmarks=call_rofi_submenu(process, 2, '^', title='Search quickmarks')
     send_fifo(':{} {}'.format(command, result_quickmarks))
     exit()
 
