@@ -7,10 +7,10 @@
 # Usage
 Quterofi provides the `open` and `switch_engine` scripts/commands
 
-## Usage of the `quterofi/open` script
+## Usage of the `open` script
 This command is a replacement for the `:open` menu
 ```
-rofi_open [--string <arg>] [--newtab] [--invert]
+quterofi/open [--string <arg>] [--newtab] [--invert]
 ```
 - Call with `--newtab` to use `:open -t` by default (It's also possible to switch later between `open` and `open -t` using `-kb-custom-2`)
 
@@ -18,7 +18,7 @@ rofi_open [--string <arg>] [--newtab] [--invert]
 
 - Call with `--invert` to threat the last word as a search engine alias, instead of the first one. If you search string is `hello ddg`, the underlying command will be `:open ddg hello`. This behavior is for `-kb-accept-entry`, you can accept your entry with `-kb-custom-2` for your string to be interpreted verbatim (`:open ddg hello`)
 
-### Available keys when using the `quterofi/open` script
+### Available keys when using the `open` script
 1. -kb-accept-entry (Any of `Ctrl+j`,`Ctrl+m`,`Return`,`KP_Enter`): 
    - If you call `quterofi/open` with `--invert`, the las word in the search string will be used a a search engine (if and only if there is one with such alias). For example, if your search string is `hello world ddg`, the underlying open command will be `:open ddg hello world`. Alternatively, you can accept your entry with `-kb-custom-1` for your string to be interpreted verbatim (`:open ddg hello world`)
    - If you call `quterofi/open` without `--invert`, -kb-accept-entry will `:open` your search string, verbatim.
@@ -42,7 +42,7 @@ rofi_open [--string <arg>] [--newtab] [--invert]
   Open a new menu listing all search engines, to pick one.
 
 
-## Usage of the `quterofi/switch_engine` script
+## Usage of the `switch_engine` script
 
 ```
 switch_engine '--newtab'
