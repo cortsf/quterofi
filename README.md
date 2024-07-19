@@ -36,7 +36,7 @@ quterofi/open [--string <arg>] [--newtab] [--invert]
    - Set search string to be the current url. This is the same as calling `spawn -u quterofi/open --string {url:pretty}`
 
 6. **-kb-custom-4** (`Alt+u`): 
-   - Close menu and open the regular `:open` menu and set search string after `:open <search_string>` (verbatim, without inversion)
+   - Close menu, open the regular `:open` menu and set search string `:open <search_string>` (search string is set verbatim, without inversion)
 
 7. **-kb-custom-5** (`Alt+e`): 
    - Open a new menu listing all search engines, to pick one.
