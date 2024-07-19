@@ -58,34 +58,34 @@ def call_rofi_engines():
 
 def call_rofi(string, command):
     rofi_val = run([ 'rofi'
-	                        , '-dmenu'
-	                        , '-kb-accept-entry'
-                                , 'Ctrl+j,Ctrl+m,Return,KP_Enter'
-	                        , '-kb-cancel'
-                                , 'Escape,Control+g,Control+bracketleft'
-	                        , '-kb-custom-1'
-                                , 'Alt+j,Alt+m'
-	                        , '-kb-custom-2' 
-                                , 'Ctrl+o'
-	                        , '-kb-custom-3' 
-                                , 'Alt+o'
-	                        , '-kb-custom-4'
-                                , 'Alt+u'
-	                        , '-kb-custom-5'
-                                , 'Alt+e'
-	                        , '-window-title'
-                                , command
-	                        , '-font' 
-                                , 'Inconsolata 16'
-	                        , '-filter' 
-                                , string
-	                        , '-theme-str'
-                                , 'window { anchor: north; location: north; width: 100%; font-size: 20px; border: 0px; children: [ horibox ]; } horibox { orientation: horizontal; children: [ prompt, textbox-prompt-colon, entry, listview ];} listview { border: 0px 0px 0px 0px; layout: horizontal; spacing:5px; lines: 10; width: 0px; } entry { placeholder: "Search text"; }'
-                               ],
-                              stdout=PIPE, 
-                              stderr=PIPE, 
-                              universal_newlines=True
-                              )
+	             , '-dmenu'
+	             , '-kb-accept-entry'
+                     , 'Ctrl+j,Ctrl+m,Return,KP_Enter'
+	             , '-kb-cancel'
+                     , 'Escape,Control+g,Control+bracketleft'
+	             , '-kb-custom-1'
+                     , 'Alt+j,Alt+m'
+	             , '-kb-custom-2' 
+                     , 'Ctrl+o'
+	             , '-kb-custom-3' 
+                     , 'Alt+o'
+	             , '-kb-custom-4'
+                     , 'Alt+u'
+	             , '-kb-custom-5'
+                     , 'Alt+e'
+	             , '-window-title'
+                     , command
+	             , '-font' 
+                     , 'Inconsolata 16'
+	             , '-filter' 
+                     , string
+	             , '-theme-str'
+                     , 'window { anchor: north; location: north; width: 100%; font-size: 20px; border: 0px; children: [ horibox ]; } horibox { orientation: horizontal; children: [ prompt, textbox-prompt-colon, entry, listview ];} listview { border: 0px 0px 0px 0px; layout: horizontal; spacing:5px; lines: 10; width: 0px; } entry { placeholder: "Search text"; }'
+                    ],
+                   stdout=PIPE, 
+                   stderr=PIPE, 
+                   universal_newlines=True
+                   )
     result=rofi_val.stdout.strip()
     if rofi_val.returncode == 0:
         if args.invert:
@@ -99,7 +99,7 @@ def call_rofi(string, command):
                 send_fifo(':{} {}'.format(command, last_word))
         else:
             send_fifo(':{} {}'.format(command, result))
-        exit ()
+            exit ()
     elif rofi_val.returncode == 1:
         exit ()
     elif rofi_val.returncode == 10:
