@@ -9,9 +9,11 @@ Quterofi provides the `open` and `switch_engine` scripts/commands
 
 ## Usage of the `open` script
 This command is a replacement for the `:open` menu
-```
+
+``` bash
 quterofi/open [--string <arg>] [--newtab] [--invert]
 ```
+
 - Call with `--newtab` to use `:open -t` by default (It's also possible to switch later between `open` and `open -t` using `-kb-custom-2`)
 
 - Call with `--string <arg>` to start writing with string ARG already set
@@ -45,7 +47,7 @@ quterofi/open [--string <arg>] [--newtab] [--invert]
 ## Usage of the `switch_engine` script
 Call `switch_engine` to open a menu asking for the alias of a new search engine to open the search string in your current url, if there is a matching engine for your current url. See example below.
 
-```
+``` bash
 quterofi/switch_engine [--newtab]
 ```
 

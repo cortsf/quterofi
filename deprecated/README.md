@@ -3,7 +3,7 @@ This is a basic bash-only (no extra deps) version of quterofi/open.
 
 ## Usage
 
-```
+``` bash
 rofi_open [--string <arg>] [--(no-)newtab] [-h|--help]
 ```
 
