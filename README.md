@@ -1,8 +1,21 @@
 # Installation
-1. Clone and copy folder (rename it to `quterofi` if needed) inside your userscripts dir. 
+1. Clone and copy (or symlink) folder this repo inside your userscripts dir (See [Dir structure](#dir-structure) below). 
 2. Make `quterofi/open`, `quterofi/switch_engine` and `quterofi/read_engines` executable if needed. 
 3. Declare your engines in `engines.toml` inside your config dir (See [Engines](#engines) section below).
 4. Update your `config.py` files (See [Config](#config) section below).
+
+#### Dir structure
+
+```
+.
+├── config.py
+├── engines.toml
+└── userscripts
+    └── quterofi 
+        ├── open
+        ├── read_engines
+        └── switch_engine
+```
 
 # Usage
 Quterofi provides the `open` and `switch_engine` userscripts (`read_engines` is just an utility used to parse engines declared in engines.toml)
@@ -61,7 +74,8 @@ quterofi/switch_engine [--newtab]
 2. **-kb-cancel'** (Any of `Escape`,`Control+g`,`Control+bracketleft`)
 
 ## Engines
-Declare engines as follows. Any equivalent toml syntax should work (not tested)
+Declare `engines.toml` (See [Dir structure](#dir-structure)) as follows. Any equivalent toml syntax should work (not tested)
+
 
 ``` toml
 [[engines]]
