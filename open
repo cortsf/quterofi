@@ -24,6 +24,7 @@ def send_fifo(command):
 def call_rofi_submenu(p1, partition_index, filter=''):
     p2 = Popen([ 'rofi'
                  , '-dmenu'
+                 , '-i'
                  , '-no-config'
                  , '-markup-rows'
                  , '-eh'
@@ -120,7 +121,7 @@ def call_rofi(string, command):
                                              , ".separator &#10;"
                                              , "select title, replace(url, '&', '&amp;') from CompletionHistory"
                                              , "order by last_atime desc"
-                                             , "limit 1000"
+                                             , "limit 200"
                                              ])], stdout=PIPE)
         p2 = Popen(['sqlite3', '/home/fcortesi/.local/share/qutebrowser/history.sqlite'], stdin=p1.stdout, stdout=PIPE)
         result_history=call_rofi_submenu(p2, 2)
