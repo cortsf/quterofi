@@ -39,7 +39,7 @@ quterofi/open [--string <arg>] [--newtab] [--invert]
    - Close menu, open the regular `:open` menu and set search string `:open <search_string>` (search string is set verbatim, without inversion)
 
 7. **-kb-custom-5** (`Alt+e`): 
-   - Open a new menu listing all search engines, to pick one.
+   - Open a new menu listing all search engines, pick one to be set in your search string.
 
 
 ## Usage of the `switch_engine` script
