@@ -18,7 +18,7 @@ quterofi/open [--string <arg>] [--newtab] [--invert]
 
 - Call with `--string <arg>` to start writing with string ARG already set
 
-- Call with `--invert` to threat the last word as a search engine alias, instead of the first one. If you search string is `hello world ddg`, the underlying command will be `:open ddg hello world`, if and only if there is a search engine with alias `ddg` declared in your [engines.toml](#engines) file. This behavior is for `-kb-accept-entry`, you can also accept your entry with `-kb-custom-2` for your string to be interpreted verbatim (`:open ddg hello world`)
+- Call with `--invert` to threat the last word as a search engine alias, instead of the first one. If you search string is `hello world ddg`, the underlying command will be `:open ddg hello world`, if and only if there is a search engine with alias `ddg` declared in your [engines.toml](#engines) file. This behavior is for `-kb-accept-entry`, you can also accept your entry with `-kb-custom-2` for your string to be interpreted verbatim (`:open hello world ddg`)
 
 ### Available keys when using the `open` menu
 1. **-kb-accept-entry** (Any of `Ctrl+j`,`Ctrl+m`,`Return`,`KP_Enter`): 
