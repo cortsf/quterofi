@@ -30,8 +30,19 @@ def qute_open(url):
     else:
         send_fifo(':open {}'.format(url))
 
-with open(getenv("QUTE_CONFIG_DIR") + "/engines.toml", "rb") as f:
-    search_engines = tomllib.load(f)
+url=environ['QUTE_URL']
+
+matching_templates=[]
+
+for template in all_engines.values():
+    start = template[:template.find('{')]
+    end = template[template.find('}')+1:]
+    if url.startswith(start) and url.endswith(end):
+        matching_templates.append((len(start), len(end)))
+
+if len(matching_templates) == 0:
+    qute_message_info("Current url does not matches any engine declared in engines.toml")
+    exit()
 
 p1 = Popen(['echo', '|'.join(rofi_rows)], stdout=PIPE)
 
@@ -72,26 +83,11 @@ new_alias = re.sub(r'^\^', '', (re.sub(r'<.*?>', '', p2.communicate()[0].partiti
 if new_alias == "":
     exit()
 
-url=environ['QUTE_URL']
-
 new_template = all_engines.get(new_alias)
 
 if not new_template:
     qute_message_info("There is no engine with alias \"{}\"".format(new_alias))
     exit()
 
-matching_templates=[]
-
-for template in all_engines.values():
-    start = template[:template.find('{')]
-    end = template[template.find('}')+1:]
-    if url.startswith(start) and url.endswith(end):
-        matching_templates.append((len(start), len(end)))
-
-if len(matching_templates) == 0:
-    qute_message_info("No engine url matches with current url")
-    exit()
-else:
-    longest_template=sorted(matching_templates, key=lambda item: item[1], reverse=True)[0]
-    new_url= '{} {}'.format(new_alias, unquote(url[longest_template[0]:len(url)-longest_template[1]]))
-    qute_open(new_url)
+longest_template=sorted(matching_templates, key=lambda item: item[1], reverse=True)[0]
+qute_open('{} {}'.format(new_alias, unquote(url[longest_template[0]:len(url)-longest_template[1]])))
