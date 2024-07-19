@@ -78,7 +78,7 @@ p2 = Popen([ 'rofi'
 
 p1.stdout.close()
 
-new_alias = re.sub(r'^\^', '', (re.sub(r'<.*?>', '', p2.communicate()[0].partition("\n")[0])))
+new_alias = re.sub(r'^\^', '', (re.sub(r'<.*?>', '', p2.communicate()[0].partition("&#10;")[0])))
 
 if new_alias == "":
     exit()
