@@ -76,7 +76,7 @@ quterofi/switch_engine [--newtab]
 ### Example
 - Current url: `https://www.google.com/search?q=hello`
 - New engine selected with `quterofi/switch_engine`: `ghi.fzf`
-- New current url: `https://github.com/junegunn/fzf/issues?q=hello`
+- Automagically redirects to: `https://github.com/junegunn/fzf/issues?q=hello`
 
 ### Available keys when using the `switch_engine` menu
 1. **-kb-accept-entry** (Any of `Ctrl+j`,`Ctrl+m`,`Return`,`KP_Enter`)
