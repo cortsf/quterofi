@@ -16,7 +16,7 @@ quterofi/open [--string <arg>] [--newtab] [--invert]
 
 - Call with `--string <arg>` to start with string ARG 
 
-- Call with `--invert` to threat the last word as a search engine alias, instead of the first one. If you search string is `hello world ddg`, the underlying command will be `:open ddg hello world`. This behavior is for `-kb-accept-entry`, you can also accept your entry with `-kb-custom-2` for your string to be interpreted verbatim (`:open ddg hello`)
+- Call with `--invert` to threat the last word as a search engine alias, instead of the first one. If you search string is `hello world ddg`, the underlying command will be `:open ddg hello world`. This behavior is for `-kb-accept-entry`, you can also accept your entry with `-kb-custom-2` for your string to be interpreted verbatim (`:open ddg hello world`)
 
 ### Available keys when using the `open` menu
 1. **-kb-accept-entry** (Any of `Ctrl+j`,`Ctrl+m`,`Return`,`KP_Enter`): 
