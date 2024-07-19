@@ -5,9 +5,9 @@
 4. Update your config.py (See config.py section below).
 
 # Usage
-Quterofi provides the following scripts/commands
+Quterofi provides the `open` and `switch_engine` scripts/commands
 
-## open
+## Usage of the `open` script
 This command is a replacement for the `:open` menu
 ```
 rofi_open [--string <arg>] [--newtab] [--invert]
@@ -16,7 +16,7 @@ Call with `--newtab` to use `:open -t` by default (you can switch later with `-k
 Call with `--string <arg>` to start with string ARG 
 Call with `--invert` to threat the last word as a search engine alias, instead of the first one. If you search string is `hello ddg`, the underlying command will be `:open ddg hello`. This behavior is for `-kb-accept-entry`, you can accept your entry with `-kb-custom-2` for your string to be interpreted as normal (`:open ddg hello`)
 
-### Available keys
+### Available keys when using the `open` script
 1. -kb-accept-entry (Any of `Ctrl+j`,`Ctrl+m`,`Return`,`KP_Enter`): 
   If you call rofi with `--invert` and your search string is `hello ddg`, the underlying open command will be `:open ddg hello`. Alternatively, you can accept your entry with `-kb-custom-1` for your string to be interpreted as normal (`:open ddg hello`)
 
@@ -37,6 +37,20 @@ Call with `--invert` to threat the last word as a search engine alias, instead o
 
 7. -kb-custom-5 (`Alt+e`): 
   Open a new menu listing all search engines, to pick one.
+
+
+## Usage of the `switch_engine` script
+
+```
+switch_engine '--newtab'
+```
+
+Calling `switch_engine` will open a menu asking for the alias of a new search engine to open the search string in your current url, if there is a matching engine for your current url. Example:
+
+Current url: `https://www.google.com/search?q=hello`
+New engine you selected: `ghi.lnx`
+new current url: `https://github.com/torvalds/linux/pulls?q=hello`
+
 
 ## engines.toml 
 Declare engines as follows. Any equivalent toml syntax should work (not tested)
