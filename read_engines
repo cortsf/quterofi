@@ -20,7 +20,7 @@ def parseEngines(engines_file, gen_rofi_entries=False):
       all_engines[engine['alias']] = url
       if gen_rofi_entries:
         # Replace all '&' with '&amp;' for `rofi -markup-rows` to show this (doc only) row:
-        rofi_rows.append('<b>' + engine['alias'] + '</b>\n<i>' + re.sub('&', '&amp;', url) + '</i>') 
+        rofi_rows.append('<b>' + engine['alias'] + '</b>&#10;<i>' + re.sub('&', '&amp;', url) + '</i>') 
   
   for repo in search_engines['github_repos']:
       gh_alias = "gh." + repo['alias']
@@ -32,7 +32,7 @@ def parseEngines(engines_file, gen_rofi_entries=False):
       ghi_url = "https://github.com/" + repo['user'] + "/" + repo['repo'] + "/issues?q={}"
       all_engines["ghi." + repo['alias']] = ghi_url
       if gen_rofi_entries:
-        rofi_rows.append('<b>' + ghi_alias + '</b>\n<i>' + ghi_url + '</i>')
+        rofi_rows.append('<b>' + ghi_alias + '</b>&#10;<i>' + ghi_url + '</i>')
 
 
   if gen_rofi_entries:
