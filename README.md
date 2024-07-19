@@ -53,8 +53,8 @@ quterofi/switch_engine [--newtab]
 
 ### Example
 - Current url: `https://www.google.com/search?q=hello`
-- New engine selected with `quterofi/switch_engine`: `ghi.lnx`
-- New current url: `https://github.com/torvalds/linux/pulls?q=hello`
+- New engine selected with `quterofi/switch_engine`: `ghi.fzf`
+- New current url: `https://github.com/junegunn/fzf/issues?q=hello`
 
 ### Available keys when using the `switch_engine` menu
 1. **-kb-accept-entry** (Any of `Ctrl+j`,`Ctrl+m`,`Return`,`KP_Enter`)
@@ -73,17 +73,18 @@ alias = "ddg"
 url = "https://duckduckgo.com/?q={}&ia=web"
 
 [[github_repos]]
-alias = "lnx"
-user = "torvalds"
-repo = "linux"
+alias = "fzf"
+user = "junegunn"
+repo = "fzf"
 ```
 
 This will generate the following search engines:
 ``` json
 {"gl": "https://www.google.com/search?q={}"}
 {"ddg": "https://duckduckgo.com/?q={}&ia=web"}
-{"gh.lnx": "https://github.com/search?q=repo%3Atorvalds%2Flinux+hello&type=issues"}
-{"ghi.lnx": "https://github.com/torvalds/linux/pulls?q=hello"}
+https://github.com/junegunn/fzf/issues
+{"gh.lnx": "https://github.com/search?q=repo%3Ajunegunn%2Ffzf+{}&type=issues"}
+{"ghi.lnx": "https://github.com/junegunn/fzf/issues?q={}"}
 ```
 
 ## Config
