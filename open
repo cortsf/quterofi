@@ -21,21 +21,17 @@ def send_fifo(command):
     with open(getenv("QUTE_FIFO"), "w") as fifo:
         fifo.write(command)
 
-
-def call_rofi_engines():
-    p1 = Popen(['echo', '|'.join(rofi_rows)], stdout=PIPE)
+def call_rofi_submenu(p1, partition_index, filter=''):
     p2 = Popen([ 'rofi'
                  , '-dmenu'
                  , '-no-config'
                  , '-markup-rows'
-                 , '-sep'
-                 , '|'
                  , '-eh'
                  , '2'
                  , '-matching'
                  , 'regex'
                  , '-filter'
-                 , '^'
+                 , filter
                  , '-theme-str' 
                  , 'window { anchor: north; location: north; width: 100%; font-size: 20px; border: 0px; } listview { border: 0px 0px 0px 0px; layout: vertical; spacing:5px; lines: 10; width: 0px; }'
                  , '-kb-accept-entry' 
@@ -52,9 +48,8 @@ def call_rofi_engines():
                , stderr=PIPE
                , universal_newlines=True
                )
-    
     p1.stdout.close()
-    return re.sub(r'^\^', '', (re.sub(r'<.*?>', '', p2.communicate()[0].partition("\n")[0])))
+    return (re.sub(r'<.*?>', '', p2.communicate()[0].partition("&#10;")[partition_index].strip()))
 
 def call_rofi(string, command):
     rofi_val = run([ 'rofi'
@@ -73,6 +68,8 @@ def call_rofi(string, command):
                      , 'Alt+u'
 	             , '-kb-custom-5'
                      , 'Alt+e'
+	             , '-kb-custom-6'
+                     , 'Alt+h'
 	             , '-window-title'
                      , command
 	             , '-font' 
@@ -114,8 +111,20 @@ def call_rofi(string, command):
         send_fifo("cmd-set-text -s :{} {}".format(command, result))
         exit()
     elif rofi_val.returncode == 14:
-        result_engine=call_rofi_engines()
+        process=Popen(['echo', '\n'.join(rofi_rows)], stdout=PIPE)
+        result_engine=call_rofi_submenu(process, 0, filter='^')
         call_rofi(result + ' ' + result_engine, command)
+        exit()
+    elif rofi_val.returncode == 15:
+        p1 = Popen(['echo', '-e', '\n'.join([".mode list"
+                                             , ".separator &#10;"
+                                             , "select title, replace(url, '&', '&amp;') from CompletionHistory"
+                                             , "order by last_atime desc"
+                                             , "limit 1000"
+                                             ])], stdout=PIPE)
+        p2 = Popen(['sqlite3', '/home/fcortesi/.local/share/qutebrowser/history.sqlite'], stdin=p1.stdout, stdout=PIPE)
+        result_history=call_rofi_submenu(p2, 2)
+        call_rofi(result + ' ' + result_history, command)
         exit()
     else:
         exit()
