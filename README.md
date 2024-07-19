@@ -12,9 +12,9 @@ This command is a replacement for the `:open` menu
 ```
 rofi_open [--string <arg>] [--newtab] [--invert]
 ```
-Call with `--newtab` to use `:open -t` by default (you can switch later with `-kb-custom-2`)
-Call with `--string <arg>` to start with string ARG 
-Call with `--invert` to threat the last word as a search engine alias, instead of the first one. If you search string is `hello ddg`, the underlying command will be `:open ddg hello`. This behavior is for `-kb-accept-entry`, you can accept your entry with `-kb-custom-2` for your string to be interpreted as normal (`:open ddg hello`)
+- Call with `--newtab` to use `:open -t` by default (It's also possible to switch later between the two using `-kb-custom-2`)
+- Call with `--string <arg>` to start with string ARG 
+- Call with `--invert` to threat the last word as a search engine alias, instead of the first one. If you search string is `hello ddg`, the underlying command will be `:open ddg hello`. This behavior is for `-kb-accept-entry`, you can accept your entry with `-kb-custom-2` for your string to be interpreted as normal (`:open ddg hello`)
 
 ### Available keys when using the `open` script
 1. -kb-accept-entry (Any of `Ctrl+j`,`Ctrl+m`,`Return`,`KP_Enter`): 
