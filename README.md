@@ -43,16 +43,16 @@ quterofi/open [--string <arg>] [--newtab] [--invert]
 
 
 ## Usage of the `switch_engine` script
+Call `switch_engine` to open a menu asking for the alias of a new search engine to open the search string in your current url, if there is a matching engine for your current url. See example below.
 
 ```
 quterofi/switch_engine [--newtab]
 ```
 
-Calling `switch_engine` will open a menu asking for the alias of a new search engine to open the search string in your current url, if there is a matching engine for your current url. Example:
-
-Current url: `https://www.google.com/search?q=hello`
-New engine you selected: `ghi.lnx`
-new current url: `https://github.com/torvalds/linux/pulls?q=hello`
+### Example
+- Current url: `https://www.google.com/search?q=hello`
+- New engine selected with `quterofi/switch_engine`: `ghi.lnx`
+- New current url: `https://github.com/torvalds/linux/pulls?q=hello`
 
 ### Available keys when using the `switch_engine` menu
 1. **-kb-accept-entry** (Any of `Ctrl+j`,`Ctrl+m`,`Return`,`KP_Enter`)
