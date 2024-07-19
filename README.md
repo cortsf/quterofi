@@ -66,6 +66,10 @@ Declare engines as follows. Any equivalent toml syntax should work (not tested)
 alias = "gl"
 url = "https://www.google.com/search?q={}"
 
+[[engines]]
+alias = "ddg"
+url = "https://duckduckgo.com/?q={}&ia=web"
+
 [[github_repos]]
 alias = "lnx"
 user = "torvalds"
@@ -75,6 +79,7 @@ repo = "linux"
 This will generate the following search engines:
 ``` json
 {"gl": "https://www.google.com/search?q={}"}
+{"ddg": "https://duckduckgo.com/?q={}&ia=web"}
 {"gh.lnx": "https://github.com/search?q=repo%3Atorvalds%2Flinux+hello&type=issues"}
 {"ghi.lnx": "https://github.com/torvalds/linux/pulls?q=hello"}
 ```
