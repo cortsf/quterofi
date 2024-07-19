@@ -124,7 +124,7 @@ def call_rofi(string, command):
                                              ])], stdout=PIPE)
         p2 = Popen(['sqlite3', '/home/fcortesi/.local/share/qutebrowser/history.sqlite'], stdin=p1.stdout, stdout=PIPE)
         result_history=call_rofi_submenu(p2, 2)
-        call_rofi(result + ' ' + result_history, command)
+        send_fifo(':{} {}'.format(command, result_history))
         exit()
     else:
         exit()
