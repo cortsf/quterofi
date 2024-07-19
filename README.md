@@ -54,7 +54,7 @@ quterofi/open [--string <arg>] [--newtab] [--invert]
    - Close menu, open the regular `:open` menu and set search string: `:open <search_string>` (search string is set verbatim, without inversion)
 
 7. **-kb-custom-5** (`Alt+e`): 
-   - Open submenu listing all search engines, pick one to be set in your search string.
+   - Open submenu listing all search engines, pick one to be set in your search string. The choosen alias will be set at the end or beginning of your search string, depending on whether you are using `--invert` or not, and indepently of cursor position.
 
 8. **-kb-custom-6** (`Alt+h`): 
    - Open submenu listing history items.

@@ -116,7 +116,10 @@ def call_rofi(string, command):
     elif rofi_val.returncode == 14:
         process=Popen(['printf', '%s\n', '\n'.join(rofi_rows)], stdout=PIPE)
         result_engine=call_rofi_submenu(process, 0, filter='^')
-        call_rofi(result + ' ' + result_engine, command)
+        if args.invert:
+            call_rofi(result + ' ' + result_engine, command)
+        else: 
+            call_rofi(result_engine + ' ' + result, command)
         exit()
     elif rofi_val.returncode == 15:
         p1 = Popen(['echo', '-e', '\n'.join([".mode list"
