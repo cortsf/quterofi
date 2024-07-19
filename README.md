@@ -59,6 +59,9 @@ quterofi/open [--string <arg>] [--newtab] [--invert]
 8. **-kb-custom-6** (`Alt+h`): 
    - Open submenu listing history items.
 
+9. **-kb-custom-7** (`Alt+q`): 
+   - Open submenu listing quickmarks.
+
 ## Usage of the `switch_engine` script
 Call `switch_engine` to open a menu asking for the alias of a new search engine to open the search string present in your current url, if there is a matching engine for your current url. See example below.
 

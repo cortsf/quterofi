@@ -71,6 +71,8 @@ def call_rofi(string, command):
                      , 'Alt+e'
 	             , '-kb-custom-6'
                      , 'Alt+h'
+	             , '-kb-custom-7'
+                     , 'Alt+q'
 	             , '-window-title'
                      , command
 	             , '-font' 
@@ -112,7 +114,7 @@ def call_rofi(string, command):
         send_fifo("cmd-set-text -s :{} {}".format(command, result))
         exit()
     elif rofi_val.returncode == 14:
-        process=Popen(['echo', '\n'.join(rofi_rows)], stdout=PIPE)
+        process=Popen(['printf', '%s\n', '\n'.join(rofi_rows)], stdout=PIPE)
         result_engine=call_rofi_submenu(process, 0, filter='^')
         call_rofi(result + ' ' + result_engine, command)
         exit()
@@ -128,6 +130,12 @@ def call_rofi(string, command):
         result_history=call_rofi_submenu(p2, 2)
         send_fifo(':{} {}'.format(command, result_history))
         exit()
+    elif rofi_val.returncode == 16:
+        with open(getenv("QUTE_CONFIG_DIR") + '/quickmarks', 'r') as f:
+            quickmarks = [''.join(['<b>', re.sub(' ', '</b>&#10;<i>', x.strip()), '</i>', '\n']) for x in f.readlines()]
+        process=Popen(['printf', '%s\n', ''.join(quickmarks)], stdout=PIPE)
+        result_quickmarks=call_rofi_submenu(process, 2, '^')
+        send_fifo(':{} {}'.format(command, result_quickmarks))
     else:
         exit()
 
