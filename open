@@ -119,7 +119,7 @@ def call_rofi(string, command):
     elif rofi_val.returncode == 15:
         p1 = Popen(['echo', '-e', '\n'.join([".mode list"
                                              , ".separator &#10;"
-                                             , "select title, replace(url, '&', '&amp;') from CompletionHistory"
+                                             , "select '<b>'||title||'</b>', '<i>'||replace(url, '&', '&amp;')||'</i>' from CompletionHistory"
                                              , "order by last_atime desc"
                                              , "limit 200"
                                              ])], stdout=PIPE)
