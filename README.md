@@ -20,8 +20,8 @@
 # Usage
 Quterofi provides the `open` and `switch_engine` userscripts (`read_engines` is just an utility used to parse engines declared in engines.toml)
 
-## Usage of the `open` script
-This command is a replacement for the `:open` menu
+## Usage of the `open` userscript
+`quterofi/open` is a replacement for the `:open` menu
 
 ``` bash
 quterofi/open [--string <arg>] [--newtab] [--invert] [--history] [--quickmarks]
@@ -66,8 +66,8 @@ quterofi/open [--string <arg>] [--newtab] [--invert] [--history] [--quickmarks]
 9. **-kb-custom-7** (`Alt+q`): 
    - Open submenu listing quickmarks.
 
-## Usage of the `switch_engine` script
-Call `switch_engine` to open a menu asking for the alias of a new search engine to open the search string present in your current url, if there is a matching engine for your current url. See example below.
+## Usage of the `switch_engine` userscript
+Call `quterofi/switch_engine` to open a menu asking for the alias of a new search engine to open the search string present in your current url, if there is a matching engine for your current url. See example below.
 
 ``` bash
 quterofi/switch_engine [--newtab]
