@@ -82,7 +82,6 @@ This will generate the following search engines:
 ``` json
 {"gl": "https://www.google.com/search?q={}"}
 {"ddg": "https://duckduckgo.com/?q={}&ia=web"}
-https://github.com/junegunn/fzf/issues
 {"gh.lnx": "https://github.com/search?q=repo%3Ajunegunn%2Ffzf+{}&type=issues"}
 {"ghi.lnx": "https://github.com/junegunn/fzf/issues?q={}"}
 ```
