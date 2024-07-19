@@ -119,11 +119,11 @@ def call_rofi(string, command):
     elif rofi_val.returncode == 15:
         p1 = Popen(['echo', '-e', '\n'.join([".mode list"
                                              , ".separator &#10;"
-                                             , "select '<b>'||title||'</b>', '<i>'||replace(url, '&', '&amp;')||'</i>' from CompletionHistory"
+                                             , "select '<b>'||replace(title, '&', '&amp;')||'</b>', '<i>'||replace(url, '&', '&amp;')||'</i>' from CompletionHistory"
                                              , "order by last_atime desc"
                                              , "limit 200"
                                              ])], stdout=PIPE)
-        p2 = Popen(['sqlite3', '/home/fcortesi/.local/share/qutebrowser/history.sqlite'], stdin=p1.stdout, stdout=PIPE)
+        p2 = Popen(['sqlite3', getenv("QUTE_DATA_DIR") + '/history.sqlite'], stdin=p1.stdout, stdout=PIPE)
         p1.stdout.close()
         result_history=call_rofi_submenu(p2, 2)
         send_fifo(':{} {}'.format(command, result_history))
