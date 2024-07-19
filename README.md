@@ -12,7 +12,7 @@ This command is a replacement for the `:open` menu
 ```
 rofi_open [--string <arg>] [--newtab] [--invert]
 ```
-- Call with `--newtab` to use `:open -t` by default (It's also possible to switch later between the two using `-kb-custom-2`)
+- Call with `--newtab` to use `:open -t` by default (It's also possible to switch later between `open` and `open -t` using `-kb-custom-2`)
 
 - Call with `--string <arg>` to start with string ARG 
 
