@@ -20,8 +20,8 @@ rofi_open [--string <arg>] [--newtab] [--invert]
 
 ### Available keys when using the `open` script
 1. -kb-accept-entry (Any of `Ctrl+j`,`Ctrl+m`,`Return`,`KP_Enter`): 
-  - If you call `quterofi/open` with `--invert`, the las word will be used a a search engine (if and only if there one with such alias). For example, if your search string is `hello world ddg`, the underlying open command will be `:open ddg hello world`. Alternatively, you can accept your entry with `-kb-custom-1` for your string to be interpreted verbatim (`:open ddg hello world`)
-  - If you call `quterofi/open` without `--invert`, -kb-accept-entry will `:open` your search string, verbatim.
+   - If you call `quterofi/open` with `--invert`, the las word will be used a a search engine (if and only if there one with such alias). For example, if your search string is `hello world ddg`, the underlying open command will be `:open ddg hello world`. Alternatively, you can accept your entry with `-kb-custom-1` for your string to be interpreted verbatim (`:open ddg hello world`)
+   - If you call `quterofi/open` without `--invert`, -kb-accept-entry will `:open` your search string, verbatim.
 
 2. -kb-cancel (Any of `Escape`,`Control+g`,`Control+bracketleft`): 
   Exit menu
