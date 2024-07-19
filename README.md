@@ -54,10 +54,10 @@ quterofi/open [--string <arg>] [--newtab] [--invert]
    - Close menu, open the regular `:open` menu and set search string: `:open <search_string>` (search string is set verbatim, without inversion)
 
 7. **-kb-custom-5** (`Alt+e`): 
-   - Open a new menu listing all search engines, pick one to be set in your search string.
+   - Open submenu listing all search engines, pick one to be set in your search string.
 
 8. **-kb-custom-6** (`Alt+h`): 
-   - Open a new menu listing history items.
+   - Open submenu listing history items.
 
 ## Usage of the `switch_engine` script
 Call `switch_engine` to open a menu asking for the alias of a new search engine to open the search string present in your current url, if there is a matching engine for your current url. See example below.
