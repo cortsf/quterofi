@@ -27,11 +27,11 @@ This command is a replacement for the `:open` menu
 quterofi/open [--string <arg>] [--newtab] [--invert] [--history] [--quickmarks]
 ```
 
-- Call with `--newtab` to use `:open -t` by default (It's also possible to switch later between `open` and `open -t` using `-kb-custom-2`)
+- Call with `--newtab` to use `:open -t` by default (It's also possible to switch later between `open` and `open -t` using **-kb-custom-2**)
 
 - Call with `--string <arg>` to start writing with string ARG already set
 
-- Call with `--invert` to treat the last word as a search engine alias. If your search string is `hello world ddg`, the underlying command will be `:open ddg hello world`, if and only if there is a search engine with alias `ddg` declared in your [engines.toml](#engines) file. This behavior is for `-kb-accept-entry`, you can also accept your entry with `-kb-custom-2` for your string to be interpreted verbatim (`:open hello world ddg`). Note: When using `--invert`, Qb could still interpret the first word in the underlying `:open hello world ddg` as a search engine, this behavior could be deactivated, see: #6 on the issue tracker.
+- Call with `--invert` to treat the last word as a search engine alias. If your search string is `hello world ddg`, the underlying command will be `:open ddg hello world`, if and only if there is a search engine with alias `ddg` declared in your [engines.toml](#engines) file. This behavior is for **-kb-accept-entry**, you can also accept your entry with **-kb-custom-2** for your string to be interpreted verbatim (`:open hello world ddg`). Note: When using `--invert`, Qb could still interpret the first word in the underlying `:open hello world ddg` as a search engine, this behavior could be deactivated, see: #6 on the issue tracker.
 
 - Call with `--history` to open the history menu directly (You can also enter this menu using **-kb-custom-6** in the main menu)
 
@@ -39,8 +39,8 @@ quterofi/open [--string <arg>] [--newtab] [--invert] [--history] [--quickmarks]
 
 ### Available keys when using the `open` menu
 1. **-kb-accept-entry** (Any of `Ctrl+j`,`Ctrl+m`,`Return`,`KP_Enter`): 
-   - If you call `quterofi/open` with `--invert`, the last word in the search string will be used as a search engine (if and only if there is one with such alias). For example, if your search string is `hello world ddg`, the underlying open command will be `:open ddg hello world`. Alternatively, you can accept your entry with `-kb-custom-1` for your string to be interpreted verbatim (`:open ddg hello world`)
-   - If you call `quterofi/open` without `--invert`, -kb-accept-entry will `:open` your search string, verbatim.
+   - If you call `quterofi/open` with `--invert`, the last word in the search string will be used as a search engine (if and only if there is one with such alias). For example, if your search string is `hello world ddg`, the underlying open command will be `:open ddg hello world`. Alternatively, you can accept your entry with **-kb-custom-1** for your string to be interpreted verbatim (`:open ddg hello world`)
+   - If you call `quterofi/open` without `--invert`, **-kb-accept-entry** will `:open` your search string, verbatim.
 
 2. **-kb-cancel** (Any of `Escape`,`Control+g`,`Control+bracketleft`): 
    - Exit menu
