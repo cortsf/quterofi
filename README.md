@@ -5,7 +5,7 @@
 4. Update your `config.py` files (See [Config](#config) section below).
 
 # Usage
-Quterofi provides the `open` and `switch_engine` scripts/commands
+Quterofi provides the `open` and `switch_engine` userscripts (`read_engines` is just an utility used to parse engines declared in engines.toml)
 
 ## Usage of the `open` script
 This command is a replacement for the `:open` menu
