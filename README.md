@@ -114,7 +114,9 @@ This will generate the following search engines:
 ### Extended format
 The extended format allows users to create custom "templates" instructing quterofi how to generate search engines based on templates.
 
-For quterofi to understand the extra details declared using this format, you have to call `quterofi/open` and `quterofi;switch_engine` with the `--extended` flag. Note that it's also possible to use this format without `--extended`, in that case quterofi will just ignore everything except `[[engines]]` and `[[github_repos]]`.
+For quterofi to understand the extra details declared using this format, you have to call `quterofi/open` and `quterofi;switch_engine` with the `--extended` flag. 
+
+Note that it's also possible to use this particular example without the `--extended` flag, in that case quterofi will just ignore everything except `[[engines]]` and `[[github_repos]]`. In other words, for it wont be able to read `[[wikipedia_languages]]` since it doesn't knows how.
 
 ``` toml
 ## Quterofi rules
@@ -176,7 +178,7 @@ lang = "es"
 ```
 
 ## Config
-In your config.py include this block (be sure to set `<username>`), and quterofi bindings with or without the `--extended` flag, depended on wether you use or not the extended toml format. 
+In your config.py include this block (be sure to set `<username>`), and quterofi bindings with or without the `--extended` flag, dependingon wehther you use or not the extended toml format. 
 
 ``` python
 qbdir = "/home/<username>/.config/qutebrowser"
