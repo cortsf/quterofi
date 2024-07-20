@@ -189,7 +189,7 @@ In your config.py include code below. Be sure to:
 - Set `<username>`.
 - Use `all_engines = parse_engines_extended(qbdir + "/engines.toml")` if you choose the "extended" toml format.
 - Use instead `all_engines = parse_engines_simple(qbdir + "/engines.toml")` if you choose the "simple" toml format.
-- Use `--extended` in all your quterofi bindings if and only if you use the "extended" toml format.
+- Use `--extended` in all your quterofi bindings if you use the "extended" toml format.
 
 
 ``` python
