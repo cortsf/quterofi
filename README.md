@@ -90,7 +90,7 @@ Declare `engines.toml` (See [Dir structure](#dir-structure)) using **this new ex
 This new format allows users to create custom "templates" (quite an abstract concept in this context..) instructing quterofi how to generate search engines. Note that you can define any variable to construct urls, except for `alias` which is reserved to be used exclusively to construct aliases, and it's in fact, mandatory to declare for every engine as the only one available to construct aliases (This may change in the future allowing any variable name and number to be used both for urls and aliases).
 
 
-### Examle
+### Example
 ``` toml
 ## Quterofi rules
 ####################
