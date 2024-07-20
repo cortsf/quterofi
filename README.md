@@ -81,8 +81,8 @@ quterofi/switch_engine [--extended] [--newtab]
 
 ### Example
 - Current url: `https://www.google.com/search?q=hello`
-- New engine selected by calling `quterofi/switch_engine`: `ghi.fzf`
-- Automagically redirects to: `https://github.com/junegunn/fzf/issues?q=hello`
+- New engine selected by calling `quterofi/switch_engine`: `ghi.qr`
+- Automagically redirects to: `https://github.com/cortsf/quterofi/issues?q=hello`
 
 ### Available keys when using the `switch_engine` menu
 1. **-kb-accept-entry** (Any of `Ctrl+j`,`Ctrl+m`,`Return`,`KP_Enter`)
@@ -104,9 +104,9 @@ alias = "ddg"
 url = "https://duckduckgo.com/?q={}&ia=web"
 
 [[github_repos]]
-alias = "fzf"
-user = "junegunn"
-repo = "fzf"
+alias = "qr"
+user = "cortsf"
+repo = "quterofi"
 ```
 
 This will generate the following search engines:
@@ -114,8 +114,8 @@ This will generate the following search engines:
 ``` json
 {"gl": "https://www.google.com/search?q={}"}
 {"ddg": "https://duckduckgo.com/?q={}&ia=web"}
-{"gh.fzf": "https://github.com/search?q=repo%3Ajunegunn%2Ffzf+{}&type=issues"}
-{"ghi.fzf": "https://github.com/junegunn/fzf/issues?q={}"}
+{"gh.qr": "https://github.com/search?q=repo%3Acortsf%2Fquterofi+{}&type=issues"}
+{"ghi.qr": "https://github.com/cortsf/quterofi/issues?q={}"}
 ```
 
 ### Extended format
