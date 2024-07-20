@@ -85,10 +85,10 @@ quterofi/switch_engine [--newtab]
 2. **-kb-cancel'** (Any of `Escape`,`Control+g`,`Control+bracketleft`)
 
 ## Engines
-Declare `engines.toml` (See [Dir structure](#dir-structure)) using either the new extended format. Any equivalent toml syntax declaring the same underlying structure/s should work (not tested).
+Declare `engines.toml` (See [Dir structure](#dir-structure)) using **the new extended** format. Any equivalent toml syntax declaring the same underlying structure/s should work (not tested).
 
 
-This format allows users to create custom "templates" instructing quterofi how to generate search engines based on templates.
+This new format allows users to create custom "templates" instructing quterofi how to generate search engines based on templates.
 
 ``` toml
 ## Quterofi rules
@@ -108,6 +108,11 @@ er_url = "https://github.com/search?q=repo%3A{user}%2F{repo}+{}&type=issues"
 er_template = "github_repos"
 er_alias ="ghi.{alias}"
 er_url = "https://github.com/{user}/{repo}/issues?q={}"
+
+[[engine_rules]]
+er_template = "github_repos"
+er_alias ="ghp.{alias}"
+er_url = "https://github.com/{user}/{repo}/pulls?q={}"
 
 [[engine_rules]]
 er_template = "wikipedia_languages"
@@ -150,6 +155,9 @@ lang = "es"
 {"ddg": "https://duckduckgo.com/?q={}&ia=web"}
 {"gh.qr": "https://github.com/search?q=repo%3Acortsf%2Fquterofi+{}&type=issues"}
 {"ghi.qr": "https://github.com/cortsf/quterofi/issues?q={}"}
+{"ghp.qr": "https://github.com/cortsf/quterofi/issues?q={}"}
+{"wp.eng": "https://en.wikipedia.org/wiki/Hello"}
+{"wp.esp": "https://es.wikipedia.org/wiki/Hello"}
 ```
 
 ## Config
