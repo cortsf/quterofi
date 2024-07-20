@@ -168,7 +168,6 @@ alias = "qr"
 user = "cortsf"
 repo = "quterofi"
 
-
 ## Wikipedia
 ####################
 
