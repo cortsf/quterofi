@@ -24,8 +24,10 @@ Quterofi provides the `open` and `switch_engine` userscripts (`read_engines` is 
 `quterofi/open` is a replacement for the `:open` menu
 
 ``` bash
-quterofi/open [--string <arg>] [--newtab] [--invert] [--history] [--quickmarks]
+quterofi/open  [--extended] [--newtab] [--string <arg>] [--invert] [--history] [--quickmarks]
 ```
+
+- Call with `--extended` if you declare your `engines.toml` using the extended format. See [Engines](#engines) for more information on this topic.
 
 - Call with `--newtab` to use `:open -t` by default (It's also possible to switch later between `open` and `open -t` using **-kb-custom-2**)
 
@@ -70,8 +72,12 @@ quterofi/open [--string <arg>] [--newtab] [--invert] [--history] [--quickmarks]
 Call `quterofi/switch_engine` to open a menu asking for the alias of a new search engine to open the search string present in your current url, if there is a matching engine for your current url. See example below.
 
 ``` bash
-quterofi/switch_engine [--newtab]
+quterofi/switch_engine [--extended] [--newtab]
 ```
+
+- Call with `--extended` if you declare your `engines.toml` using the extended format. See [Engines](#engines) for more information on this topic.
+
+- Call with `--newtab` to use `:open -t` by default (It's also possible to switch later between `open` and `open -t` using **-kb-custom-2**)
 
 ### Example
 - Current url: `https://www.google.com/search?q=hello`
