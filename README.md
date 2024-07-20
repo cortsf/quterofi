@@ -114,7 +114,7 @@ This will generate the following search engines:
 ### Extended format
 The extended format allows users to create custom "templates" instructing quterofi how to generate search engines based on templates.
 
-For quterofi to understand the extra details declared using this format, you have to call `quterofi/open` and `quterofi;switch_engine` with the `--extended` flag. 
+For quterofi to understand the extra details declared using this format, you have to call `quterofi/open` and `quterofi/switch_engine` with the `--extended` flag. 
 
 Note that it's also possible to use this particular example without the `--extended` flag, in that case quterofi will just ignore everything except `[[engines]]` and `[[github_repos]]`. In other words, for it wont be able to read `[[wikipedia_languages]]` since it doesn't knows how.
 
