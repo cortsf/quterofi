@@ -177,7 +177,7 @@ for alias, url in all_engines.items():
 
 ### Quterofi bindings
 
-```
+``` python
 config.bind('o', 'spawn -u quterofi/open --invert')
 config.bind('<Shift-o>', 'spawn -u quterofi/open --invert --newtab')
 config.bind('<Alt-o>', 'spawn -u quterofi/open --invert --string {url}')
