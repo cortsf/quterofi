@@ -156,8 +156,8 @@ lang = "es"
 {"gh.qr": "https://github.com/search?q=repo%3Acortsf%2Fquterofi+{}&type=issues"}
 {"ghi.qr": "https://github.com/cortsf/quterofi/issues?q={}"}
 {"ghp.qr": "https://github.com/cortsf/quterofi/issues?q={}"}
-{"wp.eng": "https://en.wikipedia.org/wiki/Hello"}
-{"wp.esp": "https://es.wikipedia.org/wiki/Hello"}
+{"wp.eng": "https://en.wikipedia.org/wiki/{}"}
+{"wp.esp": "https://es.wikipedia.org/wiki/{}"}
 ```
 
 ## Config
