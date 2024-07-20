@@ -12,13 +12,9 @@ exec(open(getenv("QUTE_CONFIG_DIR") + '/userscripts/quterofi/read_engines').read
 
 parser = ArgumentParser(prog='rofi_switch_engine', description='Switch search engines on the fly')
 parser.add_argument('-t', '--newtab', action='store_true')
-parser.add_argument('-e', '--extended', action='store_true')
 args = parser.parse_args()
 
-if args.extended:
-    all_engines = parse_engines_extended(getenv("QUTE_CONFIG_DIR") + "/engines.toml")
-else:
-    all_engines = parse_engines_simple(getenv("QUTE_CONFIG_DIR") + "/engines.toml")
+all_engines = parse_engines(getenv("QUTE_CONFIG_DIR") + "/engines.toml")
 
 rofi_rows = gen_rofi_rows(all_engines)
 

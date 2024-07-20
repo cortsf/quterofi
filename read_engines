@@ -27,7 +27,7 @@ def parse_engines_simple(engines_file):
   return all_engines
 
 
-def parse_engines_extended(engines_file):
+def parse_engines(engines_file):
   with open(engines_file, "rb") as f:
       parsed_toml = tomllib.load(f)
   engines = {}
@@ -38,7 +38,6 @@ def parse_engines_extended(engines_file):
       url = re.sub(r'{}', '{{}}', engine_rule['er_url']).format(**url_substitutions) 
       engines[alias] = url
   return engines
-
 
 def gen_rofi_rows(engines):
   return [ '<b>' + alias + '</b>&#10;<i>' + re.sub('&', '&amp;', url) + '</i>' for alias, url in engines.items() ]
