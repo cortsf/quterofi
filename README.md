@@ -176,7 +176,7 @@ lang = "es"
 ```
 
 ## Config
-In your config.py include this block (be sure to set `<username>`), and bindindings with or without the `--extended` flag, depended on wether you use or not the extended toml format. 
+In your config.py include this block (be sure to set `<username>`), and quterofi bindings with or without the `--extended` flag, depended on wether you use or not the extended toml format. 
 
 ``` python
 qbdir = "/home/<username>/.config/qutebrowser"
