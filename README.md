@@ -24,10 +24,8 @@ Quterofi provides the `open` and `switch_engine` userscripts (`read_engines` is 
 `quterofi/open` is a replacement for the `:open` menu
 
 ``` bash
-quterofi/open  [--extended] [--newtab] [--string <arg>] [--invert] [--history] [--quickmarks]
+quterofi/open [--newtab] [--string <arg>] [--invert] [--history] [--quickmarks]
 ```
-
-- Call with `--extended` if you declare your `engines.toml` using the extended format. See [Engines](#engines) for more information on this topic.
 
 - Call with `--newtab` to use `:open -t` by default (It's also possible to switch later between `open` and `open -t` using **-kb-custom-2**)
 
@@ -72,10 +70,8 @@ quterofi/open  [--extended] [--newtab] [--string <arg>] [--invert] [--history] [
 Call `quterofi/switch_engine` to open a menu asking for the alias of a new search engine to open the search string present in your current url, if there is a matching engine for your current url. See example below.
 
 ``` bash
-quterofi/switch_engine [--extended] [--newtab]
+quterofi/switch_engine [--newtab]
 ```
-
-- Call with `--extended` if you declare your `engines.toml` using the extended format. See [Engines](#engines) for more information on this topic.
 
 - Call with `--newtab` to use `:open -t` by default (It's also possible to switch later between `open` and `open -t` using **-kb-custom-2**)
 
@@ -89,41 +85,10 @@ quterofi/switch_engine [--extended] [--newtab]
 2. **-kb-cancel'** (Any of `Escape`,`Control+g`,`Control+bracketleft`)
 
 ## Engines
-Declare `engines.toml` (See [Dir structure](#dir-structure)) using either the basic or extended format. Any equivalent toml syntax declaring the same underlying structure/s should work (not tested).
+Declare `engines.toml` (See [Dir structure](#dir-structure)) using **the new extended** format. Any equivalent toml syntax declaring the same underlying structure/s should work (not tested).
 
-### Basic format
-Using this format the user can't define new rules instructing quterofi how to create search engines. It allows to declare engines with `[[engines]]` and `[[github_repos]]` exclusively. See [Extended format](#extended-format) for an extendable alternative.
 
-``` toml
-[[engines]]
-alias = "gl"
-url = "https://www.google.com/search?q={}"
-
-[[engines]]
-alias = "ddg"
-url = "https://duckduckgo.com/?q={}&ia=web"
-
-[[github_repos]]
-alias = "qr"
-user = "cortsf"
-repo = "quterofi"
-```
-
-This will generate the following search engines:
-
-``` json
-{"gl": "https://www.google.com/search?q={}"}
-{"ddg": "https://duckduckgo.com/?q={}&ia=web"}
-{"gh.qr": "https://github.com/search?q=repo%3Acortsf%2Fquterofi+{}&type=issues"}
-{"ghi.qr": "https://github.com/cortsf/quterofi/issues?q={}"}
-```
-
-### Extended format
-The extended format allows users to create custom "templates" instructing quterofi how to generate search engines based on templates.
-
-For quterofi to understand the extra details declared using this format, you have to call `quterofi/open` and `quterofi/switch_engine` with the `--extended` flag. 
-
-Note that it's also possible to use this particular example without the `--extended` flag, in that case quterofi will just ignore everything except `[[engines]]` and `[[github_repos]]`. In other words, it wont be able to read `[[wikipedia_languages]]` since it doesn't knows how.
+This new format allows users to create custom "templates" instructing quterofi how to generate search engines based on templates.
 
 ``` toml
 ## Quterofi rules
@@ -143,6 +108,11 @@ er_url = "https://github.com/search?q=repo%3A{user}%2F{repo}+{}&type=issues"
 er_template = "github_repos"
 er_alias ="ghi.{alias}"
 er_url = "https://github.com/{user}/{repo}/issues?q={}"
+
+[[engine_rules]]
+er_template = "github_repos"
+er_alias ="ghp.{alias}"
+er_url = "https://github.com/{user}/{repo}/pulls?q={}"
 
 [[engine_rules]]
 er_template = "wikipedia_languages"
@@ -180,13 +150,18 @@ alias = "esp"
 lang = "es"
 ```
 
-## Config
-In your config.py include code below. Be sure to:
+``` json
+{"gl": "https://www.google.com/search?q={}"}
+{"ddg": "https://duckduckgo.com/?q={}&ia=web"}
+{"gh.qr": "https://github.com/search?q=repo%3Acortsf%2Fquterofi+{}&type=issues"}
+{"ghi.qr": "https://github.com/cortsf/quterofi/issues?q={}"}
+{"ghp.qr": "https://github.com/cortsf/quterofi/issues?q={}"}
+{"wp.eng": "https://en.wikipedia.org/wiki/{}"}
+{"wp.esp": "https://es.wikipedia.org/wiki/{}"}
+```
 
-- Set `<username>`.
-- Use `all_engines = parse_engines_extended(qbdir + "/engines.toml")` if you choose the "extended" toml format.
-- Use instead `all_engines = parse_engines_simple(qbdir + "/engines.toml")` if you choose the "simple" toml format.
-- Use `--extended` in all your quterofi bindings if you use the "extended" toml format.
+## Config
+In your config.py include code below. Be sure to set `<username>`.
 
 
 ``` python
@@ -194,25 +169,24 @@ qbdir = "/home/<username>/.config/qutebrowser"
 
 exec(open(qbdir + '/userscripts/quterofi/read_engines').read())
 
-all_engines = parse_engines_extended(qbdir + "/engines.toml")
+all_engines = parse_engines(qbdir + "/engines.toml")
 
 for alias, url in all_engines.items():
     c.url.searchengines[alias] = url
 ```
 
 ### Quterofi bindings
-This is what I use. You can remove the `--extended` flag if you use the "simple" instead of the "extended" toml format (See [Engines](#engines)).
 
 ```
-config.bind('o', 'spawn -u quterofi/open --extended --invert')
-config.bind('<Shift-o>', 'spawn -u quterofi/open --extended --invert --newtab')
-config.bind('<Alt-o>', 'spawn -u quterofi/open --extended --invert --string {url}')
-config.bind('<Alt-Shift-o>', 'spawn -u quterofi/open --extended --invert --newtab --string {url}')
-config.bind('<Ctrl-o>', 'spawn -u quterofi/open --extended --invert --newtab')
-config.bind('<Alt-h>', 'spawn -u quterofi/open --extended --invert --history')
-config.bind('<Alt-q>', 'spawn -u quterofi/open --extended --invert --quickmarks')
-config.bind(',o', 'spawn -u -m quterofi/switch_engine --extended')
-config.bind(',O', 'spawn -u -m quterofi/switch_engine --extended --newtab')
+config.bind('o', 'spawn -u quterofi/open --invert')
+config.bind('<Shift-o>', 'spawn -u quterofi/open --invert --newtab')
+config.bind('<Alt-o>', 'spawn -u quterofi/open --invert --string {url}')
+config.bind('<Alt-Shift-o>', 'spawn -u quterofi/open --invert --newtab --string {url}')
+config.bind('<Ctrl-o>', 'spawn -u quterofi/open --invert --newtab')
+config.bind('<Alt-h>', 'spawn -u quterofi/open --invert --history')
+config.bind('<Alt-q>', 'spawn -u quterofi/open --invert --quickmarks')
+config.bind(',o', 'spawn -u -m quterofi/switch_engine ')
+config.bind(',O', 'spawn -u -m quterofi/switch_engine --newtab')
 ```
 
 ### Extra bindings 
