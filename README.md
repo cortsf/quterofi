@@ -85,7 +85,7 @@ quterofi/switch_engine [--newtab]
 2. **-kb-cancel'** (Any of `Escape`,`Control+g`,`Control+bracketleft`)
 
 ## Engines
-Declare `engines.toml` (See [Dir structure](#dir-structure)) using <span style="#f00"><b>the new extended<b></span> format. Any equivalent toml syntax declaring the same underlying structure/s should work (not tested).
+Declare `engines.toml` (See [Dir structure](#dir-structure)) using <span style="#f00"><b>the new extended</b></span> format. Any equivalent toml syntax declaring the same underlying structure/s should work (not tested).
 
 
 This new format allows users to create custom "templates" instructing quterofi how to generate search engines based on templates.
