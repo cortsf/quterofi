@@ -144,7 +144,6 @@ er_template = "github_repos"
 er_alias ="ghi.{alias}"
 er_url = "https://github.com/{user}/{repo}/issues?q={}"
 
-
 [[engine_rules]]
 er_template = "wikipedia_languages"
 er_alias ="wp.{alias}"
