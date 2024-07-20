@@ -89,7 +89,7 @@ quterofi/switch_engine [--extended] [--newtab]
 2. **-kb-cancel'** (Any of `Escape`,`Control+g`,`Control+bracketleft`)
 
 ## Engines
-Declare `engines.toml` (See [Dir structure](#dir-structure)) using either the basic or extended format. Any equivalent toml syntax declaring the same underlying structure should work (not tested).
+Declare `engines.toml` (See [Dir structure](#dir-structure)) using either the basic or extended format. Any equivalent toml syntax declaring the same underlying structure/s should work (not tested).
 
 ### Basic format
 Using this format the user can't define new rules instructing quterofi how to create search engines. It allows to declare engines with `[[engines]]` and `[[github_repos]]` exclusively. See [Extended format](#extended-format) for an extendable alternative.
