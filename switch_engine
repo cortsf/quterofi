@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
 
-import tomllib
 import re
 from argparse import ArgumentParser
 from os import environ, getenv
-from subprocess import run, PIPE, Popen
-from urllib.parse import unquote, quote, quote_plus
+from urllib.parse import unquote
 from sys import exit
 
 exec(open(getenv("QUTE_CONFIG_DIR") + '/userscripts/quterofi/read_engines').read())

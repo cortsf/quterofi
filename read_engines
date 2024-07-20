@@ -2,11 +2,6 @@
 
 import tomllib
 import re
-from argparse import ArgumentParser
-from os import environ, getenv
-from subprocess import run, PIPE, Popen
-from urllib.parse import unquote, quote, quote_plus
-from sys import exit
 
 def parse_engines_simple(engines_file):
   with open(engines_file, "rb") as f:

@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 
-import tomllib
 from argparse import ArgumentParser
 from os import environ, getenv
-from subprocess import run, PIPE
+from subprocess import run, PIPE, Popen
 from sys import exit
 
 exec(open(getenv("QUTE_CONFIG_DIR") + '/userscripts/quterofi/read_engines').read())
