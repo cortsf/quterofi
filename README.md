@@ -110,6 +110,7 @@ repo = "fzf"
 ```
 
 This will generate the following search engines:
+
 ``` json
 {"gl": "https://www.google.com/search?q={}"}
 {"ddg": "https://duckduckgo.com/?q={}&ia=web"}
@@ -179,8 +180,6 @@ lang = "en"
 [[wikipedia_languages]]
 alias = "esp"
 lang = "es"
-
-
 ```
 
 ## Config
