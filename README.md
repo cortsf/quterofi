@@ -184,14 +184,20 @@ lang = "es"
 ```
 
 ## Config
-In your config.py include this block (be sure to set `<username>`), and quterofi bindings with or without the `--extended` flag, dependingon wehther you use or not the extended toml format. 
+In your config.py include code below. Be sure to:
+
+- Set `<username>`.
+- Use `all_engines = parse_engines_extended(qbdir + "/engines.toml")` if you choose the "extended" toml format.
+- Use instead `all_engines = parse_engines_simple(qbdir + "/engines.toml")` if you choose the "simple" toml format.
+- Use `--extended` in all your quterofi bindings if and only if you use the "extended" toml format.
+
 
 ``` python
 qbdir = "/home/<username>/.config/qutebrowser"
 
 exec(open(qbdir + '/userscripts/quterofi/read_engines').read())
 
-all_engines = parseEngines(qbdir + "/engines.toml")
+all_engines = parse_engines_extended(qbdir + "/engines.toml")
 
 for alias, url in all_engines.items():
     c.url.searchengines[alias] = url
