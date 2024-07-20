@@ -176,9 +176,8 @@ lang = "es"
 ```
 
 ## Config
-In your config.py include this "Common" block (be sure to set `<username>`), and either the bindings for the "basic" or the "extended" syntax, provided below. Optionaly include the extra bindings.
+In your config.py include this block (be sure to set `<username>`), and bindindings with or without the `--extended` flag, depended on wether you use or not the extended toml format. 
 
-### Common 
 ``` python
 qbdir = "/home/<username>/.config/qutebrowser"
 
@@ -206,7 +205,7 @@ config.bind(',O', 'spawn -u -m quterofi/switch_engine --extended --newtab')
 ```
 
 ### Extra bindings 
-These are standad non-quterofi bindings that play well with the above keybindings.
+These are standard non-quterofi bindings that play well with the above keybindings.
 
 ``` python
 config.bind("e", "cmd-set-text -s :open ")
