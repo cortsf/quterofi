@@ -204,7 +204,7 @@ for alias, url in all_engines.items():
 ```
 
 ### Quterofi bindings
-This is what I use. Remove the `--extended` flag if you use the "simple" instead of the "extended" toml format (See [Engines](#engines)).
+This is what I use. You can remove the `--extended` flag if you use the "simple" instead of the "extended" toml format (See [Engines](#engines)).
 
 ```
 config.bind('o', 'spawn -u quterofi/open --extended --invert')
