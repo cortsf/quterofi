@@ -188,11 +188,11 @@ repo = "quterofi"
 ####################
 
 [[wikipedia_languages]]
-alias = "eng"
+alias = "en"
 lang = "en"
 
 [[wikipedia_languages]]
-alias = "esp"
+alias = "es"
 lang = "es"
 ```
 
@@ -203,8 +203,8 @@ lang = "es"
 {"gh.qr": "https://github.com/search?q=repo%3Acortsf%2Fquterofi+{}&type=issues"}
 {"ghi.qr": "https://github.com/cortsf/quterofi/issues?q={}"}
 {"ghp.qr": "https://github.com/cortsf/quterofi/pulls?q={}"}
-{"wp.eng": "https://en.wikipedia.org/wiki/{}"}
-{"wp.esp": "https://es.wikipedia.org/wiki/{}"}
+{"wp.en": "https://en.wikipedia.org/wiki/{}"}
+{"wp.es": "https://es.wikipedia.org/wiki/{}"}
 ```
 
 ## Config
