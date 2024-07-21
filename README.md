@@ -87,7 +87,7 @@ quterofi/switch_engine [--newtab]
 ## Usage of the `set_quickmarks` userscript
 Call `quterofi/set_quickmarks`to update your quickmarks file according to your `[[quickmark_rules]]` declared in your [engines.toml](#engines) file.
 
-IMPORTANT NOTE: THIS SCRIPT IS EXPERIMENTAL. MAKE BACKUPS AND USE AT YOUR OWN RISK.
+IMPORTANT NOTE: THIS SCRIPT IS EXPERIMENTAL. Backup your quickmarks file and use `quterofi/set_quickmarks` at your own risk.
 
 Declare your `[[quickmark_rules` to be like
 
