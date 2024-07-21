@@ -31,7 +31,7 @@ quterofi/open [--newtab] [--string <arg>] [--invert] [--history] [--quickmarks]
 
 - Call with `--string <arg>` to start writing with string ARG already set
 
-- Call with `--invert` to treat the last word as a search engine alias. If your search string is `hello world ddg`, the underlying command will be `:open ddg hello world`, if and only if there is a search engine with alias `ddg` declared in your [engines.toml](#engines) file. This behavior is for **-kb-accept-entry**, you can also accept your entry with **-kb-custom-2** for your string to be interpreted verbatim (`:open hello world ddg`). Note: When using `--invert`, Qb could still interpret the first word in the underlying `:open hello world ddg` as a search engine, this behavior could be deactivated, see: #6 on the issue tracker.
+- Call with `--invert` to treat the last word as a search engine alias. If your search string is `hello world ddg`, the underlying command will be `:open ddg hello world`, if and only if there is a search engine with alias `ddg` declared in your [engines.toml](#engines) file. This behavior is for **-kb-accept-entry**, you can also accept your entry with **-kb-custom-2** for your string to be interpreted verbatim (`:open hello world ddg`).
 
 - Call with `--history` to open the history menu directly (You can also enter this menu using **-kb-custom-6** in the main menu)
 
@@ -113,7 +113,7 @@ user = "torvalds"
 repo = "linux"
 ```
 
-For `quterofi/set_quickmarks` to create or update (if already exists) your `gh.qr`, `gh.lnx`, `ghi.qr` and `ghi.lnx` quickmarks. Although it's possible for `quterofi/set_quickmarks` to also detect and delete from an alias namespace like `gh` a quickmark like `qr`, when there is no `[[github_repos]]` block providing `gh.qr`, the current implementation of `quiterofi/set_quickmarks` won't automatically do it and is up to you to delete any quickmarks created by `quterofi/set_quickmarks`. Of course, this ~~may~~ will change in the future.
+For `quterofi/set_quickmarks` to create or update (if already exists) your `gh.qr`, `gh.lnx`, `ghi.qr` and `ghi.lnx` quickmarks. Although it's possible for `quterofi/set_quickmarks` to also detect and delete from an alias namespace like `gh` a quickmark like `qr`, when there is no `[[github_repos]]` block providing `gh.qr`, the current implementation of `quterofi/set_quickmarks` won't automatically do it and is up to you to delete any quickmarks created by `quterofi/set_quickmarks`. Of course, this ~~may~~ will change in the future.
 
 Resulting quickmarks for the above `engines.toml`:
 
