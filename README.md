@@ -113,7 +113,7 @@ user = "torvalds"
 repo = "linux"
 ```
 
-For `quterofi/set_quickmarks` to create or update (if already exists) your `gh.qr` and `gh.lnx` quickmarks. Although it's possible for `quterofi/set_quickmarks` to also detect and delete from an alias namespace like `gh` a quickmark like `qr`, when there is no `[[github_repos]]` block providing `gh.qr`, the current implementation of `quickmark_rules` won't automatically do it and is up to you to delete any quickmarks created by `quterofi/set_quickmarks`. Of course, this ~~may~~ will change in the future.
+For `quterofi/set_quickmarks` to create or update (if already exists) your `gh.qr`, `gh.lnx`, `ghi.qr` and `ghi.lnx` quickmarks. Although it's possible for `quterofi/set_quickmarks` to also detect and delete from an alias namespace like `gh` a quickmark like `qr`, when there is no `[[github_repos]]` block providing `gh.qr`, the current implementation of `quickmark_rules` won't automatically do it and is up to you to delete any quickmarks created by `quterofi/set_quickmarks`. Of course, this ~~may~~ will change in the future.
 
 Resulting quickmarks for the above `engines.toml`:
 
