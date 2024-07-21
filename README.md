@@ -235,7 +235,7 @@ config.bind('<Alt-q>', 'spawn -u quterofi/open --invert --quickmarks')
 config.bind(',o', 'spawn -u -m quterofi/switch_engine ')
 config.bind(',O', 'spawn -u -m quterofi/switch_engine --newtab')
 
-config.bind(',e', 'spawn -u -m quterofi/set_quickmarks "/path/to/quterofi.toml"') # EXPERIMENTAL!
+config.bind(',e', 'spawn -u -m quterofi/set_quickmarks') # EXPERIMENTAL!
 ```
 
 ### Extra bindings 
