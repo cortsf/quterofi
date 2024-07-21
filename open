@@ -141,9 +141,17 @@ def main_menu(string, command):
         process=Popen(['printf', '%s\n', '\n'.join(rofi_rows)], stdout=PIPE)
         result_engine=call_rofi_submenu(process, 0, filter='^', title="Search engine")
         if args.invert:
-            main_menu(result + ' ' + result_engine, command)
+            *searchstring, last_word = result.rsplit(' ', 1)
+            if len(searchstring) > 0 and last_word in all_engines.keys():
+                main_menu(searchstring[0] + ' ' + result_engine, command)
+            else:
+                main_menu(result + ' ' + result_engine, command)
         else: 
-            main_menu(result_engine + ' ' + result, command)
+            first_word, *searchstring = result.split(' ', 1)
+            if len(searchstring) > 0 and first_word in all_engines.keys():
+                main_menu(result_engine + ' ' + searchstring[0], command)
+            else:
+                main_menu(result_engine + ' ' + result, command)
         exit()
     elif rofi_val.returncode == 15:
         history_menu(command)
