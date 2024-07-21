@@ -1,0 +1,40 @@
+#!/usr/bin/env python3
+
+from os import getenv
+from tomllib import load
+from re import sub 
+from shutil import copyfile 
+
+def send_fifo(command):
+    """Send command to qutebrowser FIFO."""
+    with open(getenv("QUTE_FIFO"), "w") as fifo:
+        fifo.write(command)
+
+with open(getenv("QUTE_CONFIG_DIR") + '/quickmarks', 'r') as f:
+  quickmarks = [ line.strip().rsplit(' ', 1) for line in f ]
+
+with open(getenv("QUTE_CONFIG_DIR") + "/engines.toml", "rb") as f:
+  parsed_toml = load(f)
+
+must_update = False
+
+for quickmark_rule in parsed_toml['quickmark_rules']:
+  for quickmark_declaration in parsed_toml[quickmark_rule['er_template']]:
+    alias = quickmark_rule['er_alias'].format(alias = quickmark_declaration['alias'])
+    substitutions = { key: val for key, val in quickmark_declaration.items() if key != 'alias' }
+    url = sub(r'{}', '{{}}', quickmark_rule['er_url']).format(**substitutions) 
+    if not any(item[0] == alias for item in quickmarks):
+      quickmarks.append([alias, url])
+      must_update = True
+    for qm_alias, qm_url in quickmarks:
+      if alias == qm_alias and url != qm_url:
+        quickmarks = [[alias, url] if x[0] == alias else x for x in quickmarks]
+        must_update = True
+
+if must_update:
+  copyfile (getenv("QUTE_CONFIG_DIR") + '/quickmarks', getenv("QUTE_CONFIG_DIR") + '/quickmarks_bkp')
+  with open(getenv("QUTE_CONFIG_DIR") + '/quickmarks', 'w') as write_file:
+    write_file.write('\n'.join(['{} {}'.format(alias, url) for alias, url in quickmarks]))
+  send_fifo(":message-info 'Quickmarks file changed. Restart qutebrowser for changes to take effect'")
+else:
+  send_fifo(":message-info 'No quickmarks to update'")
