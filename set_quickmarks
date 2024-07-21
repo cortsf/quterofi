@@ -19,10 +19,10 @@ with open(getenv("QUTE_CONFIG_DIR") + "/engines.toml", "rb") as f:
 must_update = False
 
 for quickmark_rule in parsed_toml['quickmark_rules']:
-  for quickmark_declaration in parsed_toml[quickmark_rule['er_template']]:
-    alias = quickmark_rule['er_alias'].format(alias = quickmark_declaration['alias'])
+  for quickmark_declaration in parsed_toml[quickmark_rule['qr_template']]:
+    alias = quickmark_rule['qr_alias'].format(alias = quickmark_declaration['alias'])
     substitutions = { key: val for key, val in quickmark_declaration.items() if key != 'alias' }
-    url = sub(r'{}', '{{}}', quickmark_rule['er_url']).format(**substitutions) 
+    url = sub(r'{}', '{{}}', quickmark_rule['qr_url']).format(**substitutions) 
     if not any(item[0] == alias for item in quickmarks):
       quickmarks.append([alias, url])
       must_update = True

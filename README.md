@@ -93,9 +93,9 @@ Declare your `[[quickmark_rules]]` to be like
 
 ``` toml
 [[quickmark_rules]]
-er_template = "github_repos"
-er_alias ="gh.{alias}"
-er_url = "https://github.com/{user}/{repo}"
+qr_template = "github_repos"
+qr_alias ="gh.{alias}"
+qr_url = "https://github.com/{user}/{repo}"
 
 [[github_repos]]
 alias = "qr"
