@@ -97,6 +97,11 @@ qr_template = "github_repos"
 qr_alias ="gh.{alias}"
 qr_url = "https://github.com/{user}/{repo}"
 
+[[quickmark_rules]]
+qr_template = "github_repos"
+qr_alias ="ghi.{alias}"
+qr_url = "https://github.com/{user}/{repo}/issues"
+
 [[github_repos]]
 alias = "qr"
 user = "cortsf"
@@ -115,6 +120,8 @@ Resulting quickmarks for the above `engines.toml`:
 ``` json
 {"gh.qr": "https://github.com/cortsf/quterofi"}
 {"gh.lnx": "https://github.com/torvalds/linux"}
+{"ghi.qr": "https://github.com/cortsf/quterofi/issues"}
+{"ghi.lnx": "https://github.com/torvalds/linux/issues"}
 ```
 
 Note: before updating your quickmarks file, `quterofi/set_quickmarks` will create a copy with the `_bkp` postfix. Of course if you call `quterofi/set_quickmarks` twice you will overwrite your `quickmarks_bkp` so be careful and keep a safe copy of you quickmarks, somewhere else.
