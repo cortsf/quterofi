@@ -96,7 +96,7 @@ This new format allows users to create custom "templates" (quite an abstract con
 ####################
 
 [[engine_rules]]
-er_template = "engines"
+er_template = "search_engines"
 er_alias = "{alias}"
 er_url = "{url}"
 
@@ -123,11 +123,11 @@ er_url = "https://{lang}.wikipedia.org/wiki/{}"
 ## Engines
 ####################
 
-[[engines]]
+[[search_engines]]
 alias = "ddg"
 url = "https://duckduckgo.com/?q={}&ia=web"
 
-[[engines]]
+[[search_engines]]
 alias = "gl"
 url = "https://www.google.com/search?q={}"
 
