@@ -9,6 +9,7 @@
 ```
 .
 ├── config.py
+├── quickmarks
 ├── quterofi.toml
 └── userscripts
     └── quterofi 
