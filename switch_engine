@@ -13,7 +13,7 @@ parser = ArgumentParser(prog='rofi_switch_engine', description='Switch search en
 parser.add_argument('-t', '--newtab', action='store_true')
 args = parser.parse_args()
 
-all_engines = parse_engines(getenv("QUTE_CONFIG_DIR") + "/engines.toml")
+all_engines = parse_engines(getenv("QUTE_CONFIG_DIR") + "/quterofi.toml")
 
 rofi_rows = gen_rofi_rows(all_engines)
 
@@ -42,7 +42,7 @@ for template in all_engines.values():
         matching_templates.append((len(start), len(end)))
 
 if len(matching_templates) == 0:
-    qute_message_info("Current url does not matches any engine declared in engines.toml")
+    qute_message_info("Current url does not matches any engine declared in your toml file")
     exit()
 
 p1 = Popen(['printf', '%s', '|'.join(rofi_rows)], stdout=PIPE)

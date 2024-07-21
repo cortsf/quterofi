@@ -15,7 +15,7 @@ parser.add_argument('--history', action='store_true')
 parser.add_argument('--quickmarks', action='store_true')
 args = parser.parse_args()
 
-all_engines = parse_engines(getenv("QUTE_CONFIG_DIR") + "/engines.toml")
+all_engines = parse_engines(getenv("QUTE_CONFIG_DIR") + "/quterofi.toml")
 
 rofi_rows = gen_rofi_rows(all_engines)
 

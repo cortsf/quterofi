@@ -1,7 +1,7 @@
 # Installation
 1. Clone and copy (or symlink) this repo inside your userscripts dir (See [Dir structure](#dir-structure) below). 
 2. Make `quterofi/open`, `quterofi/switch_engine`, `quterofi/set_quickmarks` and `quterofi/read_engines` executable if needed. 
-3. Declare your engines in `engines.toml` (See [Engines](#engines) section below).
+3. Declare your engines in `quterofi.toml` (See [Engines](#engines) section below).
 4. Update your `config.py` file (See [Config](#config) section below).
 
 #### Dir structure
@@ -9,7 +9,7 @@
 ```
 .
 ├── config.py
-├── engines.toml
+├── quterofi.toml
 └── userscripts
     └── quterofi 
         ├── open
@@ -19,7 +19,7 @@
 ```
 
 # Usage
-Quterofi provides the `open`, `switch_engine` and `set_quickmarks` userscripts (`read_engines` is just an utility used to parse engines declared in engines.toml)
+Quterofi provides the `open`, `switch_engine` and `set_quickmarks` userscripts (`read_engines` is just an utility used to parse engines declared in quterofi.toml)
 
 ## Usage of the `open` userscript
 `quterofi/open` is a replacement for the `:open` menu
@@ -32,7 +32,7 @@ quterofi/open [--newtab] [--string <arg>] [--invert] [--history] [--quickmarks]
 
 - Call with `--string <arg>` to start writing with string ARG already set
 
-- Call with `--invert` to treat the last word as a search engine alias. If your search string is `hello world ddg`, the underlying command will be `:open ddg hello world`, if and only if there is a search engine with alias `ddg` declared in your [engines.toml](#engines) file. This behavior is for **-kb-accept-entry**, you can also accept your entry with **-kb-custom-2** for your string to be interpreted verbatim (`:open hello world ddg`).
+- Call with `--invert` to treat the last word as a search engine alias. If your search string is `hello world ddg`, the underlying command will be `:open ddg hello world`, if and only if there is a search engine with alias `ddg` declared in your [querofi.toml](#engines) file. This behavior is for **-kb-accept-entry**, you can also accept your entry with **-kb-custom-2** for your string to be interpreted verbatim (`:open hello world ddg`).
 
 - Call with `--history` to open the history menu directly (You can also enter this menu using **-kb-custom-6** in the main menu)
 
@@ -86,7 +86,7 @@ quterofi/switch_engine [--newtab]
 2. **-kb-cancel'** (Any of `Escape`,`Control+g`,`Control+bracketleft`)
 
 ## Usage of the `set_quickmarks` userscript
-Call `quterofi/set_quickmarks` to update your quickmarks file according to your `[[quickmark_rules]]` declared in your [engines.toml](#engines) file.
+Call `quterofi/set_quickmarks` to update your quickmarks file according to your `[[quickmark_rules]]` declared in your [querofi.toml](#engines) file.
 
 **IMPORTANT NOTE:** THIS SCRIPT IS EXPERIMENTAL. Backup your quickmarks file and use it at your own risk.
 
@@ -116,7 +116,7 @@ repo = "linux"
 
 For `quterofi/set_quickmarks` to create or update (if already exists) your `gh.qr`, `gh.lnx`, `ghi.qr` and `ghi.lnx` quickmarks. Although it's possible for `quterofi/set_quickmarks` to also detect and delete from an alias namespace like `gh` a quickmark like `qr`, when there is no `[[github_repos]]` block providing `gh.qr`, the current implementation of `quterofi/set_quickmarks` won't automatically do it and is up to you to delete any quickmarks created by `quterofi/set_quickmarks`. Of course, this ~~may~~ will change in the future.
 
-Resulting quickmarks for the above `engines.toml`:
+Resulting quickmarks for the above `querofi.toml`:
 
 ``` json
 {"gh.qr": "https://github.com/cortsf/quterofi"}
@@ -128,7 +128,7 @@ Resulting quickmarks for the above `engines.toml`:
 Note: before updating your quickmarks file, `quterofi/set_quickmarks` will create a copy with the `_bkp` postfix. Of course if you call `quterofi/set_quickmarks` twice you will overwrite your `quickmarks_bkp` so be careful and keep a safe copy of you quickmarks, somewhere else.
 
 ## Engines
-Declare `engines.toml` (See [Dir structure](#dir-structure)) using **this new extended** format. Any equivalent toml syntax declaring the same underlying structure/s should work (not tested).
+Declare `querofi.toml` (See [Dir structure](#dir-structure)) using **this new extended** format. Any equivalent toml syntax declaring the same underlying structure/s should work (not tested).
 
 This new format allows users to create custom "templates" (quite an abstract concept in this context..) instructing quterofi how to generate search engines. Note that you can define any variable to construct urls, except for `alias` which is reserved to be used exclusively to construct aliases, and it's in fact, mandatory to declare for every engine as the only one available to construct aliases (This may change in the future allowing any variable name and number to be used both for urls and aliases).
 
@@ -214,7 +214,7 @@ qbdir = "/home/<username>/.config/qutebrowser"
 
 exec(open(qbdir + '/userscripts/quterofi/read_engines').read())
 
-all_engines = parse_engines(qbdir + "/engines.toml")
+all_engines = parse_engines(qbdir + "/querofi.toml")
 
 for alias, url in all_engines.items():
     c.url.searchengines[alias] = url
@@ -232,6 +232,8 @@ config.bind('<Alt-h>', 'spawn -u quterofi/open --invert --history')
 config.bind('<Alt-q>', 'spawn -u quterofi/open --invert --quickmarks')
 config.bind(',o', 'spawn -u -m quterofi/switch_engine ')
 config.bind(',O', 'spawn -u -m quterofi/switch_engine --newtab')
+
+config.bind(',e', 'spawn -u -m quterofi/set_quickmarks "/path/to/quterofi.toml"') # EXPERIMENTAL!
 ```
 
 ### Extra bindings 

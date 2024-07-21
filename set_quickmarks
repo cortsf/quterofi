@@ -13,7 +13,7 @@ def send_fifo(command):
 with open(getenv("QUTE_CONFIG_DIR") + '/quickmarks', 'r') as f:
   quickmarks = [ line.strip().rsplit(' ', 1) for line in f ]
 
-with open(getenv("QUTE_CONFIG_DIR") + "/engines.toml", "rb") as f:
+with open(getenv("QUTE_CONFIG_DIR") + "/quterofi.toml", "rb") as f:
   parsed_toml = load(f)
 
 must_update = False
