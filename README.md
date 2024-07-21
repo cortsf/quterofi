@@ -1,7 +1,7 @@
 # Installation
 1. Clone and copy (or symlink) this repo inside your userscripts dir (See [Dir structure](#dir-structure) below). 
 2. Make `quterofi/open`, `quterofi/switch_engine`, `quterofi/set_quickmarks` and `quterofi/read_engines` executable if needed. 
-3. Declare your engines and (experimental) quickmarks in `quterofi.toml` (See [Engines](#engines) section below).
+3. Declare your engines and quickmarks -experimental- in `quterofi.toml` (See [Engines](#engines) section below).
 4. Update your `config.py` file (See [Config](#config) section below).
 
 #### Dir structure
@@ -226,12 +226,14 @@ for alias, url in all_engines.items():
 
 ``` python
 config.bind('o', 'spawn -u quterofi/open --invert')
+config.bind('<Ctrl-o>', 'spawn -u quterofi/open --invert --newtab')
 config.bind('<Shift-o>', 'spawn -u quterofi/open --invert --newtab')
 config.bind('<Alt-o>', 'spawn -u quterofi/open --invert --string {url}')
 config.bind('<Alt-Shift-o>', 'spawn -u quterofi/open --invert --newtab --string {url}')
-config.bind('<Ctrl-o>', 'spawn -u quterofi/open --invert --newtab')
-config.bind('<Alt-h>', 'spawn -u quterofi/open --invert --history')
-config.bind('<Alt-q>', 'spawn -u quterofi/open --invert --quickmarks')
+config.bind('<Alt-h>', 'spawn -u quterofi/open --history')
+config.bind('<Alt-Shift-h>', 'spawn -u quterofi/open --history --newtab')
+config.bind('<Alt-q>', 'spawn -u quterofi/open --quickmarks')
+config.bind('<Alt-Shift-q>', 'spawn -u quterofi/open --quickmarks --newtab')
 config.bind(',o', 'spawn -u -m quterofi/switch_engine ')
 config.bind(',O', 'spawn -u -m quterofi/switch_engine --newtab')
 
