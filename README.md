@@ -117,7 +117,7 @@ Resulting quickmarks for the above `engines.toml`:
 {"gh.lnx": "https://github.com/torvalds/linux"}
 ```
 
-Note: before updating your quickmarks file, `quterofi/set_quickmarks` will create a copy with the `_bkp` postfix. Of course if you call `quterofi/set_quickmarks` you will overwrite your `quickmarks_bkp` so be careful and keep a safe copy of you quickmarks, somewhere else.
+Note: before updating your quickmarks file, `quterofi/set_quickmarks` will create a copy with the `_bkp` postfix. Of course if you call `quterofi/set_quickmarks` twice you will overwrite your `quickmarks_bkp` so be careful and keep a safe copy of you quickmarks, somewhere else.
 
 ## Engines
 Declare `engines.toml` (See [Dir structure](#dir-structure)) using **this new extended** format. Any equivalent toml syntax declaring the same underlying structure/s should work (not tested).
