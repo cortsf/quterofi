@@ -202,7 +202,7 @@ lang = "es"
 {"ddg": "https://duckduckgo.com/?q={}&ia=web"}
 {"gh.qr": "https://github.com/search?q=repo%3Acortsf%2Fquterofi+{}&type=issues"}
 {"ghi.qr": "https://github.com/cortsf/quterofi/issues?q={}"}
-{"ghp.qr": "https://github.com/cortsf/quterofi/issues?q={}"}
+{"ghp.qr": "https://github.com/cortsf/quterofi/pulls?q={}"}
 {"wp.eng": "https://en.wikipedia.org/wiki/{}"}
 {"wp.esp": "https://es.wikipedia.org/wiki/{}"}
 ```
