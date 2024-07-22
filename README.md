@@ -131,7 +131,7 @@ Resulting quickmarks for the above `quterofi.toml`:
 Note: before updating your quickmarks file, `quterofi/set_quickmarks` will create a copy with the `_bkp` postfix. Of course if you call `quterofi/set_quickmarks` twice you will overwrite your `quickmarks_bkp` so be careful and keep a safe copy of you quickmarks, somewhere else.
 
 ## Engines
-Declare `quterofi.toml` (See [Dir structure](#dir-structure)) using this format. Any equivalent toml syntax declaring the same underlying structure/s should work (not tested).
+Declare your search engines in `quterofi.toml` (See [Dir structure](#dir-structure)) using this format. Any equivalent toml syntax declaring the same underlying structure/s should work (not tested).
 
 This format allows users to create custom "templates" (quite an abstract concept in this context..) instructing quterofi how to generate search engines. Note that you can declare/define any variable to construct urls, except for `alias` which is reserved to be used exclusively to construct aliases, and it's in fact, mandatory to declare for every engine as the only one available to construct aliases (This may change in the future allowing any variable name and number to be used both for urls and aliases).
 
