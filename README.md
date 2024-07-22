@@ -69,18 +69,24 @@ quterofi/open [--newtab] [--string <arg>] [--invert] [--history] [--quickmarks]
    - Open submenu listing quickmarks.
 
 ## Usage of the `switch_engine` userscript
-Call `quterofi/switch_engine` to open a menu asking for the alias of a new search engine to open the search string present in your current url, if there is a matching engine for your current url. See example below.
+Call `quterofi/switch_engine` to open a menu asking for the alias of a new search engine to open the search string present in your current url, if there is a matching engine for your current url. See examples below.
 
 ``` bash
-quterofi/switch_engine [--newtab]
+quterofi/switch_engine [--newtab] [--edit] [--invert] 
 ```
 
 - Call with `--newtab` to use `:open -t` instead of `:open`.
+- Call with `--edit` to edit the search string (and optionally, set a new search engine)
+- Call with `--invert` if you want to `--edit` using `:open -t`
 
-### Example
-- Current url: `https://www.google.com/search?q=hello`
+### Example 1 (without `--edit`)
+- Current url: `https://www.google.com/search?q=hello world`
 - New engine selected by calling `quterofi/switch_engine`: `ghi.qr`
-- Automagically redirects to: `https://github.com/cortsf/quterofi/issues?q=hello`
+- Automagically redirects to: `https://github.com/cortsf/quterofi/issues?q=hello world`
+
+### Example 2 (with `--edit`)
+- Current url: `https://www.google.com/search?q=hello world`
+- Calling `quterofi/switch_engine` with `--edit` will call `quterofi/open` with the string `gl hello world` or `hello world gl` if you use `--invert` in addition to `--edit`
 
 ### Available keys when using the `switch_engine` menu
 1. **-kb-accept-entry** (Any of `Ctrl+j`,`Ctrl+m`,`Return`,`KP_Enter`)
@@ -239,8 +245,10 @@ config.bind('<Alt-q>', 'spawn -u quterofi/open --quickmarks')
 config.bind('<Alt-Shift-q>', 'spawn -u quterofi/open --quickmarks --newtab')
 config.bind(',o', 'spawn -u -m quterofi/switch_engine ')
 config.bind(',O', 'spawn -u -m quterofi/switch_engine --newtab')
+config.bind(',e', 'spawn -u -m quterofi/switch_engine --edit')
+config.bind(',E', 'spawn -u -m quterofi/switch_engine --edit --newtab')
 
-config.bind(',e', 'spawn -u -m quterofi/set_quickmarks') # EXPERIMENTAL!
+config.bind(',s', 'spawn -u -m quterofi/set_quickmarks') # EXPERIMENTAL!
 ```
 
 ### Extra bindings 
