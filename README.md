@@ -87,9 +87,11 @@ quterofi/switch_engine [--newtab]
 2. **-kb-cancel'** (Any of `Escape`,`Control+g`,`Control+bracketleft`)
 
 ## Usage of the `set_quickmarks` userscript
-Call `quterofi/set_quickmarks` to update your quickmarks file according to your `[[quickmark_rules]]` declared in your [quterofi.toml](#engines) file.
+Call `quterofi/set_quickmarks` to update your quickmarks file according to your `[[quickmark_rules]]` declared in your [quterofi.toml](#engines) file. 
 
 **IMPORTANT NOTE:** THIS SCRIPT IS EXPERIMENTAL. Backup your quickmarks file and use it at your own risk.
+
+About regular quickmarks: If you choose to use `quterofi/set_quickmarks`, it's of course also possible to continue managing any other "regular" quickmarks as usual, just be careful not to write quterofi rules that could interfere with your regular quickmarks. To do this, my personal choice is to prefix all my quterofi quickmarks with a "namespace" followed by a dot. And I never use a dot in my regular quickmarks, by doing this there is no possible interference between the two.
 
 Declare your `[[quickmark_rules]]` to be like
 
