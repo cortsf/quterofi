@@ -79,12 +79,12 @@ quterofi/switch_engine [--newtab] [--edit] [--invert]
 - Call with `--edit` to edit the search string (and optionally, set a new search engine)
 - Call with `--invert` if you want to `--edit` using `:open -t`
 
-### Example 1 (without `--edit`)
+#### Example 1 (without `--edit`)
 - Current url: `https://www.google.com/search?q=hello world`
 - New engine selected by calling `quterofi/switch_engine`: `ghi.qr`
 - Automagically redirects to: `https://github.com/cortsf/quterofi/issues?q=hello world`
 
-### Example 2 (with `--edit`)
+#### Example 2 (with `--edit`)
 - Current url: `https://www.google.com/search?q=hello world`
 - Calling `quterofi/switch_engine` with `--edit` will call `quterofi/open` with the string `gl hello world` or `hello world gl` if you use `--invert` in addition to `--edit`
 
