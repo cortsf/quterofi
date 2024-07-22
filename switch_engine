@@ -11,6 +11,8 @@ exec(open(getenv("QUTE_CONFIG_DIR") + '/userscripts/quterofi/read_engines').read
 
 parser = ArgumentParser(prog='rofi_switch_engine', description='Switch search engines on the fly')
 parser.add_argument('-t', '--newtab', action='store_true')
+parser.add_argument('-e', '--edit', action='store_true')
+parser.add_argument('-i', '--invert', action='store_true')
 args = parser.parse_args()
 
 all_engines = parse_engines(getenv("QUTE_CONFIG_DIR") + "/quterofi.toml")
@@ -33,62 +35,66 @@ def qute_open(url):
 
 url=environ['QUTE_URL']
 
-matching_templates=[]
+matching_templates={}
 
-for template in all_engines.values():
+for key, template in all_engines.items():
     start = template[:template.find('{')]
     end = template[template.find('}')+1:]
     if url.startswith(start) and url.endswith(end):
-        matching_templates.append((len(start), len(end)))
+        matching_templates[key] = ((len(start), len(end)))
 
 if len(matching_templates) == 0:
     qute_message_info("Current url does not matches any engine declared in your toml file")
     exit()
 
-p1 = Popen(['printf', '%s', '|'.join(rofi_rows)], stdout=PIPE)
+longest_template=sorted(matching_templates.items(), key=lambda item: item[1], reverse=True)[0]
 
-p2 = Popen([ 'rofi'
-             , '-dmenu'
-             , '-no-config'
-             , '-no-custom'
-             , '-markup-rows'
-             , '-sep'
-             , '|'
-             , '-eh'
-             , '2'
-             , '-matching'
-             , 'regex'
-             , '-filter'
-             , '^'
-             , '-theme-str' 
-             , 'window { anchor: north; location: north; width: 100%; font-size: 20px; border: 0px; } listview { border: 0px 0px 0px 0px; layout: vertical; spacing:5px; lines: 10; width: 0px; }'
-             , '-kb-accept-entry' 
-             , 'Ctrl+j,Ctrl+m,Return,KP_Enter'
-             , '-kb-cancel'
-             , 'Escape,Control+g,Control+bracketleft'
-             , '-window-title'
-             , 'New engine'
-             , '-font'
-             , 'Inconsolata 16'
-            ]
-           , stdin=p1.stdout
-           , stdout=PIPE
-           , stderr=PIPE
-           , universal_newlines=True
-           )
+if args.edit:
+    if args.newtab:
+        command = "spawn -u quterofi/open --newtab --string '{} {}'"
+    else:
+        command = "spawn -u quterofi/open --string '{} {}'"
+    if args.invert:
+        send_fifo(command.format(unquote(url[longest_template[1][0]:len(url)-longest_template[1][1]]), longest_template[0]))
+    else:
+        send_fifo(command.format(longest_template[0], unquote(url[longest_template[1][0]:len(url)-longest_template[1][1]])))
+else:
+    p1 = Popen(['printf', '%s', '|'.join(rofi_rows)], stdout=PIPE)
+    p2 = Popen([ 'rofi'
+                 , '-dmenu'
+                 , '-no-config'
+                 , '-no-custom'
+                 , '-markup-rows'
+                 , '-sep'
+                 , '|'
+                 , '-eh'
+                 , '2'
+                 , '-matching'
+                 , 'regex'
+                 , '-filter'
+                 , '^'
+                 , '-theme-str' 
+                 , 'window { anchor: north; location: north; width: 100%; font-size: 20px; border: 0px; } listview { border: 0px 0px 0px 0px; layout: vertical; spacing:5px; lines: 10; width: 0px; }'
+                 , '-kb-accept-entry' 
+                 , 'Ctrl+j,Ctrl+m,Return,KP_Enter'
+                 , '-kb-cancel'
+                 , 'Escape,Control+g,Control+bracketleft'
+                 , '-window-title'
+                 , 'New engine'
+                 , '-font'
+                 , 'Inconsolata 16'
+                ]
+               , stdin=p1.stdout
+               , stdout=PIPE
+               , stderr=PIPE
+               , universal_newlines=True
+               )
 
-p1.stdout.close()
-
-new_alias = re.sub(r'^\^', '', (re.sub(r'<.*?>', '', p2.communicate()[0].partition("&#10;")[0])))
-
-if new_alias == "":
-    exit()
-
-new_template = all_engines.get(new_alias)
-
-if not new_template:
-    qute_message_info("There is no engine with alias \"{}\"".format(new_alias))
-    exit()
-
-longest_template=sorted(matching_templates, key=lambda item: item[1], reverse=True)[0]
-qute_open('{} {}'.format(new_alias, unquote(url[longest_template[0]:len(url)-longest_template[1]])))
+    p1.stdout.close()
+    new_alias = re.sub(r'^\^', '', (re.sub(r'<.*?>', '', p2.communicate()[0].partition("&#10;")[0])))
+    if new_alias == "": exit()
+    new_template = all_engines.get(new_alias)
+    if not new_template:
+        qute_message_info("There is no engine with alias \"{}\"".format(new_alias))
+        exit()
+    qute_open('{} {}'.format(new_alias, unquote(url[longest_template[1][0]:len(url)-longest_template[1][1]])))
