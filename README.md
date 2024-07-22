@@ -75,7 +75,7 @@ Call `quterofi/switch_engine` to open a menu asking for the alias of a new searc
 quterofi/switch_engine [--newtab]
 ```
 
-- Call with `--newtab` to use `:open -t` by default (It's also possible to switch later between `open` and `open -t` using **-kb-custom-2**)
+- Call with `--newtab` to use `:open -t` by default.
 
 ### Example
 - Current url: `https://www.google.com/search?q=hello`
