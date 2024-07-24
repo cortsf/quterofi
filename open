@@ -13,6 +13,7 @@ parser.add_argument('-t', '--newtab', action='store_true')
 parser.add_argument('-i', '--invert', action='store_true')
 parser.add_argument('--history', action='store_true')
 parser.add_argument('--quickmarks', action='store_true')
+parser.add_argument('--autoaccept', action='store_true')
 args = parser.parse_args()
 
 all_engines = parse_engines(getenv("QUTE_CONFIG_DIR") + "/quterofi.toml")
@@ -54,6 +55,45 @@ def call_rofi_submenu(p1, partition_index, filter='', title='Prompt'):
                )
     p1.stdout.close()
     return (re.sub(r'<.*?>', '', p2.communicate()[0].partition("&#10;")[partition_index].strip()))
+
+def engines_menu(command, result):
+    process=Popen(['printf', '%s\n', '\n'.join(rofi_rows)], stdout=PIPE)
+    result_engine=call_rofi_submenu(process, 0, filter='^', title="Search engine")
+    if args.invert and args.autoaccept:
+        *searchstring, last_word = result.rsplit(' ', 1)
+        if len(searchstring) > 0 and last_word in all_engines.keys():
+            send_fifo(':{} {}'.format(command, result_engine + ' ' + searchstring[0]))
+        elif len(searchstring) > 0 and last_word not in all_engines.keys():
+            send_fifo(':{} {}'.format(command, result_engine + ' ' + result))
+        elif last_word not in all_engines.keys():
+            send_fifo(':{} {}'.format(command, result_engine + ' ' + last_word))
+        else:
+            main_menu(result_engine, command)
+    elif args.invert:
+        *searchstring, last_word = result.rsplit(' ', 1)
+        if len(searchstring) > 0 and last_word in all_engines.keys():
+            main_menu(searchstring[0] + ' ' + result_engine, command)
+        elif len(searchstring) > 0 and last_word not in all_engines.keys():
+            main_menu(result + ' ' + result_engine, command)
+        elif last_word not in all_engines.keys():
+            main_menu(last_word + ' ' + result_engine, command)
+        else:
+            main_menu(result_engine, command)
+    else: 
+        first_word, *searchstring = result.split(' ', 1)
+        if len(searchstring) > 0 and first_word in all_engines.keys():
+            searchstring_with_engine = result_engine + ' ' + searchstring[0]
+        elif len(searchstring) > 0 and first_word not in all_engines.keys():
+            searchstring_with_engine = result_engine + ' ' + result
+        elif first_word not in all_engines.keys():
+            searchstring_with_engine = result_engine + ' ' + first_word
+        else:
+            searchstring_with_engine = main_menu(result_engine + ' ', command)
+        if args.autoaccept:
+            send_fifo(':{} {}'.format(command, searchstring_with_engine))
+        else:
+            main_menu(searchstring_with_engine, command)
+    exit()
 
 def history_menu(command):
     p1 = Popen(['printf', '%s\n', '\n'.join([".mode list"
@@ -138,29 +178,13 @@ def main_menu(string, command):
         send_fifo("cmd-set-text -s :{} {}".format(command, result))
         exit()
     elif rofi_val.returncode == 14:
-        process=Popen(['printf', '%s\n', '\n'.join(rofi_rows)], stdout=PIPE)
-        result_engine=call_rofi_submenu(process, 0, filter='^', title="Search engine")
-        if args.invert:
-            *searchstring, last_word = result.rsplit(' ', 1)
-            if len(searchstring) > 0 and last_word in all_engines.keys():
-                main_menu(searchstring[0] + ' ' + result_engine, command)
-            else:
-                main_menu(result + ' ' + result_engine, command)
-        else: 
-            first_word, *searchstring = result.split(' ', 1)
-            if len(searchstring) > 0 and first_word in all_engines.keys():
-                main_menu(result_engine + ' ' + searchstring[0], command)
-            else:
-                main_menu(result_engine + ' ' + result, command)
-        exit()
+        engines_menu(command, result)
     elif rofi_val.returncode == 15:
         history_menu(command)
     elif rofi_val.returncode == 16:
         quickmarks_menu(command)
     else:
         exit()
-
-
 
 if args.newtab:
     command = 'open -t'
