@@ -64,7 +64,7 @@ def engines_menu(command, result):
         if len(searchstring) > 0 and last_word in all_engines.keys():
             send_fifo(':{} {}'.format(command, result_engine + ' ' + searchstring[0]))
         elif len(searchstring) > 0 and last_word not in all_engines.keys():
-            send_fifo(':{} {}'.format(command, result_engine + ' ' + searchstring[0]) + ' ' + last_word)
+            send_fifo(':{} {}'.format(command, result_engine + ' ' + result))
         elif last_word not in all_engines.keys():
             send_fifo(':{} {}'.format(command, result_engine + ' ' + last_word))
         else:
@@ -74,7 +74,7 @@ def engines_menu(command, result):
         if len(searchstring) > 0 and last_word in all_engines.keys():
             main_menu(searchstring[0] + ' ' + result_engine, command)
         elif len(searchstring) > 0 and last_word not in all_engines.keys():
-            main_menu(searchstring[0] + ' ' + last_word + ' ' + result_engine, command)
+            main_menu(result + ' ' + result_engine, command)
         elif last_word not in all_engines.keys():
             main_menu(last_word + ' ' + result_engine, command)
         else:
@@ -88,7 +88,7 @@ def engines_menu(command, result):
         elif first_word not in all_engines.keys():
             searchstring_with_engine = result_engine + ' ' + first_word
         else:
-            searchstring_with_engine = main_menu(result_engine, command)
+            searchstring_with_engine = main_menu(result_engine + ' ', command)
         if args.autoaccept:
             send_fifo(':{} {}'.format(command, searchstring_with_engine))
         else:
@@ -185,8 +185,6 @@ def main_menu(string, command):
         quickmarks_menu(command)
     else:
         exit()
-
-
 
 if args.newtab:
     command = 'open -t'
