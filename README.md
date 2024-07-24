@@ -78,8 +78,8 @@ quterofi/switch_engine [--newtab] [--edit] [--invert]
 ```
 
 - Call with `--newtab` to use `:open -t` instead of `:open`.
-- Call with `--edit` to edit the search string (and optionally, set a new search engine)
-- Call with `--invert` if you want to `--edit` using `:open -t`
+- Call with `--edit` to edit the search string (and optionally, set a new search engine).
+- Call with `--invert` if you want `--edit` to set the engine alias at the end.
 
 #### Example 1 (without `--edit`)
 - Current url: `https://www.google.com/search?q=hello world`
