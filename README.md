@@ -89,7 +89,7 @@ quterofi/switch_engine [--newtab] [--edit] [--main_invert] [--main_autoaccept]
 
 #### Example 2 (with `--edit`)
 - Current url: `https://www.google.com/search?q=hello world`
-- Calling `quterofi/switch_engine` with `--edit` will call `quterofi/open` with the string `gl hello world` or `hello world gl` if you use `--invert` in addition to `--edit`. This allows you to edit both the search engine and the search string.
+- Calling `quterofi/switch_engine` with `--edit` will call `quterofi/open` with the string `gl hello world` or `hello world gl` if you use `--main_invert` in addition to `--edit`. This allows you to edit both the search engine and the search string.
 
 ### Available keys when using the `switch_engine` menu
 1. **-kb-accept-entry** (Any of `Ctrl+j`,`Ctrl+m`,`Return`,`KP_Enter`)
