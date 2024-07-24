@@ -53,9 +53,9 @@ longest_template=sorted(matching_templates.items(), key=lambda item: item[1], re
 if args.edit:
     main_args = []
     if args.newtab: main_args.append('--newtab')
-    if args.main_invert: main_args.append('--invert')
     if args.main_autoaccept: main_args.append('--autoaccept')
     if args.main_invert:
+        main_args.append('--invert')
         command = "spawn -u quterofi/open {main_args} --string '{search_string} {engine_alias}'"
     else:
         command = "spawn -u quterofi/open {main_args} --string '{engine_alias} {search_string}'"
