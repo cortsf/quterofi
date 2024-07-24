@@ -39,6 +39,8 @@ quterofi/open [--newtab] [--string <arg>] [--invert] [--history] [--quickmarks]
 
 - Call with `--quickmarks` to open the quickmarks menu directly (You can also enter this menu using **-kb-custom-7** in the main menu)
 
+- Call with `--autoaccept` for the search engine menu to automatically submit the `:open` comand instead of setting the search alias in the search string of the main menu.
+
 ### Available keys when using the `open` menu
 1. **-kb-accept-entry** (Any of `Ctrl+j`,`Ctrl+m`,`Return`,`KP_Enter`): 
    - If you call `quterofi/open` with `--invert`, the last word in the search string will be used as a search engine (if and only if there is one with such alias). For example, if your search string is `hello world ddg`, the underlying open command will be `:open ddg hello world`. Alternatively, you can accept your entry with **-kb-custom-1** for your string to be interpreted verbatim (`:open hello world ddg`)
