@@ -78,7 +78,7 @@ def engines_menu(command, result):
         elif last_word not in all_engines.keys():
             main_menu(last_word + ' ' + result_engine, command)
         else:
-            main_menu(result_engine, command)
+            main_menu(result_engine + ' ', command)
     else: 
         first_word, *searchstring = result.split(' ', 1)
         if len(searchstring) > 0 and first_word in all_engines.keys():
