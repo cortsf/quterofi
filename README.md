@@ -127,7 +127,7 @@ repo = "linux"
 
 For `quterofi/set_quickmarks` to create or update (if already exists) your `gh.qr`, `gh.lnx`, `ghi.qr` and `ghi.lnx` quickmarks. Although it's possible for `quterofi/set_quickmarks` to also detect and delete from an alias namespace like `gh` a quickmark like `qr`, when there is no `[[github_repos]]` block providing `gh.qr`, the current implementation of `quterofi/set_quickmarks` won't automatically do it and is up to you to delete any quickmarks created by `quterofi/set_quickmarks`. Of course, this ~~may~~ will change in the future.
 
-To manually collect garbage from a namespace (`ghi` in this example) you can issue `sed -i '/^ghi\..*$/d' ./path/to/your/quickmarks`. This will delete all quickmarks starting with `ghi.` call `quterofi/set_quickmarks` again to set all your (clean) `ghi` quickmarks declared in `quterofi.toml`.
+To manually collect garbage from a namespace (`ghi` in this example) you can issue `sed -i '/^ghi\..*$/d' ./path/to/your/quickmarks`. This will delete all quickmarks starting with `ghi.`. Call `quterofi/set_quickmarks` again to set all your (clean) `ghi` quickmarks declared in `quterofi.toml`.
 
 Resulting quickmarks for the above `quterofi.toml`:
 
