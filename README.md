@@ -74,12 +74,13 @@ quterofi/open [--newtab] [--string <arg>] [--invert] [--history] [--quickmarks] 
 Call `quterofi/switch_engine` to open a menu asking for the alias of a new search engine to open the search string present in your current url, if there is a matching engine for your current url. See examples below.
 
 ``` bash
-quterofi/switch_engine [--newtab] [--edit] [--invert] 
+quterofi/switch_engine [--newtab] [--edit] [--main_invert] [--main_autoaccept]
 ```
 
 - Call with `--newtab` to use `:open -t` instead of `:open`.
-- Call with `--edit` to edit the search string (and optionally, set a new search engine).
-- Call with `--invert` if you want `--edit` to set the engine alias at the end.
+- Call with `--edit` to edit the search string and engine alias in the main menue.
+- Call with `--main_invert` if you want `--edit` to call the main menu with `--invert`.
+- Call with `--main_autoaccept` if you want `--edit` to call the main menu with `--autoaccept`.
 
 #### Example 1 (without `--edit`)
 - Current url: `https://www.google.com/search?q=hello world`
@@ -238,19 +239,19 @@ for alias, url in all_engines.items():
 ### Quterofi bindings
 
 ``` python
-config.bind('o', 'spawn -u quterofi/open --invert')
-config.bind('<Ctrl-o>', 'spawn -u quterofi/open --invert --newtab')
-config.bind('<Shift-o>', 'spawn -u quterofi/open --invert --newtab')
-config.bind('<Alt-o>', 'spawn -u quterofi/open --invert --string {url}')
-config.bind('<Alt-Shift-o>', 'spawn -u quterofi/open --invert --newtab --string {url}')
+config.bind('o', 'spawn -u quterofi/open --invert --autoaccept')
+config.bind('<Ctrl-o>', 'spawn -u quterofi/open --invert --newtab --autoaccept')
+config.bind('<Shift-o>', 'spawn -u quterofi/open --invert --newtab --autoaccept')
+config.bind('<Alt-o>', 'spawn -u quterofi/open --invert --string {url:pretty}')
+config.bind('<Alt-Shift-o>', 'spawn -u quterofi/open --invert --newtab --string {url:pretty}')
 config.bind('<Alt-h>', 'spawn -u quterofi/open --history')
 config.bind('<Alt-Shift-h>', 'spawn -u quterofi/open --history --newtab')
 config.bind('<Alt-q>', 'spawn -u quterofi/open --quickmarks')
 config.bind('<Alt-Shift-q>', 'spawn -u quterofi/open --quickmarks --newtab')
-config.bind(',o', 'spawn -u -m quterofi/switch_engine ')
+config.bind(',o', 'spawn -u -m quterofi/switch_engine')
 config.bind(',O', 'spawn -u -m quterofi/switch_engine --newtab')
-config.bind(',e', 'spawn -u -m quterofi/switch_engine --edit')
-config.bind(',E', 'spawn -u -m quterofi/switch_engine --edit --newtab')
+config.bind(',e', 'spawn -u -m quterofi/switch_engine --edit --main_autoaccept')
+config.bind(',E', 'spawn -u -m quterofi/switch_engine --edit --newtab --main_autoaccept')
 
 config.bind(',s', 'spawn -u -m quterofi/set_quickmarks') # EXPERIMENTAL!
 ```
