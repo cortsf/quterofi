@@ -68,7 +68,7 @@ def engines_menu(command, result):
         elif last_word not in all_engines.keys():
             send_fifo(':{} {}'.format(command, result_engine + ' ' + last_word))
         else:
-            main_menu(result_engine, command)
+            main_menu(result_engine + ' ', command)
     elif args.invert:
         *searchstring, last_word = result.rsplit(' ', 1)
         if len(searchstring) > 0 and last_word in all_engines.keys():
