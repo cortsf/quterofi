@@ -12,7 +12,8 @@ exec(open(getenv("QUTE_CONFIG_DIR") + '/userscripts/quterofi/read_engines').read
 parser = ArgumentParser(prog='rofi_switch_engine', description='Switch search engines on the fly')
 parser.add_argument('-t', '--newtab', action='store_true')
 parser.add_argument('-e', '--edit', action='store_true')
-parser.add_argument('-i', '--invert', action='store_true')
+parser.add_argument('-i', '--main_invert', action='store_true')
+parser.add_argument('-a', '--main_autoaccept', action='store_true')
 args = parser.parse_args()
 
 all_engines = parse_engines(getenv("QUTE_CONFIG_DIR") + "/quterofi.toml")
@@ -50,14 +51,20 @@ if len(matching_templates) == 0:
 longest_template=sorted(matching_templates.items(), key=lambda item: item[1], reverse=True)[0]
 
 if args.edit:
-    if args.newtab:
-        command = "spawn -u quterofi/open --newtab --string '{} {}'"
+    main_args = []
+    if args.newtab: main_args.append('--newtab')
+    if args.main_autoaccept: main_args.append('--autoaccept')
+    if args.main_invert:
+        main_args.append('--invert')
+        command = "spawn -u quterofi/open {main_args} --string '{search_string} {engine_alias}'"
     else:
-        command = "spawn -u quterofi/open --string '{} {}'"
-    if args.invert:
-        send_fifo(command.format(unquote(url[longest_template[1][0]:len(url)-longest_template[1][1]]), longest_template[0]))
-    else:
-        send_fifo(command.format(longest_template[0], unquote(url[longest_template[1][0]:len(url)-longest_template[1][1]])))
+        command = "spawn -u quterofi/open {main_args} --string '{engine_alias} {search_string}'"
+    send_fifo(
+        command.format(
+            main_args=' '.join(main_args)
+            , search_string = unquote(url[longest_template[1][0]:len(url)-longest_template[1][1]])
+            , engine_alias = longest_template[0]
+        ))
 else:
     p1 = Popen(['printf', '%s', '|'.join(rofi_rows)], stdout=PIPE)
     p2 = Popen([ 'rofi'
