@@ -26,7 +26,7 @@ Quterofi provides the `open`, `switch_engine` and `set_quickmarks` userscripts (
 `quterofi/open` is a replacement for the `:open` menu
 
 ``` bash
-quterofi/open [--newtab] [--string <arg>] [--invert] [--history] [--quickmarks] [--autoaccept]
+quterofi/open [--newtab] [--string <arg>] [--invert] [--engines][--history] [--quickmarks] [--autoaccept]
 ```
 
 - Call with `--newtab` to use `:open -t` by default (It's also possible to switch later between `open` and `open -t` using **-kb-custom-2**)
