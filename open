@@ -95,7 +95,7 @@ def engines_menu(command, result):
             main_menu(searchstring_with_engine, command)
     exit()
 
-def history_menu(command):
+def history_menu(command, filter):
     p1 = Popen(['printf', '%s\n', '\n'.join([".mode list"
                                          , ".separator &#10;"
                                          , "select '<b>'||replace(title, '&', '&amp;')||'</b>', '<i>'||replace(url, '&', '&amp;')||'</i>' from CompletionHistory"
@@ -104,7 +104,7 @@ def history_menu(command):
                                          ])], stdout=PIPE)
     p2 = Popen(['sqlite3', getenv("QUTE_DATA_DIR") + '/history.sqlite'], stdin=p1.stdout, stdout=PIPE)
     p1.stdout.close()
-    result_history=call_rofi_submenu(p2, 2, title="Search history")
+    result_history=call_rofi_submenu(p2, 2, filter=filter, title="Search history")
     send_fifo(':{} {}'.format(command, result_history))
     exit()
 
@@ -180,7 +180,7 @@ def main_menu(string, command):
     elif rofi_val.returncode == 14:
         engines_menu(command, result)
     elif rofi_val.returncode == 15:
-        history_menu(command)
+        history_menu(command, result)
     elif rofi_val.returncode == 16:
         quickmarks_menu(command)
     else:
