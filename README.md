@@ -1,7 +1,7 @@
 # Installation
 1. Clone and copy (or symlink) this repo inside your userscripts dir (See [Dir structure](#dir-structure) below). 
 2. Make `quterofi/open`, `quterofi/switch_engine`, `quterofi/set_quickmarks` and `quterofi/read_engines` executable if needed. 
-3. Declare your engines and quickmarks -experimental- in `quterofi.toml` (See [Engines](#engines) section below).
+3. Declare your engines and quickmarks -experimental- in `quterofi.toml` (See [Quterofi.toml](#quterofi.toml) section below).
 4. Update your `config.py` file (See [Config](#config) section below).
 
 #### Dir structure
@@ -100,56 +100,23 @@ quterofi/switch_engine [--newtab] [--edit] [--main_invert] [--main_autoaccept]
 ## Usage of the `set_quickmarks` userscript
 Call `quterofi/set_quickmarks` to update your quickmarks file according to your `[[quickmark_rules]]` declared in your [quterofi.toml](#engines) file. 
 
-**IMPORTANT NOTE:** THIS SCRIPT IS EXPERIMENTAL. Backup your quickmarks file and use it at your own risk.
+### Notes
+- **IMPORTANT:** THIS SCRIPT IS EXPERIMENTAL. Backup your quickmarks file and use it at your own risk.
 
-About regular quickmarks: If you choose to use `quterofi/set_quickmarks`, it's of course also possible to continue managing any other "regular" quickmarks as usual, just be careful not to write quterofi rules that could interfere with your regular quickmarks. To do this, my personal choice is to prefix all my quterofi quickmarks with a "namespace" followed by a dot. And I never use a dot in my regular quickmarks, by doing this there is no possible interference between the two.
+- About regular quickmarks: If you choose to use `quterofi/set_quickmarks`, it's of course also possible to continue managing any other "regular" quickmarks as usual, just be careful not to write quterofi rules that could interfere with your regular quickmarks. To do this, my personal choice is to prefix all my quterofi quickmarks with a "namespace" followed by a dot. And I never use a dot in my regular quickmarks, by doing this there is no possible interference between the two.
 
-Declare your `[[quickmark_rules]]` to be like
+- Although it's possible for `quterofi/set_quickmarks` to detect and delete from an alias namespace like `gh` a quickmark like `qr`, when there is no `[[github_repos]]` block providing `gh.qr`, the current implementation of `quterofi/set_quickmarks` won't automatically do it and is up to you to delete any quickmarks created by `quterofi/set_quickmarks`. Of course, this ~~may~~ ~~will~~ should change in the future.
 
-``` toml
-[[quickmark_rules]]
-qr_template = "github_repos"
-qr_alias ="gh.{alias}"
-qr_url = "https://github.com/{user}/{repo}"
+- To manually collect garbage from a namespace (`ghi` in this example) you can issue `sed -i '/^ghi\..*$/d' ./path/to/your/quickmarks`. This will delete all quickmarks starting with `ghi.`. Call `quterofi/set_quickmarks` again to set all your (clean) `ghi` quickmarks declared in `quterofi.toml`. Use `'/^[[:alnum:]]*\..*$/d'` instead to delete all quimarks prefixed with alphanumeric characters followed by a dot.
 
-[[quickmark_rules]]
-qr_template = "github_repos"
-qr_alias ="ghi.{alias}"
-qr_url = "https://github.com/{user}/{repo}/issues"
+- before updating your quickmarks file, `quterofi/set_quickmarks` will create a copy with the `_bkp` postfix. Of course if you call `quterofi/set_quickmarks` twice you will overwrite your `quickmarks_bkp` so be careful and keep a safe copy of you quickmarks, somewhere else.
 
-[[github_repos]]
-alias = "qr"
-user = "cortsf"
-repo = "quterofi"
+## Quterofi.toml (Engines & quickmarks)
+Declare your search engines and quickmarks in `quterofi.toml` (See [Dir structure](#dir-structure)) using this format. Any equivalent toml syntax declaring the same underlying structure/s should work (not tested).
 
-[[github_repos]]
-alias = "lnx"
-user = "torvalds"
-repo = "linux"
-```
+This format allows users to create custom "templates" (quite an abstract concept in this context..) instructing quterofi how to generate search engines and quickmarks. Note that you can declare/define any variable to construct urls, except for `alias` which is reserved to be used exclusively to construct aliases, and it's in fact, mandatory to declare for every engine/quickmark declaratios and it's also the only variable available to construct aliases (This may change in the future allowing any variable name and number to be used both for urls and aliases).
 
-For `quterofi/set_quickmarks` to create or update (if already exists) your `gh.qr`, `gh.lnx`, `ghi.qr` and `ghi.lnx` quickmarks. Although it's possible for `quterofi/set_quickmarks` to also detect and delete from an alias namespace like `gh` a quickmark like `qr`, when there is no `[[github_repos]]` block providing `gh.qr`, the current implementation of `quterofi/set_quickmarks` won't automatically do it and is up to you to delete any quickmarks created by `quterofi/set_quickmarks`. Of course, this ~~may~~ will change in the future.
-
-To manually collect garbage from a namespace (`ghi` in this example) you can issue `sed -i '/^ghi\..*$/d' ./path/to/your/quickmarks`. This will delete all quickmarks starting with `ghi.`. Call `quterofi/set_quickmarks` again to set all your (clean) `ghi` quickmarks declared in `quterofi.toml`.
-
-Resulting quickmarks for the above `quterofi.toml`:
-
-``` json
-{"gh.qr": "https://github.com/cortsf/quterofi"}
-{"gh.lnx": "https://github.com/torvalds/linux"}
-{"ghi.qr": "https://github.com/cortsf/quterofi/issues"}
-{"ghi.lnx": "https://github.com/torvalds/linux/issues"}
-```
-
-Note: before updating your quickmarks file, `quterofi/set_quickmarks` will create a copy with the `_bkp` postfix. Of course if you call `quterofi/set_quickmarks` twice you will overwrite your `quickmarks_bkp` so be careful and keep a safe copy of you quickmarks, somewhere else.
-
-## Engines
-Declare your search engines in `quterofi.toml` (See [Dir structure](#dir-structure)) using this format. Any equivalent toml syntax declaring the same underlying structure/s should work (not tested).
-
-This format allows users to create custom "templates" (quite an abstract concept in this context..) instructing quterofi how to generate search engines. Note that you can declare/define any variable to construct urls, except for `alias` which is reserved to be used exclusively to construct aliases, and it's in fact, mandatory to declare for every engine as the only one available to construct aliases (This may change in the future allowing any variable name and number to be used both for urls and aliases).
-
-
-See [Usage of the set_quickmarks userscript](#usage-of-the-set_quickmarks-userscript) for instruction on how to setup quickmark rules on `quterofi.toml`.
+See [Usage of the set_quickmarks userscript](#usage-of-the-set_quickmarks-userscript) for instruction on how to setup quickmarks declared in `quterofi.toml`.
 
 ### Example
 ``` toml
@@ -160,6 +127,11 @@ See [Usage of the set_quickmarks userscript](#usage-of-the-set_quickmarks-usersc
 er_template = "search_engines"
 er_alias = "{alias}"
 er_url = "{url}"
+
+[[engine_rules]]
+er_template = "wikipedia_languages"
+er_alias ="wp.{alias}"
+er_url = "https://{lang}.wikipedia.org/wiki/{}"
 
 [[engine_rules]]
 er_template = "github_repos"
@@ -176,12 +148,22 @@ er_template = "github_repos"
 er_alias ="ghp.{alias}"
 er_url = "https://github.com/{user}/{repo}/pulls?q={}"
 
-[[engine_rules]]
-er_template = "wikipedia_languages"
-er_alias ="wp.{alias}"
-er_url = "https://{lang}.wikipedia.org/wiki/{}"
+[[quickmark_rules]]
+qr_template = "github_repos"
+qr_alias ="gh.{alias}"
+qr_url = "https://github.com/{user}/{repo}"
 
-## Engines
+[[quickmark_rules]]
+qr_template = "github_repos"
+qr_alias ="ghi.{alias}"
+qr_url = "https://github.com/{user}/{repo}/issues"
+
+[[quickmark_rules]]
+qr_template = "github_repos"
+qr_alias ="ghp.{alias}"
+qr_url = "https://github.com/{user}/{repo}/pulls"
+
+## Search engines
 ####################
 
 [[search_engines]]
@@ -192,13 +174,18 @@ url = "https://duckduckgo.com/?q={}&ia=web"
 alias = "gl"
 url = "https://www.google.com/search?q={}"
 
-## Github
+## Github repos
 ####################
 
 [[github_repos]]
 alias = "qr"
 user = "cortsf"
 repo = "quterofi"
+
+[[github_repos]]
+alias = "lnx"
+user = "torvalds"
+repo = "linux"
 
 ## Wikipedia
 ####################
@@ -212,15 +199,28 @@ alias = "es"
 lang = "es"
 ```
 
-### Result
+### Resulting engines for the above quterofi.toml
 ``` json
-{"gl": "https://www.google.com/search?q={}"}
 {"ddg": "https://duckduckgo.com/?q={}&ia=web"}
-{"gh.qr": "https://github.com/search?q=repo%3Acortsf%2Fquterofi+{}&type=issues"}
-{"ghi.qr": "https://github.com/cortsf/quterofi/issues?q={}"}
-{"ghp.qr": "https://github.com/cortsf/quterofi/pulls?q={}"}
+{"gl": "https://www.google.com/search?q={}"}
 {"wp.en": "https://en.wikipedia.org/wiki/{}"}
 {"wp.es": "https://es.wikipedia.org/wiki/{}"}
+{"gh.qr": "https://github.com/search?q=repo%3Acortsf%2Fquterofi+{}&type=issues"}
+{"gh.lnx": "https://github.com/search?q=repo%3Atorvalds%2Flinux+{}&type=issues"}
+{"ghi.qr": "https://github.com/cortsf/quterofi/issues?q={}"}
+{"ghi.lnx": "https://github.com/torvalds/linux/issues?q={}"}
+{"ghp.qr": "https://github.com/cortsf/quterofi/pulls?q={}"}
+{"ghp.lnx": "https://github.com/torvalds/linux/pulls?q={}"}
+```
+
+### Resulting quickmarks for the above quterofi.toml
+``` json
+{"gh.qr": "https://github.com/cortsf/quterofi"}
+{"ghi.qr": "https://github.com/cortsf/quterofi/issues"}
+{"ghp.qr": "https://github.com/cortsf/quterofi/pulls"}
+{"gh.lnx": "https://github.com/torvalds/linux"}
+{"ghi.lnx": "https://github.com/torvalds/linux/issues"}
+{"ghp.lnx": "https://github.com/torvalds/linux/pulls"}
 ```
 
 ## Config
