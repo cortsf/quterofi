@@ -265,3 +265,16 @@ config.bind("E", "cmd-set-text -s :open -t ")
 config.bind("<Alt-e>", "cmd-set-text -s :open {url:pretty}")
 config.bind("<Alt-Shift-e>", "cmd-set-text -s :open -t {url:pretty}")
 ```
+
+# External launcher
+
+``` bash
+#!/usr/bin/env bash
+
+export QUTE_CONFIG_DIR="$HOME/.config/qutebrowser"
+export QUTE_FIFO="/tmp/quterofi_launcher_fifo"
+> "$QUTE_FIFO"
+"$QUTE_CONFIG_DIR"/userscripts/quterofi/open "$@"
+qutebrowser "$(cat "$QUTE_FIFO")"
+rm "$QUTE_FIFO"
+```
