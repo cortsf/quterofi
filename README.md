@@ -35,6 +35,8 @@ quterofi/open [--newtab] [--string <arg>] [--invert] [--history] [--quickmarks] 
 
 - Call with `--invert` to treat the last word as a search engine alias. If your search string is `hello world ddg`, the underlying command will be `:open ddg hello world`, if and only if there is a search engine with alias `ddg` declared in your [quterofi.toml](#engines) file. This behavior is for **-kb-accept-entry**, you can also accept your entry with **-kb-custom-2** for your string to be interpreted verbatim (`:open hello world ddg`).
 
+- Call with `--engines` to open the history menu directly (You can also enter this menu using **-kb-custom-5** in the main menu)
+
 - Call with `--history` to open the history menu directly (You can also enter this menu using **-kb-custom-6** in the main menu)
 
 - Call with `--quickmarks` to open the quickmarks menu directly (You can also enter this menu using **-kb-custom-7** in the main menu)

@@ -11,6 +11,7 @@ parser = ArgumentParser(prog='quterofi/open', description='Alternative ":open" m
 parser.add_argument('-s', '--string', default='')
 parser.add_argument('-t', '--newtab', action='store_true')
 parser.add_argument('-i', '--invert', action='store_true')
+parser.add_argument('--engines', action='store_true')
 parser.add_argument('--history', action='store_true')
 parser.add_argument('--quickmarks', action='store_true')
 parser.add_argument('--autoaccept', action='store_true')
@@ -188,17 +189,14 @@ def main_menu(string, command):
 
 if args.newtab:
     command = 'open -t'
-    if args.history: 
-        history_menu(command)
-    elif args.quickmarks:
-        quickmarks_menu(command)
-    else:
-        main_menu(args.string, command)
 else:
     command = 'open'
-    if args.history: 
-        history_menu(command)
-    elif args.quickmarks:
-        quickmarks_menu(command)
-    else:
-        main_menu(args.string, command)
+
+if args.engines: 
+    engines_menu(command, args.string)
+elif args.history: 
+    history_menu(command)
+elif args.quickmarks:
+    quickmarks_menu(command)
+else:
+    main_menu(args.string, command)
