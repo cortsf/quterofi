@@ -20,7 +20,7 @@
 ```
 
 # Usage
-Quterofi provides the `open`, `switch_engine` and `set_quickmarks` userscripts (`read_engines` is just an utility used to parse engines declared in quterofi.toml)
+Quterofi provides the `open`, `switch_engine` and `set_quickmarks` userscripts (`read_engines` is just an utility used to parse engines declared in [quterofi.toml](#quterofitoml-engines--quickmarks))
 
 ## Usage of the `open` userscript
 `quterofi/open` is a replacement for the `:open` menu
@@ -33,7 +33,7 @@ quterofi/open [--newtab] [--string <arg>] [--invert] [--history] [--quickmarks] 
 
 - Call with `--string <arg>` to start writing with string ARG already set
 
-- Call with `--invert` to treat the last word as a search engine alias. If your search string is `hello world ddg`, the underlying command will be `:open ddg hello world`, if and only if there is a search engine with alias `ddg` declared in your [quterofi.toml](#engines) file. This behavior is for **-kb-accept-entry**, you can also accept your entry with **-kb-custom-2** for your string to be interpreted verbatim (`:open hello world ddg`).
+- Call with `--invert` to treat the last word as a search engine alias. If your search string is `hello world ddg`, the underlying command will be `:open ddg hello world`, if and only if there is a search engine with alias `ddg` declared in your [quterofi.toml](#quterofitoml-engines--quickmarks) file. This behavior is for **-kb-accept-entry**, you can also accept your entry with **-kb-custom-2** for your string to be interpreted verbatim (`:open hello world ddg`).
 
 - Call with `--engines` to open the history menu directly (You can also enter this menu using **-kb-custom-5** in the main menu)
 
@@ -98,7 +98,7 @@ quterofi/switch_engine [--newtab] [--edit] [--main_invert] [--main_autoaccept]
 2. **-kb-cancel'** (Any of `Escape`,`Control+g`,`Control+bracketleft`)
 
 ## Usage of the `set_quickmarks` userscript
-Call `quterofi/set_quickmarks` to update your quickmarks file according to your `[[quickmark_rules]]` declared in your [quterofi.toml](#engines) file. 
+Call `quterofi/set_quickmarks` to update your quickmarks file according to your `[[quickmark_rules]]` declared in your [quterofi.toml](#quterofitoml-engines--quickmarks) file. 
 
 ### Notes
 - **IMPORTANT:** THIS SCRIPT IS EXPERIMENTAL. Backup your quickmarks file and use it at your own risk.
