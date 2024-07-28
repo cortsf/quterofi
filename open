@@ -7,7 +7,7 @@ from sys import exit
 
 exec(open(getenv("QUTE_CONFIG_DIR") + '/userscripts/quterofi/read_engines').read())
 
-parser = ArgumentParser(prog='rofi_open', description='Alternative ":open" made with rofi')
+parser = ArgumentParser(prog='quterofi/open', description='Alternative ":open" menu using rofi')
 parser.add_argument('-s', '--string', default='')
 parser.add_argument('-t', '--newtab', action='store_true')
 parser.add_argument('-i', '--invert', action='store_true')
