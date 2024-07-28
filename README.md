@@ -275,7 +275,6 @@ export QUTE_CONFIG_DIR="$HOME/.config/qutebrowser"
 export QUTE_FIFO="/tmp/quterofi_launcher_fifo"
 > "$QUTE_FIFO"
 "$QUTE_CONFIG_DIR"/userscripts/quterofi/open "$@"
-cmd="$(cat "$QUTE_FIFO")"
-[[ -n "$cmd" ]] && qutebrowser "$cmd"
+[[ -n "$(cat "$QUTE_FIFO")" ]] && qutebrowser "$(cat "$QUTE_FIFO")"
 rm "$QUTE_FIFO"
 ```
