@@ -3,25 +3,6 @@
 import tomllib
 import re
 
-def parse_engines_simple(engines_file):
-  with open(engines_file, "rb") as f:
-      search_engines = tomllib.load(f)
-  all_engines = {}
-  
-  for engine in search_engines['engines']:
-      url=engine['url']
-      all_engines[engine['alias']] = url
-  
-  for repo in search_engines['github_repos']:
-      gh_alias = "gh." + repo['alias']
-      gh_url = "https://github.com/search?q=repo%3A" + repo['user'] + "%2F" + repo['repo'] + "+{}&type=issues"
-      all_engines[gh_alias] = gh_url
-      ghi_alias = "ghi." + repo['alias']
-      ghi_url = "https://github.com/" + repo['user'] + "/" + repo['repo'] + "/issues?q={}"
-      all_engines["ghi." + repo['alias']] = ghi_url
-  return all_engines
-
-
 def parse_engines(engines_file):
   with open(engines_file, "rb") as f:
       parsed_toml = tomllib.load(f)
