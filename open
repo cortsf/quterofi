@@ -120,6 +120,7 @@ def quickmarks_menu(command):
 def main_menu(string, command):
     rofi_val = run([ 'rofi'
 	             , '-dmenu'
+                     , '-no-config'
 	             , '-kb-accept-entry'
                      , 'Ctrl+j,Ctrl+m,Return,KP_Enter'
 	             , '-kb-cancel'
