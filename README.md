@@ -147,8 +147,18 @@ er_url = "https://github.com/{user}/{repo}/issues?q={}"
 
 [[engine_rules]]
 er_template = "github_repos"
+er_alias ="ghin.{alias}"
+er_url = "https://github.com/{user}/{repo}/issues/{}"
+
+[[engine_rules]]
+er_template = "github_repos"
 er_alias ="ghp.{alias}"
 er_url = "https://github.com/{user}/{repo}/pulls?q={}"
+
+[[engine_rules]]
+er_template = "github_repos"
+er_alias ="ghpn.{alias}"
+er_url = "https://github.com/{user}/{repo}/pulls/{}"
 
 [[quickmark_rules]]
 qr_template = "github_repos"
@@ -211,8 +221,12 @@ lang = "es"
 {"gh.lnx": "https://github.com/search?q=repo%3Atorvalds%2Flinux+{}&type=issues"}
 {"ghi.qr": "https://github.com/cortsf/quterofi/issues?q={}"}
 {"ghi.lnx": "https://github.com/torvalds/linux/issues?q={}"}
+{"ghin.qr": "https://github.com/cortsf/quterofi/{}"}
+{"ghin.lnx": "https://github.com/torvalds/linux/{}"}
 {"ghp.qr": "https://github.com/cortsf/quterofi/pulls?q={}"}
 {"ghp.lnx": "https://github.com/torvalds/linux/pulls?q={}"}
+{"ghpn.qr": "https://github.com/cortsf/quterofi/{}"}
+{"ghpn.lnx": "https://github.com/torvalds/linux/{}"}
 ```
 
 ### Resulting quickmarks for the above quterofi.toml
