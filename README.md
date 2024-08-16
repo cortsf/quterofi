@@ -147,7 +147,7 @@ er_template = "github_repos"
 er_alias ="ghi.{alias}"
 er_url = "https://github.com/{user}/{repo}/issues?q={}"
 
-[[engine_rules]]
+[[engine_rules]] # Use this one to open individual issues, directly, by number.
 er_template = "github_repos"
 er_alias ="ghin.{alias}"
 er_url = "https://github.com/{user}/{repo}/issues/{}"
@@ -157,7 +157,7 @@ er_template = "github_repos"
 er_alias ="ghp.{alias}"
 er_url = "https://github.com/{user}/{repo}/pulls?q={}"
 
-[[engine_rules]]
+[[engine_rules]] # Use this one to open individual pr's, directly, by number.
 er_template = "github_repos"
 er_alias ="ghpn.{alias}"
 er_url = "https://github.com/{user}/{repo}/pull/{}"
