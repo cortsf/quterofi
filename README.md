@@ -160,7 +160,7 @@ er_url = "https://github.com/{user}/{repo}/pulls?q={}"
 [[engine_rules]]
 er_template = "github_repos"
 er_alias ="ghpn.{alias}"
-er_url = "https://github.com/{user}/{repo}/pulls/{}"
+er_url = "https://github.com/{user}/{repo}/pull/{}"
 
 [[quickmark_rules]]
 qr_template = "github_repos"
