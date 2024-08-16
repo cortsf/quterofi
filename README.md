@@ -256,7 +256,7 @@ config.bind(',o', 'spawn -u -m quterofi/switch_engine')
 config.bind(',O', 'spawn -u -m quterofi/switch_engine --newtab')
 config.bind(',e', 'spawn -u -m quterofi/switch_engine --edit --main_autoaccept')
 config.bind(',E', 'spawn -u -m quterofi/switch_engine --edit --newtab --main_autoaccept')
-config.bind(',y', 'mode-enter caret;;yank selection;;cmd-later 40 spawn -u -m quterofi/open --engines --autoaccept --string {clipboard}')
+config.bind(',y', 'mode-enter caret;;yank selection;;cmd-later 40 spawn -u -m quterofi/open --engines --autoaccept --string {clipboard}') # Use when searching text
 config.bind(',y', 'yank selection;;cmd-later 40 spawn -u -m quterofi/open --engines --autoaccept --string {clipboard}', mode="caret")
 
 config.bind(',s', 'spawn -u -m quterofi/set_quickmarks') # EXPERIMENTAL!
