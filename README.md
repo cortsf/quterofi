@@ -221,12 +221,12 @@ lang = "es"
 {"gh.lnx": "https://github.com/search?q=repo%3Atorvalds%2Flinux+{}&type=issues"}
 {"ghi.qr": "https://github.com/cortsf/quterofi/issues?q={}"}
 {"ghi.lnx": "https://github.com/torvalds/linux/issues?q={}"}
-{"ghin.qr": "https://github.com/cortsf/quterofi/{}"}
-{"ghin.lnx": "https://github.com/torvalds/linux/{}"}
+{"ghin.qr": "https://github.com/cortsf/quterofi/issues/{}"}
+{"ghin.lnx": "https://github.com/torvalds/linux/issues/{}"}
 {"ghp.qr": "https://github.com/cortsf/quterofi/pulls?q={}"}
 {"ghp.lnx": "https://github.com/torvalds/linux/pulls?q={}"}
-{"ghpn.qr": "https://github.com/cortsf/quterofi/{}"}
-{"ghpn.lnx": "https://github.com/torvalds/linux/{}"}
+{"ghpn.qr": "https://github.com/cortsf/quterofi/pulls/{}"}
+{"ghpn.lnx": "https://github.com/torvalds/linux/pulls/{}"}
 ```
 
 ### Resulting quickmarks for the above quterofi.toml
