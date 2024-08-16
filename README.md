@@ -121,6 +121,8 @@ This format allows users to create custom "templates" (quite an abstract concept
 See [Usage of the set_quickmarks userscript](#usage-of-the-set_quickmarks-userscript) for instruction on how to setup quickmarks declared in `quterofi.toml`.
 
 ### Example
+Brief example skipping many useful rules like `ghic`, `ghpc` or `ghd`, for github closed issues, closed pulls and discussions, respectively. For brevity.
+
 ``` toml
 ## Quterofi rules
 ####################
