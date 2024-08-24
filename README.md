@@ -300,3 +300,20 @@ export QUTE_FIFO="/tmp/quterofi_launcher_fifo"
 [[ -n "$(cat "$QUTE_FIFO")" ]] && qutebrowser "$(cat "$QUTE_FIFO")"
 rm "$QUTE_FIFO"
 ```
+
+## Emacs 
+This function opens the `quterofi/open` script showing the list of search engines. As soon as you pick one, it will use this engine to search the text in the emacs region, or the `word-at-point`, if there is no active region.
+
+This function needs the [External launcher](#external-launcher).
+
+``` elisp
+(defun quterofi () (interactive)
+       (shell-command (format "/path/to/quterofi_launcher.sh --newtab --engines --autoaccept --string %s" 
+			      (if (use-region-p)
+				  (buffer-substring (mark) (point))
+				  (word-at-point)
+				)
+			      )
+		      )
+       )
+```
