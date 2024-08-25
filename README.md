@@ -301,7 +301,7 @@ export QUTE_FIFO="/tmp/quterofi_launcher_fifo"
 rm "$QUTE_FIFO"
 ```
 
-You may want to add some (system-dependent..) additional code to automate the focusing on the qutebrowser window.
+You may want to add some (system-dependent..) code to switch window focus automatically.
 
 ## Emacs 
 This function opens the `quterofi/open` script showing the list of search engines. As soon as you pick one, it will use this engine to search the text inside the emacs region, or the `word-at-point`, if there is no active region.
