@@ -1,7 +1,7 @@
 # Installation
 1. Clone and copy (or symlink) this repo inside your userscripts dir (See [Dir structure](#dir-structure) below). 
 2. Make `quterofi/open`, `quterofi/switch_engine`, `quterofi/set_quickmarks` and `quterofi/read_engines` executable if needed. 
-3. Declare your engines and quickmarks -experimental- in `quterofi.toml` (See [Quterofi.toml](#quterofitoml-engines--quickmarks) section below).
+3. Declare your engines and quickmarks in `quterofi.toml` (See [Quterofi.toml](#quterofitoml-engines--quickmarks) section below).
 4. Update your `config.py` file (See [Config](#config) section below).
 
 See the [Dequterofi](#dequterofi) section for a script you can use to translate `quterofi.toml` files into regular python search engines. This is useful if you decide to switch back after trying quterofi for a while. It can also be used to declare search engines generated from a `quterofi.toml` file, without having to clone/download/install/use quterofi at all.
@@ -103,7 +103,7 @@ quterofi/switch_engine [--newtab] [--edit] [--main_invert] [--main_autoaccept]
 Call `quterofi/set_quickmarks` to update your quickmarks file according to your `[[quickmark_rules]]` declared in your [quterofi.toml](#quterofitoml-engines--quickmarks) file. 
 
 ### Notes
-- **IMPORTANT:** THIS SCRIPT IS EXPERIMENTAL. Backup your quickmarks file and use it at your own risk.
+- **IMPORTANT:** THIS SCRIPT COULD BE CONSIDERED EXPERIMENTAL. Backup your quickmarks file before using.
 
 - About regular quickmarks: If you choose to use `quterofi/set_quickmarks`, it's of course also possible to continue managing any other "regular" quickmarks as usual, just be careful not to write quterofi rules that could interfere with your regular quickmarks. To do this, my personal choice is to prefix all my quterofi quickmarks with a "namespace" followed by a dot. And I never use a dot in my regular quickmarks, by doing this there is no possible interference between the two.
 
@@ -279,7 +279,7 @@ config.bind(',E', 'spawn -u -m quterofi/switch_engine --edit --newtab --main_aut
 config.bind(',y', 'mode-enter caret;;yank selection;;cmd-later 40 spawn -u -m quterofi/open --engines --autoaccept --string {clipboard}') # Use when searching text
 config.bind(',y', 'yank selection;;cmd-later 40 spawn -u -m quterofi/open --engines --autoaccept --string {clipboard}', mode="caret")
 
-config.bind(',s', 'spawn -u -m quterofi/set_quickmarks') # EXPERIMENTAL!
+config.bind(',s', 'spawn -u -m quterofi/set_quickmarks')
 ```
 
 ### Extra bindings 
