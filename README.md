@@ -4,6 +4,8 @@
 3. Declare your engines and quickmarks -experimental- in `quterofi.toml` (See [Quterofi.toml](#quterofitoml-engines--quickmarks) section below).
 4. Update your `config.py` file (See [Config](#config) section below).
 
+See the [Dequterofi](#dequterofi) section for a script you can use to translate `quterofi.toml` files into regular python search engines. This is useful if you decide to switch back after trying quterofi for a while. It can also be used to declare search engines generated from a `quterofi.toml` file, without having to clone/download/install/use quterofi at all.
+
 #### Dir structure
 
 ```
@@ -241,6 +243,8 @@ lang = "es"
 {"ghp.lnx": "https://github.com/torvalds/linux/pulls"}
 ```
 
+In this particular example, the more `[[github_repos]]` you declare, the more you benefit since you'll have for free all of those rules using `er_template = "github_repos"` generating many (uniformly prefixed) engines and quickmarks for you.
+
 ## Config
 In your config.py include code below. Be sure to set `<username>`.
 
@@ -319,3 +323,56 @@ This function needs the [External launcher](#external-launcher).
 		      )
        )
 ```
+
+
+# Dequterofi
+Use this script to translate quterofi.toml files into python code you can source or paste in your `config.py`. Needs `toml2json` and `jq` available on `$PATH` to work.
+
+``` bash
+#!/usr/bin/env bash
+# USAGE: decuterofi.sh /path/to/quterofi.toml > engines.py
+# DEPS: toml2json, jq
+
+json="$(toml2json "$1")"
+
+echo "$json" | jq -r '.engine_rules.[] | .er_template + " " + .er_alias + " " + .er_url' | while IFS=' ' read -r er_template er_alias er_url; do
+    url_variables="$(echo "$er_url" | grep -o '{[a-zA-Z0-9]*}' | grep -v "{}" | tr -d "{}")"
+    while read -r engine_item; do
+	if [ -n "$engine_item" ]; then 
+	    new_url="$er_url"
+	    new_alias="$(echo "${er_alias}" | sed "s/{alias}/$(echo "$engine_item" | jq -r .alias)/")"
+	    while read -r url_var; do
+		new_url="$(echo "${new_url}" | sed "s|{${url_var}}|$(echo "$engine_item" | jq -r ."${url_var}" | sed 's/&/\\\&/g')|")"
+	    done  <<<"$url_variables"
+	    echo "c.url.searchengines[\"$new_alias\"] = \"$new_url\""
+	fi
+    done <<<"$(echo "$json" | jq -c ".${er_template}[]?")"
+done
+```
+
+For the above [Example](#example), this program produces the following engines:
+
+``` python
+c.url.searchengines["ddg"] = "https://duckduckgo.com/?q={}&ia=web"
+c.url.searchengines["gl"] = "https://www.google.com/search?q={}"
+c.url.searchengines["wp.en"] = "https://en.wikipedia.org/wiki/{}"
+c.url.searchengines["wp.es"] = "https://es.wikipedia.org/wiki/{}"
+c.url.searchengines["gh.qr"] = "https://github.com/search?q=repo%3Acortsf%2Fquterofi+{}&type=issues"
+c.url.searchengines["gh.lnx"] = "https://github.com/search?q=repo%3Atorvalds%2Flinux+{}&type=issues"
+c.url.searchengines["ghi.qr"] = "https://github.com/cortsf/quterofi/issues?q={}"
+c.url.searchengines["ghi.lnx"] = "https://github.com/torvalds/linux/issues?q={}"
+c.url.searchengines["ghin.qr"] = "https://github.com/cortsf/quterofi/issues/{}"
+c.url.searchengines["ghin.lnx"] = "https://github.com/torvalds/linux/issues/{}"
+c.url.searchengines["ghp.qr"] = "https://github.com/cortsf/quterofi/pulls?q={}"
+c.url.searchengines["ghp.lnx"] = "https://github.com/torvalds/linux/pulls?q={}"
+c.url.searchengines["ghpn.qr"] = "https://github.com/cortsf/quterofi/pull/{}"
+c.url.searchengines["ghpn.lnx"] = "https://github.com/torvalds/linux/pull/{}"
+```
+
+Source from `engines.py` with:
+
+``` python
+config.source('./engines.py')
+```
+
+Or just copy the contents inside your `config.py`
