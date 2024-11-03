@@ -7,7 +7,7 @@ from urllib.parse import unquote
 from subprocess import PIPE, Popen
 from sys import exit
 
-exec(open(getenv("QUTE_CONFIG_DIR") + '/userscripts/quterofi/read_engines').read())
+exec(open(getenv("QUTE_CONFIG_DIR") + '/userscripts/quterofi/common').read())
 
 parser = ArgumentParser(prog='rofi_switch_engine', description='Switch search engines on the fly')
 parser.add_argument('-t', '--newtab', action='store_true')
@@ -19,11 +19,6 @@ args = parser.parse_args()
 all_engines = parse_engines(getenv("QUTE_CONFIG_DIR") + "/quterofi.toml")
 
 rofi_rows = gen_rofi_rows(all_engines)
-
-def send_fifo(command):
-    """Send command to qutebrowser FIFO."""
-    with open(getenv("QUTE_FIFO"), "w") as fifo:
-        fifo.write(command)
 
 def qute_message_info(msg):
     send_fifo(":message-info '{}'".format(msg))

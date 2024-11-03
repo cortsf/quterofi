@@ -5,7 +5,7 @@ from os import environ, getenv
 from subprocess import run, PIPE, Popen
 from sys import exit
 
-exec(open(getenv("QUTE_CONFIG_DIR") + '/userscripts/quterofi/read_engines').read())
+exec(open(getenv("QUTE_CONFIG_DIR") + '/userscripts/quterofi/common').read())
 
 parser = ArgumentParser(prog='quterofi/open', description='Alternative ":open" menu using rofi')
 parser.add_argument('-s', '--string', default='')
@@ -20,11 +20,6 @@ args = parser.parse_args()
 all_engines = parse_engines(getenv("QUTE_CONFIG_DIR") + "/quterofi.toml")
 
 rofi_rows = gen_rofi_rows(all_engines)
-
-def send_fifo(command):
-    """Send command to qutebrowser FIFO."""
-    with open(getenv("QUTE_FIFO"), "w") as fifo:
-        fifo.write(command)
 
 def call_rofi_submenu(p1, partition_index, filter='', title='Prompt'):
     p2 = Popen([ 'rofi'
