@@ -49,7 +49,6 @@ def quickmarks_menu():
     p1.stdout.close()
     filter_string = re.sub("^\^", "", p2.communicate()[0].partition("\n")[0].strip())
     selected_item = re.sub(r'<.*?>', '', re.sub("^\^", "", p2.communicate()[0].partition("\n")[2].partition("&#10;")[0].strip()))
-    p2.stdout.close()
     if p2.returncode == 0:
         if filter_string == "": 
             send_fifo('message-error "No name was given"')

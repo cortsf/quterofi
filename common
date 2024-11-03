@@ -56,5 +56,4 @@ def mkSimpleMenu(items, filter="", prompt="Promt", matching="normal", markup_row
                )
     p1.stdout.close()
     result_overwrite= p2.communicate()[0].strip()
-    p2.stdout.close()
     return result_overwrite
