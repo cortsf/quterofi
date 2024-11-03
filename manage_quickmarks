@@ -51,6 +51,7 @@ def manage_quickmarks_menu(filter="^"):
                , universal_newlines=True
                )
     p1.stdout.close()
+    raw_filter_string = p2.communicate()[0].partition("\n")[0].strip()
     filter_string = re.sub("^\^", "", p2.communicate()[0].partition("\n")[0].strip())
     selected_item = re.sub(r'<.*?>', '', re.sub("^\^", "", p2.communicate()[0].partition("\n")[2].partition("&#10;")[0].strip()))
     if p2.returncode == 0:
@@ -95,10 +96,10 @@ def manage_quickmarks_menu(filter="^"):
                     with open(getenv("QUTE_CONFIG_DIR") + '/quickmarks', 'w') as fw:
                         fw.writelines(new_lines)
                 send_fifo('message-info "manage_quickmarks: Removed quickmark ' + selected_item + '"')
-                manage_quickmarks_menu(filter_string)
+                manage_quickmarks_menu(raw_filter_string)
             case "no":
                 send_fifo('message-info "manage_quickmarks: User cancelled quickmark removing operation"')
-                manage_quickmarks_menu(filter_string)
+                manage_quickmarks_menu(raw_filter_string)
     else:
         exit()
 
