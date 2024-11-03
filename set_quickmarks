@@ -5,10 +5,7 @@ from tomllib import load
 from re import sub 
 from shutil import copyfile 
 
-def send_fifo(command):
-    """Send command to qutebrowser FIFO."""
-    with open(getenv("QUTE_FIFO"), "w") as fifo:
-        fifo.write(command)
+exec(open(getenv("QUTE_CONFIG_DIR") + '/userscripts/quterofi/common').read())
 
 with open(getenv("QUTE_CONFIG_DIR") + '/quickmarks', 'r') as f:
   quickmarks = [ line.strip().rsplit(' ', 1) for line in f ]

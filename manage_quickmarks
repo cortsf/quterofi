@@ -1,0 +1,108 @@
+#!/usr/bin/env python3
+from argparse import ArgumentParser
+from os import environ, getenv
+from subprocess import run, PIPE, Popen
+from sys import exit
+import re
+
+exec(open(getenv("QUTE_CONFIG_DIR") + '/userscripts/quterofi/common').read())
+
+parser = ArgumentParser(prog='quterofi/manage_quickmarks', description='Manage quickmarks menu')
+parser.add_argument('--delete_no_confirmation', action='store_true')
+args = parser.parse_args()
+
+def manage_quickmarks_menu(filter="^"):
+    with open(getenv("QUTE_CONFIG_DIR") + '/quickmarks', 'r') as f:
+        quickmarks=[]
+        aliases=[]
+        for line in f:
+            quickmarks.append(''.join(['<b>', re.sub(' ', '</b>&#10;<i>', line.strip()), '</i>', '\n']))
+            aliases.append(line.split()[0])
+    p1 =Popen(['printf', '%s', ''.join(quickmarks)], stdout=PIPE)
+    p2 = Popen([ 'rofi'
+                 , '-dmenu'
+                 , '-i'
+                 , '-filter'
+                 , filter
+                 , '-matching'
+                 , 'regex'
+                 , '-no-config'
+                 , '-markup-rows'
+                 , '-eh'
+                 , '2'
+                 , '-format'
+                 , 'f \n s'
+                 , '-theme-str' 
+                 , 'window { anchor: north; location: north; width: 100%; font-size: 20px; border: 0px; } listview { border: 0px 0px 0px 0px; layout: vertical; spacing:5px; lines: 10; width: 0px; } element-text { color: #666; } element selected.normal { background-color: #ded; } '
+                 , '-kb-accept-entry' 
+                 , 'Ctrl+j,Ctrl+m,Return,KP_Enter'
+                 , '-kb-cancel'
+                 , 'Escape,Control+g,Control+bracketleft'
+	         , '-kb-custom-1'
+                 , 'Alt+d'
+                 , '-window-title'
+                 , 'Alias'
+                 , '-font'
+                 , 'Inconsolata 16'
+                ]
+               , stdin=p1.stdout
+               , stdout=PIPE
+               , stderr=PIPE
+               , universal_newlines=True
+               )
+    p1.stdout.close()
+    raw_filter_string = p2.communicate()[0].partition("\n")[0].strip()
+    filter_string = re.sub("^\^", "", p2.communicate()[0].partition("\n")[0].strip())
+    selected_item = re.sub(r'<.*?>', '', re.sub("^\^", "", p2.communicate()[0].partition("\n")[2].partition("&#10;")[0].strip()))
+    if p2.returncode == 0:
+        if filter_string == "": 
+            send_fifo('message-error "No name was given"')
+        elif filter_string in aliases: 
+            result_overwrite = mkSimpleMenu (["no", "yes", "rename"], "", "Overwrite quickmark '" + filter_string + "'? ")
+            match result_overwrite:
+                case "yes":
+                    with open(getenv("QUTE_CONFIG_DIR") + '/quickmarks', 'r') as fr:
+                        lines = fr.readlines()
+                        new_lines = []
+                        for line in lines:
+                            if not bool(re.match("^" + filter_string + " [^ ]*$", line)):
+                                new_lines.append(line)
+                        new_lines.append(filter_string + " " + environ['QUTE_URL'] + "\n")
+                        with open(getenv("QUTE_CONFIG_DIR") + '/quickmarks', 'w') as fw:
+                            fw.writelines(new_lines)
+                case "rename":
+                    quickmarks_menu()
+        else:
+            quickmark = ' '.join([filter_string, environ['QUTE_URL']])
+            with open(getenv("QUTE_CONFIG_DIR") + '/quickmarks', 'a') as f:
+                f.write(quickmark + "\n")
+            send_fifo("message-info 'manage_quickmarks: Create new quickmark" + quickmark + "'")
+        exit()
+    elif p2.returncode == 1:
+        send_fifo('message-info "manage_quickmarks: User cancelled"')
+    elif p2.returncode == 10:
+        if args.delete_no_confirmation == True:
+            user_is_sure = "yes"
+        else:
+            user_is_sure = mkSimpleMenu(["no", "yes"], "", 'Do you really want to remove quickmark "' + selected_item + '"?')
+        match user_is_sure:
+            case "yes":
+                with open(getenv("QUTE_CONFIG_DIR") + '/quickmarks', 'r') as fr:
+                    lines = fr.readlines()
+                    new_lines = []
+                    for line in lines:
+                        if not bool(re.match("^" + selected_item + " [^ ]*$", line)):
+                            new_lines.append(line)
+                    with open(getenv("QUTE_CONFIG_DIR") + '/quickmarks', 'w') as fw:
+                        fw.writelines(new_lines)
+                send_fifo('message-info "manage_quickmarks: Removed quickmark ' + selected_item + '"')
+                manage_quickmarks_menu(raw_filter_string)
+            case "no":
+                send_fifo('message-info "manage_quickmarks: User cancelled quickmark removing operation"')
+                manage_quickmarks_menu(raw_filter_string)
+    else:
+        exit()
+
+
+manage_quickmarks_menu()
+

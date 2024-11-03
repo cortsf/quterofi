@@ -4,8 +4,9 @@ from argparse import ArgumentParser
 from os import environ, getenv
 from subprocess import run, PIPE, Popen
 from sys import exit
+import sqlite3
 
-exec(open(getenv("QUTE_CONFIG_DIR") + '/userscripts/quterofi/read_engines').read())
+exec(open(getenv("QUTE_CONFIG_DIR") + '/userscripts/quterofi/common').read())
 
 parser = ArgumentParser(prog='quterofi/open', description='Alternative ":open" menu using rofi')
 parser.add_argument('-s', '--string', default='')
@@ -21,45 +22,12 @@ all_engines = parse_engines(getenv("QUTE_CONFIG_DIR") + "/quterofi.toml")
 
 rofi_rows = gen_rofi_rows(all_engines)
 
-def send_fifo(command):
-    """Send command to qutebrowser FIFO."""
-    with open(getenv("QUTE_FIFO"), "w") as fifo:
-        fifo.write(command)
-
-def call_rofi_submenu(p1, partition_index, filter='', title='Prompt'):
-    p2 = Popen([ 'rofi'
-                 , '-dmenu'
-                 , '-i'
-                 , '-no-config'
-                 , '-markup-rows'
-                 , '-eh'
-                 , '2'
-                 , '-matching'
-                 , 'regex'
-                 , '-filter'
-                 , filter
-                 , '-theme-str' 
-                 , 'window { anchor: north; location: north; width: 100%; font-size: 20px; border: 0px; } listview { border: 0px 0px 0px 0px; layout: vertical; spacing:5px; lines: 10; width: 0px; }'
-                 , '-kb-accept-entry' 
-                 , 'Ctrl+j,Ctrl+m,Return,KP_Enter'
-                 , '-kb-cancel'
-                 , 'Escape,Control+g,Control+bracketleft'
-                 , '-window-title'
-                 , title
-                 , '-font'
-                 , 'Inconsolata 16'
-                ]
-               , stdin=p1.stdout
-               , stdout=PIPE
-               , stderr=PIPE
-               , universal_newlines=True
-               )
-    p1.stdout.close()
-    return (re.sub(r'<.*?>', '', p2.communicate()[0].partition("&#10;")[partition_index].strip()))
+def call_rofi_submenu(items, partition_index, filter='', title='Prompt'):
+    rofi_val = mkSimpleMenu(items, filter, title, matching="regex", markup_rows=True)
+    return (re.sub(r'<.*?>', '', rofi_val.partition("&#10;")[partition_index].strip()))
 
 def engines_menu(command, result):
-    process=Popen(['printf', '%s\n', '\n'.join(rofi_rows)], stdout=PIPE)
-    result_engine=call_rofi_submenu(process, 0, filter='^', title="Search engine")
+    result_engine=call_rofi_submenu(rofi_rows, 0, filter='^', title="Search engine")
     if args.invert and args.autoaccept:
         *searchstring, last_word = result.rsplit(' ', 1)
         if len(searchstring) > 0 and last_word in all_engines.keys():
@@ -97,23 +65,22 @@ def engines_menu(command, result):
     exit()
 
 def history_menu(command, filter=""):
-    p1 = Popen(['printf', '%s\n', '\n'.join([".mode list"
-                                         , ".separator &#10;"
-                                         , "select '<b>'||replace(title, '&', '&amp;')||'</b>', '<i>'||replace(url, '&', '&amp;')||'</i>' from CompletionHistory"
-                                         , "order by last_atime desc"
-                                         , "limit 200"
-                                         ])], stdout=PIPE)
-    p2 = Popen(['sqlite3', getenv("QUTE_DATA_DIR") + '/history.sqlite'], stdin=p1.stdout, stdout=PIPE)
-    p1.stdout.close()
-    result_history=call_rofi_submenu(p2, 2, filter, title="Search history")
+    con = sqlite3.connect(getenv("QUTE_DATA_DIR") + '/history.sqlite')
+    cur = con.execute("\n".join([ "select '<b>'||replace(title, '&', '&amp;')||'</b>', '<i>'||replace(url, '&', '&amp;')||'</i>' from CompletionHistory"
+                                 , "order by last_atime desc"
+                                 , "limit 200"
+                                 ]))
+    db_rows=cur.fetchall()
+    con.close()
+    rofi_rows = list(map(lambda row: row[0] + "&#10;" + row[1], db_rows))
+    result_history=call_rofi_submenu(rofi_rows, 2, filter, title="Search history")
     send_fifo(':{} {}'.format(command, result_history))
     exit()
 
 def quickmarks_menu(command, filter="^"):
     with open(getenv("QUTE_CONFIG_DIR") + '/quickmarks', 'r') as f:
-        quickmarks = [''.join(['<b>', re.sub(' ', '</b>&#10;<i>', x.strip()), '</i>', '\n']) for x in f.readlines()]
-    process=Popen(['printf', '%s\n', ''.join(quickmarks)], stdout=PIPE)
-    result_quickmarks=call_rofi_submenu(process, 2, filter, title='Search quickmarks')
+        quickmarks = [''.join(['<b>', re.sub(' ', '</b>&#10;<i>', x.strip()), '</i>']) for x in f.readlines()]
+    result_quickmarks=call_rofi_submenu(quickmarks, 2, filter, title='Search quickmarks')
     send_fifo(':{} {}'.format(command, result_quickmarks))
     exit()
 
