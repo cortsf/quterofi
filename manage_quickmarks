@@ -75,10 +75,10 @@ def manage_quickmarks_menu(filter="^"):
             quickmark = ' '.join([filter_string, environ['QUTE_URL']])
             with open(getenv("QUTE_CONFIG_DIR") + '/quickmarks', 'a') as f:
                 f.write(quickmark + "\n")
-            send_fifo("message-info '" + quickmark + "'")
+            send_fifo("message-info 'manage_quickmarks: Create new quickmark" + quickmark + "'")
         exit()
     elif p2.returncode == 1:
-        send_fifo('message-info "User cancelled"')
+        send_fifo('message-info "manage_quickmarks: User cancelled"')
     elif p2.returncode == 10:
         if args.delete_no_confirmation == True:
             user_is_sure = "yes"
@@ -94,10 +94,10 @@ def manage_quickmarks_menu(filter="^"):
                             new_lines.append(line)
                     with open(getenv("QUTE_CONFIG_DIR") + '/quickmarks', 'w') as fw:
                         fw.writelines(new_lines)
-                send_fifo('message-info "Removed quickmark ' + selected_item + '"')
+                send_fifo('message-info "manage_quickmarks: Removed quickmark ' + selected_item + '"')
                 manage_quickmarks_menu(filter_string)
             case "no":
-                send_fifo('message-info "User cancelled quickmark removing operation"')
+                send_fifo('message-info "manage_quickmarks: User cancelled quickmark removing operation"')
                 manage_quickmarks_menu(filter_string)
     else:
         exit()
