@@ -4,7 +4,6 @@ from os import environ, getenv
 from subprocess import run, PIPE, Popen
 from sys import exit
 import re
-import urllib.parse
 
 exec(open(getenv("QUTE_CONFIG_DIR") + '/userscripts/quterofi/common').read())
 

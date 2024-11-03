@@ -5,7 +5,6 @@ from os import environ, getenv
 from subprocess import run, PIPE, Popen
 from sys import exit
 import sqlite3
-import time
 
 exec(open(getenv("QUTE_CONFIG_DIR") + '/userscripts/quterofi/common').read())
 
