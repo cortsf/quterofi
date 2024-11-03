@@ -7,7 +7,7 @@ import re
 
 exec(open(getenv("QUTE_CONFIG_DIR") + '/userscripts/quterofi/common').read())
 
-def quickmarks_menu():
+def manage_quickmarks_menu():
     with open(getenv("QUTE_CONFIG_DIR") + '/quickmarks', 'r') as f:
         quickmarks=[]
         aliases=[]
@@ -95,5 +95,5 @@ def quickmarks_menu():
         exit()
 
 
-quickmarks_menu()
+manage_quickmarks_menu()
 
