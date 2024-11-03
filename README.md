@@ -1,6 +1,6 @@
 # Installation
 1. Clone and copy (or symlink) this repo inside your userscripts dir (See [Dir structure](#dir-structure) below). 
-2. Make `quterofi/open`, `quterofi/switch_engine`, `quterofi/set_quickmarks` and `quterofi/read_engines` executable if needed. 
+2. Make `quterofi/open`, `quterofi/manage_quickmarks`, `quterofi/set_quickmarks`, `quterofi/switch_engine` and `quterofi/common` executable if needed. 
 3. Declare your engines and quickmarks in `quterofi.toml` (See [Quterofi.toml](#quterofitoml-engines--quickmarks) section below).
 4. Update your `config.py` file (See [Config](#config) section below).
 
@@ -16,13 +16,14 @@ See the [Dequterofi](#dequterofi) section for a script you can use to translate 
 └── userscripts
     └── quterofi 
         ├── open
-        ├── read_engines
+        ├── common
+        ├── manage_quickmarks
         ├── set_quickmarks
         └── switch_engine
 ```
 
 # Usage
-Quterofi provides the `open`, `switch_engine` and `set_quickmarks` userscripts (`read_engines` is just an utility used to parse engines declared in [quterofi.toml](#quterofitoml-engines--quickmarks))
+Quterofi provides users with the `open`, `manage_quickmarks`, `set_quickmarks` and `switch_engine` userscripts (`common` is a module providing utility functions to the other scripts)
 
 ## Usage of the `open` userscript
 `quterofi/open` is a replacement for the `:open` menu
@@ -252,7 +253,7 @@ In your config.py include code below. Be sure to set `<username>`.
 ``` python
 qbdir = "/home/<username>/.config/qutebrowser"
 
-exec(open(qbdir + '/userscripts/quterofi/read_engines').read())
+exec(open(qbdir + '/userscripts/quterofi/common').read())
 
 all_engines = parse_engines(qbdir + "/quterofi.toml")
 
