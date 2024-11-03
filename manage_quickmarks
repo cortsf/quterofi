@@ -7,7 +7,11 @@ import re
 
 exec(open(getenv("QUTE_CONFIG_DIR") + '/userscripts/quterofi/common').read())
 
-def manage_quickmarks_menu():
+parser = ArgumentParser(prog='quterofi/manage_quickmarks', description='Manage quickmarks menu')
+parser.add_argument('--delete_no_confirmation', action='store_true')
+args = parser.parse_args()
+
+def manage_quickmarks_menu(filter="^"):
     with open(getenv("QUTE_CONFIG_DIR") + '/quickmarks', 'r') as f:
         quickmarks=[]
         aliases=[]
@@ -19,7 +23,7 @@ def manage_quickmarks_menu():
                  , '-dmenu'
                  , '-i'
                  , '-filter'
-                 , '^'
+                 , filter
                  , '-matching'
                  , 'regex'
                  , '-no-config'
@@ -76,7 +80,10 @@ def manage_quickmarks_menu():
     elif p2.returncode == 1:
         send_fifo('message-info "User cancelled"')
     elif p2.returncode == 10:
-        user_is_sure = mkSimpleMenu(["no", "yes"], "", 'Do you really want to remove quickmark "' + selected_item + '"?')
+        if args.delete_no_confirmation == True:
+            user_is_sure = "yes"
+        else:
+            user_is_sure = mkSimpleMenu(["no", "yes"], "", 'Do you really want to remove quickmark "' + selected_item + '"?')
         match user_is_sure:
             case "yes":
                 with open(getenv("QUTE_CONFIG_DIR") + '/quickmarks', 'r') as fr:
@@ -88,9 +95,10 @@ def manage_quickmarks_menu():
                     with open(getenv("QUTE_CONFIG_DIR") + '/quickmarks', 'w') as fw:
                         fw.writelines(new_lines)
                 send_fifo('message-info "Removed quickmark ' + selected_item + '"')
+                manage_quickmarks_menu(filter_string)
             case "no":
                 send_fifo('message-info "User cancelled quickmark removing operation"')
-                exit()
+                manage_quickmarks_menu(filter_string)
     else:
         exit()
 

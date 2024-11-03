@@ -76,6 +76,13 @@ quterofi/open [--newtab] [--string <arg>] [--invert] [--engines] [--history] [--
    - Open submenu listing quickmarks.
 ## Usage of the `manage_quickmarks` userscript
 Call `quterofi/manage_quickmarks` to open a menu allowing the user to set or delete quickmarks.
+
+``` bash
+quterofi/switch_engine [--delete_no_confirmation]
+```
+
+- Call with `--delete_no_confirmation` to proceed deleting quickmarks without asking the user for confirmation.
+
 Be sure to restart QB after using this script, unless you rely entirely on quterofi to manage and use (with `quterofi/open --quickmarks`) your quickmarks.
 This script takes no arguments.
 
