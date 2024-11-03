@@ -74,6 +74,16 @@ quterofi/open [--newtab] [--string <arg>] [--invert] [--engines] [--history] [--
 
 9. **-kb-custom-7** (`Alt+q`): 
    - Open submenu listing quickmarks.
+## Usage of the `manage_quickmarks` userscript
+Call `quterofi/manage_quickmarks` to open a menu allowing the user to set or delete quickmarks.
+Be sure to restart QB after using this script, unless you rely entirely on quterofi to manage and use (with `quterofi/open --quickmarks`) your quickmarks.
+This script takes no arguments.
+
+### Available keys when using the `manage_quickmarks` menu
+1. **-kb-accept-entry** (Any of `Ctrl+j`,`Ctrl+m`,`Return`,`KP_Enter`):
+    - Create a new quickmark for the current url, with the entry text (written user input) used as name/alias. Note that the selected/highlighted item in the quickmark list is irrelevant when using `manage_quickmarks` to create new quickmarks.
+2. **-kb-custom-1** (`Alt+d`)
+    - Delete the selected/highlighted item in the quickmark list. The entry text (written user input) is irrelevant when using `manage_quickmarks` to delete existing quickmarks.
 
 ## Usage of the `switch_engine` userscript
 Call `quterofi/switch_engine` to open a menu asking for the alias of a new search engine to open the search string present in your current url, if there is a matching engine for your current url. See examples below.
