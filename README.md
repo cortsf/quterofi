@@ -84,7 +84,6 @@ quterofi/switch_engine [--delete_no_confirmation]
 - Call with `--delete_no_confirmation` to proceed deleting quickmarks without asking the user for confirmation.
 
 Be sure to restart QB after using this script, unless you rely entirely on quterofi to manage and use (with `quterofi/open --quickmarks`) your quickmarks.
-This script takes no arguments.
 
 ### Available keys when using the `manage_quickmarks` menu
 1. **-kb-accept-entry** (Any of `Ctrl+j`,`Ctrl+m`,`Return`,`KP_Enter`):
