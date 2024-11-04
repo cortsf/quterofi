@@ -42,7 +42,7 @@ quterofi/open [--newtab] [--string <arg>] [--invert] [--engines] [--history] [--
 
 - Call with `--history` to open the history menu directly (You can also enter this menu using **-kb-custom-6** in the main menu)
 
-- Call with `--quickmarks` to open the quickmarks menu directly (You can also enter this menu using **-kb-custom-7** in the main menu)
+- Call with `--quickmarks` to open the quickmarks menu directly (You can also enter this menu using **-kb-custom-7** in the main menu).
 
 - Call with `--autoaccept` for the search engine menu to automatically submit the `:open` comand instead of setting the search engine alias in the search string of the main menu.
 
@@ -83,7 +83,7 @@ quterofi/manage_quickmarks [--delete_no_confirmation]
 
 - Call with `--delete_no_confirmation` to proceed deleting quickmarks without asking the user for confirmation.
 
-The `^` automatically set at the beginning is for the item list to filter out any item not starting with the text provided by the user. You can leave it or remove it if you want the item list to include any item having your input present in any position of the item's name or url. If you keep it, `quterofi/manage_quickmarks` will later ignore it, so using any of `^hello` or `hello` will create a quickmark named `hello`.
+The `^` automatically set on the input field is for the item list to filter out any item not starting with the text provided by the user after `^`. You can leave it or remove it if you want the item list to include any item having your input present in any position of the item's name or url. If you keep it, `quterofi/manage_quickmarks` will later ignore it, so using any of `^hello` or `hello` will create a quickmark named `hello`.
 
 Be sure to restart QB after using this script, unless you rely entirely on quterofi to manage and use (with `quterofi/open --quickmarks`) your quickmarks.
 
