@@ -124,7 +124,7 @@ def manage_quickmarks_menu(filter="^"):
             send_fifo('message-info "manage_quickmarks - Renamed quickmark: ' + selected_item + ' -> ' + new_name + '"')
             manage_quickmarks_menu(raw_filter_string)
     elif p2.returncode == 12:
-        send_fifo(":spawn -u quterofi/open --quickmarks")
+        send_fifo(":spawn -u quterofi/open --quickmarks --string '" + raw_filter_string + "'")
     else:
         exit()
 
