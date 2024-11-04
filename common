@@ -23,15 +23,15 @@ def parse_engines(engines_file):
 def gen_rofi_rows(engines):
   return [ '<b>' + alias + '</b>&#10;<i>' + re.sub('&', '&amp;', url) + '</i>' for alias, url in engines.items() ]
 
-def mkSimpleMenu(items, filter="", prompt="Promt", matching="normal", markup_rows=False, prompt_separator=":"):
+def mkSimpleMenu(items, filter="", prompt="Promt", matching="normal", markup_rows=False, accept_custom=False, prompt_separator=":"):
     switchs = []
     if markup_rows: switchs.append("-markup-rows")
+    if not accept_custom: switchs.append("-no-custom")
     p1 = Popen(['printf', '%s', '\n'.join(items)], stdout=PIPE)
     p2 = Popen([ 'rofi'
                  , '-dmenu'
                  , '-i'
                  , '-no-config'
-                 , '-no-custom'
                  , '-matching'
                  , matching
                  , '-filter'

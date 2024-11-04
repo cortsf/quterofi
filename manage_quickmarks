@@ -38,8 +38,12 @@ def manage_quickmarks_menu(filter="^"):
                  , 'Ctrl+j,Ctrl+m,Return,KP_Enter'
                  , '-kb-cancel'
                  , 'Escape,Control+g,Control+bracketleft'
-	         , '-kb-custom-1'
+                 , '-kb-custom-1'
                  , 'Alt+d'
+                 , '-kb-custom-2'
+                 , 'Alt+r'
+                 , '-kb-custom-3'
+                 , 'Alt+q'
                  , '-window-title'
                  , 'Alias'
                  , '-font'
@@ -76,10 +80,10 @@ def manage_quickmarks_menu(filter="^"):
             quickmark = ' '.join([filter_string, environ['QUTE_URL']])
             with open(getenv("QUTE_CONFIG_DIR") + '/quickmarks', 'a') as f:
                 f.write(quickmark + "\n")
-            send_fifo("message-info 'manage_quickmarks: Create new quickmark" + quickmark + "'")
+            send_fifo("message-info 'manage_quickmarks - Create new quickmark" + quickmark + "'")
         exit()
     elif p2.returncode == 1:
-        send_fifo('message-info "manage_quickmarks: User cancelled"')
+        exit()
     elif p2.returncode == 10:
         if args.delete_no_confirmation == True:
             user_is_sure = "yes"
@@ -95,11 +99,32 @@ def manage_quickmarks_menu(filter="^"):
                             new_lines.append(line)
                     with open(getenv("QUTE_CONFIG_DIR") + '/quickmarks', 'w') as fw:
                         fw.writelines(new_lines)
-                send_fifo('message-info "manage_quickmarks: Removed quickmark ' + selected_item + '"')
+                send_fifo('message-info "manage_quickmarks - Removed quickmark ' + selected_item + '"')
                 manage_quickmarks_menu(raw_filter_string)
             case "no":
-                send_fifo('message-info "manage_quickmarks: User cancelled quickmark removing operation"')
+                send_fifo('message-info "manage_quickmarks - User cancelled quickmark removing operation"')
                 manage_quickmarks_menu(raw_filter_string)
+    elif p2.returncode == 11:
+        new_name = mkSimpleMenu([], selected_item, 'New name for quickmark"' + selected_item + '"', accept_custom=True, prompt_separator="?")
+        if new_name == "":
+            send_fifo('message-info "manage_quickmarks - User cancelled quickmark renaming operation')
+            exit ()
+        else:
+            with open(getenv("QUTE_CONFIG_DIR") + '/quickmarks', 'r') as fr:
+              lines = fr.readlines()
+              new_lines = []
+              for line in lines:
+                  if not bool(re.match("^" + selected_item + " [^ ]*$", line)):
+                      new_lines.append(line)
+                  else:
+                      url = line.partition(' ')[-1]
+                      new_lines.append(new_name + ' ' + url)
+              with open(getenv("QUTE_CONFIG_DIR") + '/quickmarks', 'w') as fw:
+                  fw.writelines(new_lines)
+            send_fifo('message-info "manage_quickmarks - Renamed quickmark: ' + selected_item + ' -> ' + new_name + '"')
+            manage_quickmarks_menu(raw_filter_string)
+    elif p2.returncode == 12:
+        send_fifo(":spawn -u quterofi/open --quickmarks")
     else:
         exit()
 
