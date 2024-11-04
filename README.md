@@ -92,7 +92,13 @@ Be sure to restart QB after using this script, unless you rely entirely on quter
     - Create a new quickmark for the current url, with the written user input (the `filter`, using rofi terminology) used as name/alias. Note that the selected/highlighted item in the quickmark list is irrelevant when using `manage_quickmarks` to create new quickmarks. 
 	
 2. **-kb-custom-1** (`Alt+d`)
-    - Delete the selected/highlighted item in the quickmark list. The written user input is irrelevant when using `manage_quickmarks` to delete existing quickmarks.
+    - Delete the selected/highlighted item in the quickmark list. Text written in the user input field is irrelevant when using `manage_quickmarks` to delete existing quickmarks.
+
+3. **-kb-custom-2** (`Alt+r`)
+    - Rename the selected/highlighted item in the quickmark list. Text written in the user input field is irrelevant when using `manage_quickmarks` to rename existing quickmarks.
+
+4. **-kb-custom-3** (`Alt+q`)
+    - Open the quickmarks menu (`quterofi/open --quickmarks`) 
 
 ## Usage of the `switch_engine` userscript
 Call `quterofi/switch_engine` to open a menu asking for the alias of a new search engine to open the search string present in your current url, if there is a matching engine for your current url. See examples below.

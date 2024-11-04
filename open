@@ -165,6 +165,9 @@ if args.engines:
 elif args.history: 
     history_menu(command)
 elif args.quickmarks:
-    quickmarks_menu(command)
+    if args.string == "":
+        quickmarks_menu(command)
+    else:
+        quickmarks_menu(command, args.string)
 else:
     main_menu(args.string, command)
