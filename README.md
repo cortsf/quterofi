@@ -23,7 +23,7 @@ See the [Dequterofi](#dequterofi) section for a script you can use to translate 
 ```
 
 # Usage
-Quterofi provides users with the `open`, `manage_quickmarks`, `set_quickmarks` and `switch_engine` userscripts (`common` is a module providing utility functions to the other scripts)
+Quterofi provides users with the [open](usage-of-the-open-userscript), [manage_quickmarks](usage-of-the-manage_quickmarks-userscript), [set_quickmarks](usage-of-the-set_quickmarks-userscript) and [switch_engine](usage-of-the-switch_engine-userscript) userscripts (`common` is a module providing utility functions to the other scripts)
 
 ## Usage of the `open` userscript
 `quterofi/open` is a replacement for the `:open` menu
