@@ -58,7 +58,7 @@ def manage_quickmarks_menu(filter="^"):
         if filter_string == "": 
             send_fifo('message-error "No name was given"')
         elif filter_string in aliases: 
-            result_overwrite = mkSimpleMenu (["no", "yes", "rename"], "", "Overwrite quickmark '" + filter_string + "'? ")
+            result_overwrite = mkSimpleMenu (["no", "yes", "rename"], "", "Overwrite quickmark '" + filter_string + "'", prompt_separator="?")
             match result_overwrite:
                 case "yes":
                     with open(getenv("QUTE_CONFIG_DIR") + '/quickmarks', 'r') as fr:
