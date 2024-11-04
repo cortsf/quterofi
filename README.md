@@ -78,16 +78,19 @@ quterofi/open [--newtab] [--string <arg>] [--invert] [--engines] [--history] [--
 Call `quterofi/manage_quickmarks` to open a menu allowing the user to set or delete quickmarks.
 
 ``` bash
-quterofi/switch_engine [--delete_no_confirmation]
+quterofi/manage_quickmarks [--delete_no_confirmation]
 ```
 
 - Call with `--delete_no_confirmation` to proceed deleting quickmarks without asking the user for confirmation.
+
+The `^` automatically set at the beginning is for the item list to filter out any item not starting with the text provided by the user. You can leave it or remove it if you want the item list to include any item having your input present in any position of the item's name or url. If you keep it, `quterofi/manage_quickmarks` will later ignore it, so using any of `^hello` or `hello` will create a quickmark named `hello`.
 
 Be sure to restart QB after using this script, unless you rely entirely on quterofi to manage and use (with `quterofi/open --quickmarks`) your quickmarks.
 
 ### Available keys when using the `manage_quickmarks` menu
 1. **-kb-accept-entry** (Any of `Ctrl+j`,`Ctrl+m`,`Return`,`KP_Enter`):
-    - Create a new quickmark for the current url, with the written user input (the `filter`, using rofi terminology) used as name/alias. Note that the selected/highlighted item in the quickmark list is irrelevant when using `manage_quickmarks` to create new quickmarks.
+    - Create a new quickmark for the current url, with the written user input (the `filter`, using rofi terminology) used as name/alias. Note that the selected/highlighted item in the quickmark list is irrelevant when using `manage_quickmarks` to create new quickmarks. 
+	
 2. **-kb-custom-1** (`Alt+d`)
     - Delete the selected/highlighted item in the quickmark list. The written user input is irrelevant when using `manage_quickmarks` to delete existing quickmarks.
 
