@@ -71,7 +71,7 @@ def manage_quickmarks_menu(filter="^"):
                         with open(getenv("QUTE_CONFIG_DIR") + '/quickmarks', 'w') as fw:
                             fw.writelines(new_lines)
                 case "rename":
-                    quickmarks_menu()
+                    manage_quickmarks_menu()
         else:
             quickmark = ' '.join([filter_string, environ['QUTE_URL']])
             with open(getenv("QUTE_CONFIG_DIR") + '/quickmarks', 'a') as f:
