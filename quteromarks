@@ -1,0 +1,151 @@
+#!/usr/bin/env python3
+from argparse import ArgumentParser
+from os import environ, getenv
+from subprocess import run, PIPE, Popen
+from sys import exit
+import tomllib
+import re
+
+exec(open(getenv("QUTE_CONFIG_DIR") + '/userscripts/quterofi/common').read())
+
+parser = ArgumentParser(prog='quterofi/manage_quickmarks', description='Manage quteromarks menu')
+parser.add_argument('--delete_no_confirmation', action='store_true')
+parser.add_argument('-s', '--string', default='')
+args = parser.parse_args()
+quteromarks_path=getenv("QUTE_CONFIG_DIR") + "/quterofi.toml"
+
+def manage_quickmarks_menu(filter="^"):
+    quteromarks =dict(sorted(parse_quteromarks(quteromarks_path).items()))
+    rofi_rows = gen_rofi_rows(quteromarks)
+    p1 =Popen(['printf', '%s', '\n'.join(rofi_rows)], stdout=PIPE)
+    p2 = Popen([ 'rofi'
+                 , '-dmenu'
+                 , '-i'
+                 , '-filter'
+                 , filter
+                 , '-matching'
+                 , 'regex'
+                 , '-no-config'
+                 , '-markup-rows'
+                 , '-eh'
+                 , '2'
+                 , '-format'
+                 , 'f \n s'
+                 , '-theme-str' 
+                 , 'window { anchor: north; location: north; width: 100%; font-size: 20px; border: 0px; } listview { border: 0px 0px 0px 0px; layout: vertical; spacing:5px; lines: 10; width: 0px; } element-text { color: #666; } element selected.normal { background-color: #ded; } '
+                 , '-kb-accept-entry' 
+                 , 'Ctrl+j,Ctrl+m,Return,KP_Enter'
+                 , '-kb-cancel'
+                 , 'Escape,Control+g,Control+bracketleft'
+                 , '-kb-custom-1'
+                 , 'Alt+d'
+                 , '-kb-custom-2'
+                 , 'Alt+r'
+                 , '-kb-custom-3'
+                 , 'Alt+q'
+                 , '-kb-custom-4'
+                 , 'Alt+c'
+                 , '-window-title'
+                 , 'Quteromark'
+                 , '-font'
+                 , 'Inconsolata 16'
+                ]
+               , stdin=p1.stdout
+               , stdout=PIPE
+               , stderr=PIPE
+               , universal_newlines=True
+               )
+    p1.stdout.close()
+    raw_filter_string = p2.communicate()[0].partition("\n")[0].strip()
+    filter_string = re.sub("^\^", "", raw_filter_string)
+    selected_item = re.sub(r'<.*?>', '', re.sub("^\^", "", p2.communicate()[0].partition("\n")[2].partition("&#10;")[0].strip()))
+    if p2.returncode == 0:
+        send_fifo(":open " + quteromarks[selected_item])
+    elif p2.returncode == 1:
+        exit()
+    elif p2.returncode == 10:
+        send_fifo('message-error "manage_quickmarks - NOT IMPLEMENTED"')
+        # if args.delete_no_confirmation == True:
+        #     user_is_sure = "yes"
+        # else:
+        #     user_is_sure = mkSimpleMenu(["no", "yes"], "", 'Do you really want to remove quickmark "' + selected_item + '"?')
+        # match user_is_sure:
+        #     case "yes":
+        #         with open(getenv("QUTE_CONFIG_DIR") + '/quickmarks', 'r') as fr:
+        #             lines = fr.readlines()
+        #             new_lines = []
+        #             for line in lines:
+        #                 if not bool(re.match("^" + selected_item + " [^ ]*$", line)):
+        #                     new_lines.append(line)
+        #             with open(getenv("QUTE_CONFIG_DIR") + '/quickmarks', 'w') as fw:
+        #                 fw.writelines(new_lines)
+        #         send_fifo('message-info "manage_quickmarks - Removed quickmark ' + selected_item + '"')
+        #         manage_quickmarks_menu(raw_filter_string)
+        #     case "no":
+        #         send_fifo('message-info "manage_quickmarks - User cancelled quickmark removing operation"')
+        #         manage_quickmarks_menu(raw_filter_string)
+    elif p2.returncode == 11:
+        send_fifo('message-error "manage_quickmarks - NOT IMPLEMENTED"')
+        # new_name = mkSimpleMenu([], selected_item, 'New name for quickmark"' + selected_item + '"', accept_custom=True, prompt_separator="?")
+        # if new_name == "":
+        #     send_fifo('message-info "manage_quickmarks - User cancelled quickmark renaming operation')
+        #     exit ()
+        # else:
+        #     with open(getenv("QUTE_CONFIG_DIR") + '/quickmarks', 'r') as fr:
+        #       lines = fr.readlines()
+        #       new_lines = []
+        #       for line in lines:
+        #           if not bool(re.match("^" + selected_item + " [^ ]*$", line)):
+        #               new_lines.append(line)
+        #           else:
+        #               url = line.partition(' ')[-1]
+        #               new_lines.append(new_name + ' ' + url)
+        #       with open(getenv("QUTE_CONFIG_DIR") + '/quickmarks', 'w') as fw:
+        #           fw.writelines(new_lines)
+        #     send_fifo('message-info "manage_quickmarks - Renamed quickmark: ' + selected_item + ' -> ' + new_name + '"')
+        #     manage_quickmarks_menu(raw_filter_string)
+    elif p2.returncode == 12:
+        send_fifo(":spawn -u quterofi/open --quickmarks --string '" + raw_filter_string + "'")
+    elif p2.returncode == 13:
+        if filter_string == "": 
+            send_fifo('message-error "No name was given"')
+        elif filter_string in quteromarks.keys(): 
+            send_fifo('message-error "manage_quickmarks - NOT IMPLEMENTED"')
+            # result_overwrite = mkSimpleMenu (["no", "yes", "rename"], "", "Overwrite quickmark '" + filter_string + "'", prompt_separator="?")
+            # match result_overwrite:
+            #     case "yes":
+            #         # send_fifo("message-info 'manage_quickmarks - not implemented'")
+            #         # arsed_toml["quteromarks"]
+            #         new_quteromarks = []
+            #         for quteromark in parsed_toml['quteromarks']:
+            #             if filter_string == quteromark["alias"]:
+            #                 new_quteromarks.append({"alias": filter_string, "url": environ['QUTE_URL']})
+            #                 # parsed_toml['quteromarks']["alias
+            #             # alias = quickmark_rule['qr_alias'].format(alias = quickmark_declaration['alias'])
+            #             send_fifo(":message-info '" + quteromark["alias"] + "'")
+            #             # quteromarks[alias] = url
+            #         parsed_toml['quteromarks'] = new_quteromarks
+            #         with open(quteromarks_path, 'r') as fr:
+            #             tomllib.dump(parsed_toml, fr)
+            #             fr.close()
+
+            #         #     lines = fr.readlines()
+            #         #     new_lines = []
+            #         #     for line in lines:
+            #         #         if not bool(re.match("^" + filter_string + " [^ ]*$", line)):
+            #         #             new_lines.append(line)
+            #         #     new_lines.append(filter_string + " " + environ['QUTE_URL'] + "\n")
+            #         #     with open(getenv("QUTE_CONFIG_DIR") + '/quickmarks', 'w') as fw:
+            #         #         fw.writelines(new_lines)
+            #     case "rename":
+            #         manage_quickmarks_menu()
+        else:
+            with open(quteromarks_path, 'a') as f:
+                f.write('\n\n[[quteromarks]]\nalias = "' + filter_string + '"\nurl = "' + environ['QUTE_URL'] + '"')
+            send_fifo("message-info 'manage_quickmarks - Create new quteromark: " + filter_string + "'")
+        exit()
+    else:
+        exit()
+
+
+manage_quickmarks_menu("^"+args.string)

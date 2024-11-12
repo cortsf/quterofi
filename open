@@ -14,11 +14,12 @@ parser.add_argument('-t', '--newtab', action='store_true')
 parser.add_argument('-i', '--invert', action='store_true')
 parser.add_argument('--engines', action='store_true')
 parser.add_argument('--history', action='store_true')
-parser.add_argument('--quickmarks', action='store_true')
+parser.add_argument('--quteromarks', action='store_true')
 parser.add_argument('--autoaccept', action='store_true')
 args = parser.parse_args()
 
 all_engines = parse_engines(getenv("QUTE_CONFIG_DIR") + "/quterofi.toml")
+all_quteromarks = parse_quteromarks(getenv("QUTE_CONFIG_DIR") + "/quterofi.toml")
 
 rofi_rows = gen_rofi_rows(all_engines)
 
@@ -77,13 +78,6 @@ def history_menu(command, filter=""):
     send_fifo(':{} {}'.format(command, result_history))
     exit()
 
-def quickmarks_menu(command, filter="^"):
-    with open(getenv("QUTE_CONFIG_DIR") + '/quickmarks', 'r') as f:
-        quickmarks = [''.join(['<b>', re.sub(' ', '</b>&#10;<i>', x.strip()), '</i>']) for x in f.readlines()]
-    result_quickmarks=call_rofi_submenu(quickmarks, 2, filter, title='Search quickmarks')
-    send_fifo(':{} {}'.format(command, result_quickmarks))
-    exit()
-
 def main_menu(string, command):
     rofi_val = run([ 'rofi'
 	             , '-dmenu'
@@ -121,7 +115,10 @@ def main_menu(string, command):
                    )
     result=rofi_val.stdout.strip()
     if rofi_val.returncode == 0:
-        if args.invert:
+        if any(result in key for key in all_quteromarks):
+            send_fifo(':{} {}'.format(command, all_quteromarks[result]))
+            exit()
+        elif args.invert:
             *searchstring, last_word = result.rsplit(' ', 1)
             if len(searchstring) > 0:
                 if last_word in all_engines.keys():
@@ -151,7 +148,7 @@ def main_menu(string, command):
     elif rofi_val.returncode == 15:
         history_menu(command, result)
     elif rofi_val.returncode == 16:
-        quickmarks_menu(command, '^' + result)
+        send_fifo(":spawn -u quterofi/quteromarks --delete_no_confirmation --string '"+ result + "'")
     else:
         exit()
 
@@ -164,10 +161,10 @@ if args.engines:
     engines_menu(command, args.string)
 elif args.history: 
     history_menu(command)
-elif args.quickmarks:
+elif args.quteromarks:
     if args.string == "":
-        quickmarks_menu(command)
+        send_fifo(":spawn -u quterofi/quteromarks --delete_no_confirmation --string '"+ result + "'")
     else:
-        quickmarks_menu(command, args.string)
+        send_fifo(":spawn -u quterofi/quteromarks --delete_no_confirmation")
 else:
     main_menu(args.string, command)

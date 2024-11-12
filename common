@@ -20,6 +20,18 @@ def parse_engines(engines_file):
       engines[alias] = url
   return engines
 
+def parse_quteromarks(engines_file):
+  with open(engines_file, "rb") as f:
+      parsed_toml = tomllib.load(f)
+  quteromarks = {}
+  for quteromark_rule in parsed_toml['quteromark_rules']:
+    for quteromark_declaration in parsed_toml[quteromark_rule['qr_template']]:
+      alias = quteromark_rule['qr_alias'].format(alias = quteromark_declaration['alias'])
+      substitutions = { key: val for key, val in quteromark_declaration.items() if key != 'alias' }
+      url = re.sub(r'{}', '{{}}', quteromark_rule['qr_url']).format(**substitutions) 
+      quteromarks[alias] = url
+  return quteromarks
+
 def gen_rofi_rows(engines):
   return [ '<b>' + alias + '</b>&#10;<i>' + re.sub('&', '&amp;', url) + '</i>' for alias, url in engines.items() ]
 
