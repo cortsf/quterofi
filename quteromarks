@@ -64,7 +64,7 @@ def manage_quickmarks_menu(filter="^"):
     elif p2.returncode == 1:
         exit()
     elif p2.returncode == 10:
-        send_fifo('message-error "manage_quickmarks - NOT IMPLEMENTED"')
+        send_fifo('message-error "manage_quickmarks - DELETE NOT IMPLEMENTED"')
         # if args.delete_no_confirmation == True:
         #     user_is_sure = "yes"
         # else:
@@ -85,7 +85,7 @@ def manage_quickmarks_menu(filter="^"):
         #         send_fifo('message-info "manage_quickmarks - User cancelled quickmark removing operation"')
         #         manage_quickmarks_menu(raw_filter_string)
     elif p2.returncode == 11:
-        send_fifo('message-error "manage_quickmarks - NOT IMPLEMENTED"')
+        send_fifo('message-error "manage_quickmarks - RENAME NOT IMPLEMENTED"')
         # new_name = mkSimpleMenu([], selected_item, 'New name for quickmark"' + selected_item + '"', accept_custom=True, prompt_separator="?")
         # if new_name == "":
         #     send_fifo('message-info "manage_quickmarks - User cancelled quickmark renaming operation')
@@ -110,7 +110,7 @@ def manage_quickmarks_menu(filter="^"):
         if filter_string == "": 
             send_fifo('message-error "No name was given"')
         elif filter_string in quteromarks.keys(): 
-            send_fifo('message-error "manage_quickmarks - NOT IMPLEMENTED"')
+            send_fifo('message-error "manage_quickmarks - OVERWRITE NOT IMPLEMENTED"')
             # result_overwrite = mkSimpleMenu (["no", "yes", "rename"], "", "Overwrite quickmark '" + filter_string + "'", prompt_separator="?")
             # match result_overwrite:
             #     case "yes":
