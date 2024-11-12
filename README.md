@@ -74,6 +74,33 @@ quterofi/open [--newtab] [--string <arg>] [--invert] [--engines] [--history] [--
 9. **-kb-custom-7** (`Alt+q`): 
    - Open submenu listing quteromarks.
 
+## Usage of the `quteromarks` userscript
+Call `quterofi/quteromarks` to open a menu allowing to use, create, update and delete quteromarks.
+
+``` bash
+quterofi/quteromarks [--delete_no_confirmation] [--string <arg>]
+```
+
+- Call with `--delete_no_confirmation` to proceed deleting quteromarks without asking the user for confirmation.
+
+- Call with `--string <arg>` to start writing with string ARG already set
+
+The `^` automatically set on the input field is for the item list to filter out any item not starting with the text provided by the user after `^`. You can leave it or remove it if you want the item list to include any item having your input present in any position of the item's name or url. If you keep it, `quterofi/quteromarks` will later ignore it, so using any of `^hello` or `hello` will create a quteromark named `hello`.
+
+
+### Available keys when using the `quteromarks` menu
+1. **-kb-accept-entry** (Any of `Ctrl+j`,`Ctrl+m`,`Return`,`KP_Enter`):
+    - Open the selected/highlited quteromark .
+	
+2. **-kb-custom-1** (`Alt+d`)
+    - Delete the selected/highlighted item in the quteromark list. Text written in the user input field is irrelevant when using this menu to delete existing quteromarks.
+
+3. **-kb-custom-2** (`Alt+r`)
+    - Rename the selected/highlighted item in the quteromark list. Text written in the user input field is irrelevant when using this menu to rename existing quteromarks.
+
+1. **-kb-custom-3** (`Alt+c`)
+    - Create a new quteromark for the current url, with the written user input (the `filter`, using rofi terminology) used as name/alias. Note that the selected/highlighted item in the quteromark list is irrelevant when using this menu to create new quteromarks. 
+
 ## Usage of the `switch_engine` userscript
 Call `quterofi/switch_engine` to open a menu asking for the alias of a new search engine to open the search string present in your current url, if there is a matching engine for your current url. See examples below.
 

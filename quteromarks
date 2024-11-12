@@ -42,8 +42,6 @@ def manage_quickmarks_menu(filter="^"):
                  , '-kb-custom-2'
                  , 'Alt+r'
                  , '-kb-custom-3'
-                 , 'Alt+q'
-                 , '-kb-custom-4'
                  , 'Alt+c'
                  , '-window-title'
                  , 'Quteromark'
@@ -105,8 +103,6 @@ def manage_quickmarks_menu(filter="^"):
         #     send_fifo('message-info "manage_quickmarks - Renamed quickmark: ' + selected_item + ' -> ' + new_name + '"')
         #     manage_quickmarks_menu(raw_filter_string)
     elif p2.returncode == 12:
-        send_fifo(":spawn -u quterofi/open --quickmarks --string '" + raw_filter_string + "'")
-    elif p2.returncode == 13:
         if filter_string == "": 
             send_fifo('message-error "No name was given"')
         elif filter_string in quteromarks.keys(): 
