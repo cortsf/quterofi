@@ -202,7 +202,7 @@ Resulting engines after replacing all `{variables}` with the information on the 
 ```
 
 
-### Minimal example
+### Minimal working example
 
 This rule is needed for `quterofi/quteromarks` to manage quteromarks using the provided UI
 
