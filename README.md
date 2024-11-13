@@ -102,7 +102,7 @@ The `^` automatically set on the input field is for the item list to filter out 
     - Create a new quteromark for the current url, using the written user input (the `filter`, in rofi terminology) as name/alias. If there is no filter/written user input, the selected/highlighted item is used to overwrite/update the existing quteromark. 
 
 ### Important note
-Python's standard toml lib (`tomllib`) does not supports writing [[source](https://docs.python.org/3/library/tomllib.html)]. For this reason, `quterofi/quteromarks` uses regexes to delete, rename and overwrite quteromarks. This supports some weird cases like in the following example, but it's not meant to be bulletproof.
+Python's standard toml lib (`tomllib`) does not supports writing [[source](https://docs.python.org/3/library/tomllib.html)]. For this reason, `quterofi/quteromarks` uses regexes to delete, rename and overwrite quteromarks. This supports some weird cases like in the following example, but it's not meant to be bulletproof. Inside individual `[[quteromark]]` blocks empty lines are supported but lines with nothing but comments are not.
 
 ``` toml
 [[quteromarks]]
@@ -115,7 +115,7 @@ Python's standard toml lib (`tomllib`) does not supports writing [[source](https
 [[quteromarks]]
 
   url  =  'https://bar.com/' # barurl
-
+  # A COMMENT HERE IS NOT SUPPORTED!!!
   alias  =  'bar'  # baralias
 ```
 
