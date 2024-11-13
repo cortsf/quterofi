@@ -99,7 +99,7 @@ The `^` automatically set on the input field is for the item list to filter out 
     - Rename the selected/highlighted item in the quteromark list. Text written in the user input field is irrelevant when using this menu to rename existing quteromarks.
 
 1. **-kb-custom-3** (`Alt+c`)
-    - Create a new quteromark for the current url, with the written user input (the `filter`, using rofi terminology) used as name/alias. Note that the selected/highlighted item in the quteromark list is irrelevant when using this menu to create new quteromarks. 
+    - Create a new quteromark for the current url, using the written user input (the `filter`, in rofi terminology) as name/alias. If there is no filter/written user input, the selected/highlighted item is used to overwrite/update the existing quteromark. 
 
 ## Usage of the `switch_engine` userscript
 Call `quterofi/switch_engine` to open a menu asking for the alias of a new search engine to open the search string present in your current url, if there is a matching engine for your current url. See examples below.
