@@ -71,7 +71,8 @@ def manage_quteromarks_menu(filter="^"):
     filter_string = re.sub("^\^", "", raw_filter_string)
     selected_item = re.sub(r'<.*?>', '', re.sub("^\^", "", p2.communicate()[0].partition("\n")[2].partition("&#10;")[0].strip()))
     if p2.returncode == 0:
-        send_fifo(":open " + quteromarks[selected_item])
+        if selected_item in quteromarks:
+            send_fifo(":open " + quteromarks[selected_item])
     elif p2.returncode == 1:
         exit()
     elif p2.returncode == 10:
