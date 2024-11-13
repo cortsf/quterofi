@@ -115,7 +115,10 @@ def main_menu(string, command):
                    )
     result=rofi_val.stdout.strip()
     if rofi_val.returncode == 0:
-        if any(result in key for key in all_quteromarks):
+        if result == "":
+            send_fifo(':{}'.format(command))
+            exit()
+        elif any(result in key for key in all_quteromarks):
             send_fifo(':{} {}'.format(command, all_quteromarks[result]))
             exit()
         elif args.invert:
