@@ -101,6 +101,26 @@ The `^` automatically set on the input field is for the item list to filter out 
 1. **-kb-custom-3** (`Alt+c`)
     - Create a new quteromark for the current url, using the written user input (the `filter`, in rofi terminology) as name/alias. If there is no filter/written user input, the selected/highlighted item is used to overwrite/update the existing quteromark. 
 
+### Important note
+Python's standard toml lib (`tomllib`) does not supports writting. For this reason, quterofi uses regexes to delete, rename and overwrite quteromarks. This supports some weird cases like in the following example, but it's not meant to be bulletproof.
+
+``` toml
+[[quteromarks]]
+  alias  =  "foo"  # fooalias
+  url  =  "https://foo.com/"  # foourl
+  
+  
+[[quteromarks]]
+  url  =  "https://bar.com/" # foourl
+  alias  =  "foo"  # fooalias
+```
+
+In all cases (delete, rename, overwrite), the following expressions do the job:
+``` python
+        (first_case_text, first_case_count) = re.subn(r'\[\[quteromarks\]\].*\n+ *alias *= *[\'"]' + alias + '[\'"].*\n+ *url *\=.*', "", text)
+        (second_case_text, second_case_count) = re.subn(r'\[\[quteromarks\]\].*\n+ *url *\=.*\n+ *alias *= *[\'"]' + alias + '[\'"].*', "", first_case_text)
+```
+
 ## Usage of the `switch_engine` userscript
 Call `quterofi/switch_engine` to open a menu asking for the alias of a new search engine to open the search string present in your current url, if there is a matching engine for your current url. See examples below.
 
