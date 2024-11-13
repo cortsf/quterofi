@@ -117,8 +117,8 @@ Python's standard toml lib (`tomllib`) does not supports writting. For this reas
 
 In all cases (delete, rename, overwrite), the following expressions do the job:
 ``` python
-        (first_case_text, first_case_count) = re.subn(r'\[\[quteromarks\]\].*\n+ *alias *= *[\'"]' + alias + '[\'"].*\n+ *url *\=.*', "", text)
-        (second_case_text, second_case_count) = re.subn(r'\[\[quteromarks\]\].*\n+ *url *\=.*\n+ *alias *= *[\'"]' + alias + '[\'"].*', "", first_case_text)
+(first_case_text, first_case_count) = re.subn(r'\[\[quteromarks\]\].*\n+ *alias *= *[\'"]' + alias + '[\'"].*\n+ *url *\=.*', "", text)
+(second_case_text, second_case_count) = re.subn(r'\[\[quteromarks\]\].*\n+ *url *\=.*\n+ *alias *= *[\'"]' + alias + '[\'"].*', "", first_case_text)
 ```
 
 ## Usage of the `switch_engine` userscript
