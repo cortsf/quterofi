@@ -111,8 +111,8 @@ Python's standard toml lib (`tomllib`) does not supports writting. For this reas
   
   
 [[quteromarks]]
-  url  =  'https://bar.com/' # foourl
-  alias  =  'foo'  # fooalias
+  url  =  'https://bar.com/' # barurl
+  alias  =  'bar  # baralias
 ```
 
 In all cases (delete, rename, overwrite), the following expressions do the job:
