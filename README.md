@@ -333,7 +333,8 @@ This function needs the [External launcher](#external-launcher).
 ```
 
 
-# Dequterofi
+# Helper scripts
+## Dequterofi
 Use this script to translate quterofi.toml files into python code you can source or paste in your `config.py`. Needs `toml2json` and `jq` available on `$PATH` to work.
 
 ``` bash
@@ -386,7 +387,7 @@ config.source('./engines.py')
 Or just copy the contents inside your `config.py`
 
 
-# Translate standard qb quickmarks file into quteromarks
+## Translate standard qb quickmarks file into quteromarks
 
 ``` bash
 #!/usr/bin/env bash
@@ -397,3 +398,5 @@ cat "$1" |  while read -r line; do
     echo -e "url=\"$(echo "$line" | awk '{print $NF}')\"" >> quteromarks.toml
 done
 ```
+
+This script will write quteromarks into `quteromarks.toml`,to prevent user from (potentially..) making accidental mistakes. Once the conversion is done, verify and copy the contents of this file into `quterofi.toml`, since quterofi (for now) only supports this file. See [Dir structure](#dir-structure).
