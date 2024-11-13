@@ -221,6 +221,11 @@ er_url = "https://github.com/{user}/{repo}/pull/{}"
 ####################
 
 [[quteromark_rules]]
+qr_template = "quteromarks"
+qr_alias ="{alias}"
+qr_url = "{url}"
+
+[[quteromark_rules]]
 qr_template = "github_repos"
 qr_alias ="gh.{alias}"
 qr_url = "https://github.com/{user}/{repo}"
@@ -248,6 +253,10 @@ url = "https://www.google.com/search?q={}"
 
 ## Github repos
 ####################
+
+[[quteromarks]]
+alias="gh"
+url="https://github.com/"
 
 [[github_repos]]
 alias = "qr"
@@ -291,6 +300,7 @@ lang = "es"
 
 ### Resulting quteromarks for the above quterofi.toml
 ``` json
+{"gh": "https://github.com/"}
 {"gh.qr": "https://github.com/cortsf/quterofi"}
 {"ghi.qr": "https://github.com/cortsf/quterofi/issues"}
 {"ghp.qr": "https://github.com/cortsf/quterofi/pulls"}
