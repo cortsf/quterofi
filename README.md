@@ -157,7 +157,7 @@ This format allows users to create custom "templates" (quite an abstract concept
 
 ### Terminology 
 
-- Rules declare templates (Think of it as the set of column names in an imaginary table, each `{variable}` used on a given rule declaring a column name, and each rule declaring a new imaginary table)
+- Rules declare templates (Think of templates as the set of column names in an imaginary table, each `{variable}` used on a given rule declaring a column name, and each rule declaring a new imaginary table)
 - Each individual engine/quteromark declaration make use of a single template to insert a row on this imaginary table.
 - The information on each of these imaginary tables is used by quterofi to generate a list of engines and quteromarks, by replacing variables (`{variables}` in the toml rules, or column names on this imaginary table) with values (fields on this imaginary table)
 
