@@ -188,10 +188,10 @@ repo = "quterofi" #same
 Imaginary table for this example:
 
 
-| alias | user     | repo     |
-|-------|----------|----------|
-| lnx   | torvalds | linux    |
-| qr    | cortsf   | quterofi |
+| {alias} | {user}     | {repo}     |
+|---------|------------|------------|
+| lnx     | torvalds   | linux      |
+| qr      | cortsf     | quterofi   |
 
 Resulting engines after replacing all `{variables}` with the information on the fields of this imaginary table:
 
