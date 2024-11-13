@@ -135,7 +135,7 @@ This format allows users to create custom "templates" (quite an abstract concept
 Brief example skipping many useful rules like `ghic`, `ghpc` or `ghd`, for github closed issues, closed pulls and discussions, respectively. For brevity. See more github rules on this [gist](https://gist.github.com/cortsf/d6273111f48991e17b3d279a8e90cb83)
 
 ``` toml
-## Quterofi rules
+## Engine rules
 ####################
 
 [[engine_rules]]
@@ -172,6 +172,9 @@ er_url = "https://github.com/{user}/{repo}/pulls?q={}"
 er_template = "github_repos"
 er_alias ="ghpn.{alias}"
 er_url = "https://github.com/{user}/{repo}/pull/{}"
+
+## Quteromark rules
+####################
 
 [[quteromark_rules]]
 qr_template = "github_repos"
