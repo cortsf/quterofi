@@ -399,4 +399,4 @@ cat "$1" |  while read -r line; do
 done
 ```
 
-This script will write quteromarks into `quteromarks.toml`,to prevent user from (potentially..) making accidental mistakes. Once the conversion is done, verify and copy the contents of this file into `quterofi.toml`, since quterofi (for now) only supports this file. See [Dir structure](#dir-structure).
+This script will write quteromarks into `quteromarks.toml`, to prevent user from (potentially..) making accidental mistakes. Once the conversion is done, verify and copy the contents of this file into `quterofi.toml`, since quterofi (for now) only supports this file. See [Dir structure](#dir-structure).
