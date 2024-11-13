@@ -155,7 +155,27 @@ Declare your search engines and quteromarks in `quterofi.toml` (See [Dir structu
 
 This format allows users to create custom "templates" (quite an abstract concept in this context..) instructing quterofi how to generate search engines and quteromarks. Note that you can declare/define any variable to construct urls, except for `alias` which is reserved to be used exclusively to construct aliases, and it's in fact, mandatory to declare for every engine/quteromark declaration, and it's also the only variable available to construct aliases (This may change in the future allowing any variable name and number to be used both for urls and aliases).
 
-### Example
+### Minimal example
+
+This rule is needed for `quterofi/quteromarks` to manage quteromarks using the provided UI
+
+``` toml
+[[quteromark_rules]]
+qr_template = "quteromarks"
+qr_alias ="{alias}"
+qr_url = "{url}"
+```
+
+Using the `quterofi/quteromarks` menu to create a new quteromark, will simply append the following code block, which depends on the previous `[[quteromark_rules]]` to work.
+
+``` toml
+[[quteromarks]]
+alias="new_quoteromark"
+url="https://new_quteromark.com/"
+```
+
+
+### Full example
 Brief example skipping many useful rules like `ghic`, `ghpc` or `ghd`, for github closed issues, closed pulls and discussions, respectively. For brevity. See more github rules on this [gist](https://gist.github.com/cortsf/d6273111f48991e17b3d279a8e90cb83)
 
 ``` toml
