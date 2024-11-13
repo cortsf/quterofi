@@ -8,16 +8,16 @@ import re
 
 exec(open(getenv("QUTE_CONFIG_DIR") + '/userscripts/quterofi/common').read())
 
-parser = ArgumentParser(prog='quterofi/manage_quickmarks', description='Manage quteromarks menu')
+parser = ArgumentParser(prog='quterofi/quteromarks', description='Manage quteromarks menu')
 parser.add_argument('--delete_no_confirmation', action='store_true')
 parser.add_argument('-s', '--string', default='')
 args = parser.parse_args()
 quteromarks_path=getenv("QUTE_CONFIG_DIR") + "/quterofi.toml"
 
-def manage_quickmarks_menu(filter="^"):
+def manage_quteromarks_menu(filter="^"):
     quteromarks =dict(sorted(parse_quteromarks(quteromarks_path).items()))
     rofi_rows = gen_rofi_rows(quteromarks)
-    p1 =Popen(['printf', '%s', '\n'.join(rofi_rows)], stdout=PIPE)
+    p1 = Popen(['printf', '%s', '\n'.join(rofi_rows)], stdout=PIPE)
     p2 = Popen([ 'rofi'
                  , '-dmenu'
                  , '-i'
@@ -62,11 +62,11 @@ def manage_quickmarks_menu(filter="^"):
     elif p2.returncode == 1:
         exit()
     elif p2.returncode == 10:
-        send_fifo('message-error "manage_quickmarks - DELETE NOT IMPLEMENTED"')
-        # if args.delete_no_confirmation == True:
-        #     user_is_sure = "yes"
-        # else:
-        #     user_is_sure = mkSimpleMenu(["no", "yes"], "", 'Do you really want to remove quickmark "' + selected_item + '"?')
+        if args.delete_no_confirmation == True:
+            user_is_sure = "yes"
+        else:
+            user_is_sure = mkSimpleMenu(["no", "yes"], "", 'Do you really want to remove quteromark "' + selected_item + '"?')
+        send_fifo('message-error "quteromarks - DELETE NOT IMPLEMENTED"')
         # match user_is_sure:
         #     case "yes":
         #         with open(getenv("QUTE_CONFIG_DIR") + '/quickmarks', 'r') as fr:
@@ -77,16 +77,16 @@ def manage_quickmarks_menu(filter="^"):
         #                     new_lines.append(line)
         #             with open(getenv("QUTE_CONFIG_DIR") + '/quickmarks', 'w') as fw:
         #                 fw.writelines(new_lines)
-        #         send_fifo('message-info "manage_quickmarks - Removed quickmark ' + selected_item + '"')
-        #         manage_quickmarks_menu(raw_filter_string)
+        #         send_fifo('message-info "quteromarks - Removed quteromark ' + selected_item + '"')
+        #         manage_quteromarks_menu(raw_filter_string)
         #     case "no":
-        #         send_fifo('message-info "manage_quickmarks - User cancelled quickmark removing operation"')
-        #         manage_quickmarks_menu(raw_filter_string)
+        #         send_fifo('message-info "quteromarks - User cancelled quteromark removing operation"')
+        #         manage_quteromarks_menu(raw_filter_string)
     elif p2.returncode == 11:
-        send_fifo('message-error "manage_quickmarks - RENAME NOT IMPLEMENTED"')
-        # new_name = mkSimpleMenu([], selected_item, 'New name for quickmark"' + selected_item + '"', accept_custom=True, prompt_separator="?")
+        send_fifo('message-error "quteromarks - RENAME NOT IMPLEMENTED"')
+        # new_name = mkSimpleMenu([], selected_item, 'New name for quteromark"' + selected_item + '"', accept_custom=True, prompt_separator="?")
         # if new_name == "":
-        #     send_fifo('message-info "manage_quickmarks - User cancelled quickmark renaming operation')
+        #     send_fifo('message-info "quteromarks - User cancelled quteromark renaming operation')
         #     exit ()
         # else:
         #     with open(getenv("QUTE_CONFIG_DIR") + '/quickmarks', 'r') as fr:
@@ -100,17 +100,17 @@ def manage_quickmarks_menu(filter="^"):
         #               new_lines.append(new_name + ' ' + url)
         #       with open(getenv("QUTE_CONFIG_DIR") + '/quickmarks', 'w') as fw:
         #           fw.writelines(new_lines)
-        #     send_fifo('message-info "manage_quickmarks - Renamed quickmark: ' + selected_item + ' -> ' + new_name + '"')
-        #     manage_quickmarks_menu(raw_filter_string)
+        #     send_fifo('message-info "quteromarks - Renamed quteromark: ' + selected_item + ' -> ' + new_name + '"')
+        #     manage_quteromarks_menu(raw_filter_string)
     elif p2.returncode == 12:
         if filter_string == "": 
             send_fifo('message-error "No name was given"')
         elif filter_string in quteromarks.keys(): 
-            send_fifo('message-error "manage_quickmarks - OVERWRITE NOT IMPLEMENTED"')
-            # result_overwrite = mkSimpleMenu (["no", "yes", "rename"], "", "Overwrite quickmark '" + filter_string + "'", prompt_separator="?")
+            send_fifo('message-error "quteromarks - OVERWRITE NOT IMPLEMENTED"')
+            # result_overwrite = mkSimpleMenu (["no", "yes", "rename"], "", "Overwrite quteromark '" + filter_string + "'", prompt_separator="?")
             # match result_overwrite:
             #     case "yes":
-            #         # send_fifo("message-info 'manage_quickmarks - not implemented'")
+            #         # send_fifo("message-info 'quteromarks - not implemented'")
             #         # arsed_toml["quteromarks"]
             #         new_quteromarks = []
             #         for quteromark in parsed_toml['quteromarks']:
@@ -134,14 +134,14 @@ def manage_quickmarks_menu(filter="^"):
             #         #     with open(getenv("QUTE_CONFIG_DIR") + '/quickmarks', 'w') as fw:
             #         #         fw.writelines(new_lines)
             #     case "rename":
-            #         manage_quickmarks_menu()
+            #         manage_quteromarks_menu()
         else:
             with open(quteromarks_path, 'a') as f:
                 f.write('\n\n[[quteromarks]]\nalias = "' + filter_string + '"\nurl = "' + environ['QUTE_URL'] + '"')
-            send_fifo("message-info 'manage_quickmarks - Create new quteromark: " + filter_string + "'")
+            send_fifo("message-info 'quteromarks - Create new quteromark: " + filter_string + "'")
         exit()
     else:
         exit()
 
 
-manage_quickmarks_menu("^"+args.string)
+manage_quteromarks_menu("^"+args.string)
