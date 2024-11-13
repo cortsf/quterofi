@@ -155,6 +155,50 @@ Declare your search engines and quteromarks in `quterofi.toml` (See [Dir structu
 
 This format allows users to create custom "templates" (quite an abstract concept in this context..) instructing quterofi how to generate search engines and quteromarks. Note that you can declare/define any variable to construct urls, except for `alias` which is reserved to be used exclusively to construct aliases, and it's in fact, mandatory to declare for every engine/quteromark declaration, and it's also the only variable available to construct aliases (This may change in the future allowing any variable name and number to be used both for urls and aliases).
 
+### Terminology 
+
+- Rules declare templates (Think of it as the set of column names in an imaginary table, each `{variable}` used on a given rule declaring a column name, and each rule declaring a new imaginary table)
+- Each individual engine/quteromark declaration make use of a single template to insert a row on this imaginary table.
+- The information on each of these imaginary tables is used by quterofi to generate a list of engines and quteromarks, by replacing variables (`{variables}` in the toml rules, or column names on this imaginary table) with values (fields on this imaginary table)
+
+Trivial example:
+
+``` toml
+[[engine_rules]]
+er_template = "github_repos" #  <-- Give this template a name (mandatory)
+er_alias = "gh.{alias}"  # <-- Give this template the means to create aliases (mandatory)
+er_url = "https://github.com/search?q=repo%3A{user}%2F{repo}+{}&type=issues" # <-- Give this template the means to create urls by later replacing any number of user-provided `{variables}` (mandatory).
+
+[[github_repos]] # <-- Use the previously declared template name (mandatory)
+alias = "lnx" # <-- Mandatory
+user = "torvalds" # <-- Mandatory for this particular `[[engine_rules]]`
+repo = "linux" # <-- Mandatory for this particular `[[engine_rules]]`
+
+[[github_repos]] # same 
+alias = "qr" # same
+user = "cortsf" # same
+repo = "quterofi" #same
+
+```
+
+
+Imaginary table for this example:
+
+
+| alias | user     | repo     |
+|-------|----------|----------|
+| lnx   | torvalds | linux    |
+| qr    | cortsf   | quterofi |
+
+Resulting engines after replacing all `{variables}` with the information on the fields of this imaginary table:
+
+``` json
+{"gh.lnx":  "https://github.com/search?q=repo%3Atorvalds%2Flinux+{}&type=issues"}
+{"gh.qr":   "https://github.com/search?q=repo%3Acortsf%2Fquterofi+{}&type=issues"}
+
+```
+
+
 ### Minimal example
 
 This rule is needed for `quterofi/quteromarks` to manage quteromarks using the provided UI
