@@ -157,14 +157,14 @@ This format allows users to create custom "templates" (quite an abstract concept
 
 ### Terminology 
 
-- Rules declare templates (Think of templates as the set of column names in an imaginary table, each `{variable}` used on a given rule declaring a column name, and each rule declaring a new template or imaginary table)
-- Each individual engine/quteromark declaration make use of a single template to insert a row on this imaginary table.
+- Rules declare templates (Think of templates as the set of column names in an imaginary table, each `{variable}` used on a given rule declaring a column name, and each rule declaring a new template or imaginary table with a name). Multiple rules/templates can use the same template name.
+- Each individual engine/quteromark declaration make use of one or many rule/template to insert a row on each of these imaginary table/s. This is done by providing a `[[template_name]]` which (as stated before) can be shared by many rules/templates.
 - The information on each of these imaginary tables is used by quterofi to generate a list of engines and quteromarks, by replacing variables (`{variables}` in the toml rules, or column names on this imaginary table) with values (fields on this imaginary table)
 
 Trivial example:
 
 ``` toml
-# Declare a template/table:
+# Declare a single template/table:
 [[engine_rules]]
 er_template = "github_repos" #  <-- Give this template a name (mandatory)
 er_alias = "gh.{alias}"  # <-- Give this template the means to create aliases (mandatory)
@@ -176,7 +176,7 @@ alias = "lnx" # <-- Mandatory
 user = "torvalds" # <-- Mandatory for this particular `[[engine_rules]]`
 repo = "linux" # <-- Mandatory for this particular `[[engine_rules]]`
 
-#Insert another row on this imaginary table:
+# Insert another row on this imaginary table:
 [[github_repos]] # same 
 alias = "qr" # same
 user = "cortsf" # same
