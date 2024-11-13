@@ -164,16 +164,19 @@ This format allows users to create custom "templates" (quite an abstract concept
 Trivial example:
 
 ``` toml
+# Declare a template/table:
 [[engine_rules]]
 er_template = "github_repos" #  <-- Give this template a name (mandatory)
 er_alias = "gh.{alias}"  # <-- Give this template the means to create aliases (mandatory)
 er_url = "https://github.com/search?q=repo%3A{user}%2F{repo}+{}&type=issues" # <-- Give this template the means to create urls by later replacing any number of user-provided `{variables}` (mandatory).
 
+# Insert a new row on this imaginary table:
 [[github_repos]] # <-- Use the previously declared template name (mandatory)
 alias = "lnx" # <-- Mandatory
 user = "torvalds" # <-- Mandatory for this particular `[[engine_rules]]`
 repo = "linux" # <-- Mandatory for this particular `[[engine_rules]]`
 
+#Insert another row on this imaginary table:
 [[github_repos]] # same 
 alias = "qr" # same
 user = "cortsf" # same
