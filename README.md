@@ -166,7 +166,7 @@ Trivial example:
 ``` toml
 # Declare a single template/table:
 [[engine_rules]]
-er_template = "github_repos" #  <-- Give this template a name (mandatory)
+er_template = "github_repos" #  <-- Give this template a (not necessarily unique) name (mandatory)
 er_alias = "gh.{alias}"  # <-- Give this template the means to create aliases (mandatory)
 er_url = "https://github.com/search?q=repo%3A{user}%2F{repo}+{}&type=issues" # <-- Give this template the means to create urls by later replacing any number of user-provided `{variables}` (mandatory).
 
