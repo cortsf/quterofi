@@ -50,6 +50,8 @@ def mkSimpleMenu(items, filter="", prompt="Promt", matching="normal", markup_row
                  , filter
                  , '-eh'
                  , '2'
+                 , '-format'
+                 , 's\ni\nd\nq\np\nf\nF'
                  , '-theme-str' 
                  , 'window { anchor: north; location: north; width: 100%; font-size: 20px; border: 0px; } listview { border: 0px 0px 0px 0px; layout: vertical; spacing:5px; lines: ' + str(min(len(items), 10)) + '; width: 0px; } element active {background: rgba(0,0,0,0);} textbox-prompt-colon { str: "' + prompt_separator + '";}'
                  , '-kb-accept-entry' 
@@ -67,5 +69,4 @@ def mkSimpleMenu(items, filter="", prompt="Promt", matching="normal", markup_row
                , universal_newlines=True
                )
     p1.stdout.close()
-    result_overwrite= p2.communicate()[0].strip()
-    return result_overwrite
+    return dict(zip(['s','i','d','q','p','f','F'], p2.communicate()[0].split('\n')))

@@ -79,7 +79,7 @@ def manage_quteromarks_menu(filter="^"):
         if args.delete_no_confirmation == True:
             user_is_sure = "yes"
         else:
-            user_is_sure = mkSimpleMenu(["no", "yes"], "", 'Do you really want to remove quteromark "' + selected_item + '"?')
+            user_is_sure = mkSimpleMenu(["no", "yes"], "", 'Do you really want to remove quteromark "' + selected_item + '"?')['s']
         match user_is_sure:
             case "yes":
                 count=remove_quteromark(selected_item)
@@ -90,7 +90,7 @@ def manage_quteromarks_menu(filter="^"):
     elif p2.returncode == 11:
         count=remove_quteromark(selected_item)
         if count > 0:
-            new_name = mkSimpleMenu([], selected_item, 'New name for quteromark \'' + selected_item + '\'', accept_custom=True, prompt_separator="?")
+            new_name = mkSimpleMenu([], selected_item, 'New name for quteromark \'' + selected_item + '\'', accept_custom=True, prompt_separator="?")['s']
             if new_name == "":
                 send_fifo('message-info "quteromarks - User cancelled quteromark renaming operation')
                 exit ()
@@ -103,7 +103,7 @@ def manage_quteromarks_menu(filter="^"):
     elif p2.returncode == 12:
         if not filter_string or filter_string in quteromarks.keys(): 
             alias = selected_item if not filter_string else filter_string
-            result_overwrite = mkSimpleMenu (["no", "yes", "rename"], "", "Overwrite quteromark '" + alias + "'", prompt_separator="?")
+            result_overwrite = mkSimpleMenu(["no", "yes", "rename"], "", "Overwrite quteromark '" + alias + "'", prompt_separator="?")['s']
             match result_overwrite:
                 case "yes":
                     count = remove_quteromark(alias)
