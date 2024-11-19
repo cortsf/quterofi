@@ -53,7 +53,7 @@ quterofi/open [--newtab] [--string <arg>] [--invert] [--engines] [--history] [--
 2. **-kb-cancel** (Any of `Escape`,`Control+g`,`Control+bracketleft`): 
    - Exit menu
 
-3. **-kb-custom-1** (Any of `Alt+j`,`Alt+m`): 
+3. **-kb-custom-1** (`Alt+j`): 
    - Accept entry as normal, without inversion. `ddg hello` -> `:open ddg hello`
 
 4. **-kb-custom-2** (`Ctrl+o`): 
@@ -71,7 +71,7 @@ quterofi/open [--newtab] [--string <arg>] [--invert] [--engines] [--history] [--
 8. **-kb-custom-6** (`Alt+h`): 
    - Open submenu listing history items.
 
-9. **-kb-custom-7** (`Alt+q`): 
+9. **-kb-custom-7** (Any of `Alt+q`, `Alt+m`): 
    - Open submenu listing quteromarks.
 
 ## Usage of the `quteromarks` userscript

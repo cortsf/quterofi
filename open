@@ -99,7 +99,7 @@ def main_menu(string, command):
 	             , '-kb-custom-6'
                      , 'Alt+h'
 	             , '-kb-custom-7'
-                     , 'Alt+q'
+                     , 'Alt+q,Alt+m'
 	             , '-kb-custom-8'
                      , 'Alt+m'
 	             , '-window-title'
@@ -152,7 +152,7 @@ def main_menu(string, command):
         engines_menu(command, result)
     elif rofi_val.returncode == 15:
         history_menu(command, result)
-    elif rofi_val.returncode == 16 or rofi_val.returncode == 17:
+    elif rofi_val.returncode == 16:
         send_fifo(":spawn -u quterofi/quteromarks --delete_no_confirmation --string '"+ result + "'")
     else:
         exit()
