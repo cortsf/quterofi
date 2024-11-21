@@ -367,7 +367,8 @@ qbdir = "/home/<username>/.config/qutebrowser"
 
 exec(open(qbdir + '/userscripts/quterofi/common').read())
 
-all_engines = parse_engines(qbdir + "/quterofi.toml")
+with open(qbdir + "/quterofi.toml", "rb") as f:
+    all_engines = parse_engines(tomllib.load(f))
 
 for alias, url in all_engines.items():
     c.url.searchengines[alias] = url
