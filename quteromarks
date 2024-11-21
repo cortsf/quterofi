@@ -14,6 +14,9 @@ parser.add_argument('-s', '--string', default='')
 args = parser.parse_args()
 quteromarks_path=getenv("QUTE_CONFIG_DIR") + "/quterofi.toml"
 
+with open(quteromarks_path, "rb") as f:
+    quteromarks = parse_quteromarks(tomllib.load(f))
+
 def remove_quteromark(alias):
     with open(quteromarks_path, 'r') as fr:
         text = fr.read()
@@ -28,7 +31,6 @@ def create_quteromark(alias, url):
         f.write('\n\n[[quteromarks]]\nalias = "' + alias + '"\nurl = "' + url + '"')
 
 def manage_quteromarks_menu(filter="^"):
-    quteromarks =dict(sorted(parse_quteromarks(quteromarks_path).items()))
     rofi_rows = gen_rofi_rows(quteromarks)
     p1 = Popen(['printf', '%s', '\n'.join(rofi_rows)], stdout=PIPE)
     p2 = Popen([ 'rofi'

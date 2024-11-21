@@ -8,9 +8,7 @@ def send_fifo(command):
     with open(getenv("QUTE_FIFO"), "w") as fifo:
         fifo.write(command + "\n")
 
-def parse_engines(toml_path):
-  with open(toml_path, "rb") as f:
-      parsed_toml = tomllib.load(f)
+def parse_engines(parsed_toml):
   engines = {}
   for engine_rule in parsed_toml['engine_rules']:
     for engine_declaration in parsed_toml[engine_rule['er_template']]:
@@ -20,9 +18,7 @@ def parse_engines(toml_path):
       engines[alias] = url
   return engines
 
-def parse_quteromarks(toml_path):
-  with open(toml_path, "rb") as f:
-      parsed_toml = tomllib.load(f)
+def parse_quteromarks(parsed_toml):
   quteromarks = {}
   for quteromark_rule in parsed_toml['quteromark_rules']:
     for quteromark_declaration in parsed_toml[quteromark_rule['qr_template']]:

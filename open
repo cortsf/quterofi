@@ -18,8 +18,10 @@ parser.add_argument('--quteromarks', action='store_true')
 parser.add_argument('--autoaccept', action='store_true')
 args = parser.parse_args()
 
-all_engines = parse_engines(getenv("QUTE_CONFIG_DIR") + "/quterofi.toml")
-all_quteromarks = parse_quteromarks(getenv("QUTE_CONFIG_DIR") + "/quterofi.toml")
+with open(getenv("QUTE_CONFIG_DIR") + "/quterofi.toml", "rb") as f:
+    parsed_toml=tomllib.load(f)
+    all_engines = parse_engines(parsed_toml)
+    all_quteromarks = parse_quteromarks(parsed_toml)
 
 rofi_rows = gen_rofi_rows(all_engines)
 
