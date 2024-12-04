@@ -16,7 +16,9 @@ parser.add_argument('-i', '--main_invert', action='store_true')
 parser.add_argument('-a', '--main_autoaccept', action='store_true')
 args = parser.parse_args()
 
-all_engines = parse_engines(getenv("QUTE_CONFIG_DIR") + "/quterofi.toml")
+
+with open(getenv("QUTE_CONFIG_DIR") + "/quterofi.toml", "rb") as f:
+    all_engines = parse_engines(tomllib.load(f))
 
 rofi_rows = gen_rofi_rows(all_engines)
 
