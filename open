@@ -120,7 +120,7 @@ def main_menu(string, command):
         if result == "":
             send_fifo(':{}'.format(command))
             exit()
-        elif any(result in key for key in all_quteromarks):
+        elif result in all_quteromarks:
             send_fifo(':{} {}'.format(command, all_quteromarks[result]))
             exit()
         elif args.invert:
