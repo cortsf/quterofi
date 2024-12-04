@@ -85,7 +85,10 @@ def manage_quteromarks_menu(filter="^"):
         match user_is_sure:
             case "yes":
                 count=remove_quteromark(selected_item)
-                send_fifo('message-info "Removed ' + str(count) + ' occurences of quteromark \'' + selected_item + '\'"')
+                if count < 1:
+                    send_fifo('message-info "' + selected_item + ' is a generatively declared item. Remove manually using a code editor.')
+                else:
+                    send_fifo('message-info "Removed ' + str(count) + ' occurences of quteromark \'' + selected_item + '\'"')
             case "no":
                 send_fifo('message-info "quteromarks - User cancelled quteromark removing operation"')
                 manage_quteromarks_menu(raw_filter_string)
