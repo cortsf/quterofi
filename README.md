@@ -138,11 +138,13 @@ quterofi/switch_engine [--newtab] [--edit] [--main_invert] [--main_autoaccept]
 - Call with `--main_autoaccept` if you want `--edit` to call the main menu with `--autoaccept`.
 
 #### Example 1 (without `--edit`)
+- Search the string "hello world" using a search engine, in this example: `gl` -> `https://www.google.com/search?q={}`
 - Current url: `https://www.google.com/search?q=hello world`
 - New engine selected by calling `quterofi/switch_engine`: `ghi.qr`
 - Automagically redirects to: `https://github.com/cortsf/quterofi/issues?q=hello world`
 
 #### Example 2 (with `--edit`)
+- Search the string "hello world" using a search engine, in this example: `gl` -> `https://www.google.com/search?q={}`
 - Current url: `https://www.google.com/search?q=hello world`
 - Calling `quterofi/switch_engine` with `--edit` will call `quterofi/open` with the string `gl hello world` or `hello world gl` if you use `--main_invert` in addition to `--edit`. This allows you to edit both the search engine and the search string.
 
