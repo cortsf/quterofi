@@ -71,7 +71,7 @@ def history_menu(command, filter=""):
     con = sqlite3.connect(getenv("QUTE_DATA_DIR") + '/history.sqlite')
     cur = con.execute("\n".join([ "select '<b>'||replace(title, '&', '&amp;')||'</b>', '<i>'||replace(url, '&', '&amp;')||'</i>' from CompletionHistory"
                                  , "order by last_atime desc"
-                                 , "limit 600"
+                                 , "limit 500"
                                  ]))
     db_rows=cur.fetchall()
     con.close()
