@@ -1,3 +1,5 @@
+Note: This project is/was an experiment. It should be rewriten but it works for me already so I won't.
+
 # Installation
 1. Clone and copy (or symlink) this repo inside your userscripts dir (See [Dir structure](#dir-structure) below). 
 2. Make `quterofi/open`, `quterofi/quteromarks`, `quterofi/switch_engine` and `quterofi/common` executable if needed. 
